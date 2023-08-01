@@ -1,0 +1,16 @@
+<div class="container-fluid animate__animated animate__fadeIn">
+
+	<div class="container">
+		<app-page-header [title]="isEditing ? 'Edición de inventario' : 'Registro de inventario'" [icon]="'registro-inventario'" [items]="['Inicio']"
+		[active_item]="'Inventario'"></app-page-header>
+
+		<div *ngIf="paso == 'paso1'">
+			<app-form-agencia (responseSuccess)="goToStepTwo()"></app-form-agencia>
+		</div>
+
+		<div *ngIf="paso == 'paso2'">
+			<app-registro-paso-dos></app-registro-paso-dos>
+		</div>
+	</div>
+
+</div>

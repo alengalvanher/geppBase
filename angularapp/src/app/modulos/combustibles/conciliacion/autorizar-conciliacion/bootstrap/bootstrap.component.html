@@ -1,0 +1,63 @@
+<div *ngIf="data.Cbu != 'BEC'">
+	<p>bootstrap works!</p>
+
+	<pre>
+		{{ data | json }}
+	</pre>
+</div>
+
+
+
+
+<div class="table-wrapper ps-0 pe-0 ">
+	<table mat-table [dataSource]="dataTable" class="w-100">
+
+		<ng-container matColumnDef="IVA">
+			<th mat-header-cell *matHeaderCellDef>
+				Suma de IVA </th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.IVA }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="Cebe">
+			<th mat-header-cell *matHeaderCellDef>
+				CEBE </th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.Cebe }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="Cedis">
+			<th mat-header-cell *matHeaderCellDef>
+				Cedis </th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.Cedis }}
+			</td>
+		</ng-container>
+
+		<ng-container matColumnDef="ProductQuantity">
+			<th mat-header-cell *matHeaderCellDef>
+				Cantidad Mercancía </th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.ProductQuantity }}
+			</td>
+		</ng-container>
+
+
+		<ng-container matColumnDef="NetAmount">
+			<th mat-header-cell *matHeaderCellDef>
+				Importe Neto +IEPS </th>
+			<td mat-cell *matCellDef="let element">
+				{{ element.NetAmount }}
+			</td>
+		</ng-container>
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+	</table>
+</div>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]"
+			aria-label="Select page of users"></mat-paginator>

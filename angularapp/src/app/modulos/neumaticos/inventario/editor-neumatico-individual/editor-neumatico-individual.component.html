@@ -1,0 +1,46 @@
+<div class="card">
+	<div class="card-header">
+		Posición {{ item.Position }}  | {{ item.Position }} √
+	</div>
+
+	<div class="card-body">
+		<p>
+			<b>Id:</b> {{ item.TireDetail.Id }} <br>
+			<b>Medida:</b> {{ item.TireDetail.Measure }} <br>
+			<b>Marca:</b> {{ item.TireDetail.Brand }} <br>
+			<b>Diseño:</b> {{ item.TireDetail.Design }} <br>
+			<b>DOT:</b> {{ item.TireDetail.DOT }} <br>
+			<b>Carga Max:</b> {{ item.TireDetail.MaximumCapacity }} <br>
+			<b>Velocidad max:</b> {{ item.TireDetail.MaximumSpeed }} <br>
+
+			<ng-template *ngIf="!edicion">
+				<b>MM:</b> {{ item.TireDetail.Millimeter }} <br>
+				<b>PSI:</b> {{ item.TireDetail.PSI }} <br>
+				<b>Condición fisica:</b> {{ item.TireDetail.TireCondition }} <br>
+			</ng-template>
+		</p>
+	</div>
+</div>
+<!--
+{
+
+    "TireDetailsList": [
+        {
+            "Tire": "DI",
+            "Position": "P1",
+            "Millimeter": 8,
+            "PhysicalDamage": null,
+            "TireCondition": "Óptimo",
+            "TireDetail": {
+                "Id": "5a883300-1206-4dab-8c1c-283eeeda9bce",
+                "Millimeter": 8,
+                "PSI": 40,
+                "Measure": "185.00/60.00 R-16",
+                "Brand": "Goodyear",
+                "Design": "Algún diseño",
+                "DOT": "6074UC-BAAG-DI",
+                "MaximumCapacity": "100.00 kg",
+                "MaximumSpeed": "100.00 km/hr"
+            }
+        },
+      -->

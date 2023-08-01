@@ -1,0 +1,52 @@
+<div class="topbar-content w-100 d-flex align-items-center">
+
+	<div class="flex-grow-1 p-1 m-2">
+		<img src="./../../../assets/icons/menu.svg" (click)="openSideNav()" alt="" class="enlace">
+	</div>
+
+
+	<div class="p-1 m-1">
+		<img src="./../../../assets/icons/lupa.svg" alt="" class="enlace">
+	</div>
+
+	<div class="p-1 m-1">
+		<img src="./../../../assets/icons/interrogacion.svg" alt="" class="enlace">
+	</div>
+
+	<div class="p-1 m-1">
+		<img src="./../../../assets/icons/campana.svg" alt="" class="enlace">
+	</div>
+
+
+	<div>
+		<form [formGroup]="topBarForm">
+			<select style="width: 95px; margin: 0px 10px 0px 20px; height: 36px;" class="form-control select-origami select-light" formControlName="BusinessUnit"
+				placeholder="Selecciona tu unidad de negocio">
+				<option selected value="">Todos</option>
+				<option *ngFor="let BusinessUnit of businessUnitSelectValues" [value]="BusinessUnit.value">
+					{{ BusinessUnit.viewValue }}</option>
+			</select>
+		</form>
+	</div>
+
+
+
+	<div class="login-tab__picture">
+		<img src="./../../../assets/images/fotito.png" alt="" width="35px">
+	</div>
+	<div class="login-tab__name">
+		Ana Santos
+	</div>
+
+	<div class="login-tab__button">
+		<a [matMenuTriggerFor]="menuorigami">
+			<img src="./../../../assets/icons/arrow-down.svg" alt="">
+		</a>
+
+		<mat-menu #menuorigami="matMenu">
+			<button mat-menu-item (click)="closeSesion()">Cerrar sesión</button>
+		</mat-menu>
+	</div>
+
+
+</div>

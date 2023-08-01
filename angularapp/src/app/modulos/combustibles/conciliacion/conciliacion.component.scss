@@ -1,0 +1,123 @@
+.indicadores {
+	width: 100%;
+	// height: 53px;
+	border: 1px solid #D9D9D9;
+	border-radius: 5px;
+	overflow: hidden;
+
+	&__header {
+		display: block;
+		background-color: var(--og-primary);
+		font-weight: 700;
+		font-size: 14px;
+		line-height: 18px;
+		color: #FFF;
+		padding: 5px 30px 5px 20px;
+	}
+
+	&__body {
+		font-size: 12px;
+		line-height: 18px;
+		font-weight: 500;
+		color: var(--og-primary-light);
+
+		& b {
+			font-weight: 700;
+			font-size: 14px;
+			color: var(--og-primary);
+		}
+
+		& div {
+			padding: 10px 30px;
+		}
+	}
+}
+
+
+.hide{
+	display: none;
+}
+
+.nav-wrapper {
+	border-bottom: #D9D9D9 1px solid;
+	padding: 20px 20px 0 20px;
+}
+
+nav {
+	display: inline-block;
+	// border-bottom: #E1E7FB 1px solid;
+	width: 100%;
+
+	& .nav-item {
+		font-size: 16px;
+		font-weight: 600;
+		padding: 10px 30px;
+		display: inline-block;
+		color: var(--og-primary)!important;
+	}
+
+	& .active {
+		color: var(--og-accent)!important;
+		border-bottom: var(--og-accent) 5px solid;
+	}
+}
+
+
+
+.combustibles-card {
+	width: 100%;
+	border: var(--og-primary) 1px solid;
+	border-radius: 5px;
+	padding: 14px 18px 10px 18px;
+	font-family: 'Poppins';
+    overflow: hidden;
+	display: flex;
+	align-items: center;
+
+	& .izquierda {
+        width: 70%;
+        float: left;
+        display: flex;
+        align-items: center;
+
+        & > div {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 18px;
+            color: var(--og-primary);
+            line-height: 1em;
+            margin: 0px;
+            margin-bottom: 3px;
+
+            & i {
+                font-weight: normal;
+                font-style: normal;
+            }
+        }
+
+        & div:last-child {
+            padding: 0px 15px;
+        }
+    }
+
+    & .derecha {
+        width: 30%;
+        float: right;
+        text-align: right;
+
+        & button {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding: 14px 10px;
+            color: #FFF;
+            background-color: #F89074;
+            border-radius: 5px;
+        }
+    }
+}
+
+
+
+

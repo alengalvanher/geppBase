@@ -1,0 +1,47 @@
+<!-- PAGE -->
+<div class="flotas-login d-flex align-items-center justify-content-center">
+
+	<div class="card" style="width: 400px;">
+		<form class="login100-form validate-form" [formGroup]="loginForm">
+
+
+			<div class="login-text">
+			  Bienvenido a
+			</div>
+
+			<a routerLink="/" class="text-center">
+			  <img src="./../../../../assets/images/logo-flotas-azul.svg" class="header-flotas-img" alt="">
+			</a>
+
+
+
+			<div class="wrap-input100 validate-input" data-bs-validate="Un e-mail valido es requerido: ex@abc.xyz">
+			  <div class="input-description">Usuario: </div>
+			  <input class="form-control w-100" placeholder="Email o nombre de usuario" type="text" required=""
+				placeholder="Email o nombre de usuario" formControlName="email">
+			  <span class="focus-input100"></span>
+			</div>
+
+			<div class="wrap-input100 validate-input" data-bs-validate="Password is required">
+			  <div class="input-description">Contraseña: </div>
+			  <input class="form-control w-100" placeholder="Enter your password" type="password" formControlName="password">
+			</div>
+
+			<div class="text-center pt-1">
+			  <p class="mb-0 text-primary mb-5">
+				  <a routerLink="/auth/forgot-password" class=" ms-1">
+					¿Olvidaste tu contraseña?
+				  </a>
+			  </p>
+			</div>
+			<div class="container-login100-form-btn mb-3">
+			  <button class="btn btn-primary w-100" [class.loader--text]="authService.showLoader"
+				[disabled]="!loginForm.valid || authService.showLoader" (click)="login()">
+				INGRESAR
+			  </button>
+			</div>
+		</form>
+	</div>
+
+</div>
+<!-- End PAGE -->

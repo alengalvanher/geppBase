@@ -1,0 +1,130 @@
+<div class="d-flex">
+	<div class="flex-1 d-flex align-items-center">
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/filtros-ejemplo.svg" alt="">
+		</div>
+		<div style="padding: 10px 5px;">
+			<a href="#">+ Agregar Filtro</a>
+		</div>
+	</div>
+	<div class="d-flex">
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/buscador.svg" alt="">
+		</div>
+
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/filtro.svg" alt="">
+		</div>
+
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/filtro-2.svg" alt="">
+		</div>
+	</div>
+</div>
+
+<div class="table-wrapper">
+	<!-- <ng-template [ngIf]="myPreloader" class="col-12">
+		<div class="dimmer active">
+			<div class="spinner1-lg">
+				<div class="double-bounce1"></div>
+				<div class="double-bounce2"></div>
+			</div>
+		</div>
+	</ng-template> -->
+
+	<table mat-table [dataSource]="dataSource2" style="border-radius: 8px!important; border: #CCC 1px solid;">
+
+		<!--- Note that these columns can be defined in any order.
+				  The actual rendered columns are set as a property on the row definition" -->
+
+		<!-- Unidad Column -->
+		<ng-container matColumnDef="Unidad">
+			<th mat-header-cell *matHeaderCellDef> Unidad </th>
+			<td mat-cell *matCellDef="let element" style="width: 280px;">
+
+
+				<div class="d-flex align-items-center">
+					<div style="padding: 5px;">
+						<label class="ckbox" for="ckbox-checked" style="display: inline-block; margin: 0px;">
+							<input checked type="checkbox" id="ckbox-checked">
+							<span></span>
+						</label>
+					</div>
+
+					<div style="padding: 5px;">
+						<img src="./../../../../../assets/gpsvg/edit.svg" alt="">
+					</div>
+
+					<div style="padding: 5px;">
+						<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+					</div>
+
+					 <div style="padding: 5px;">
+						<b>{{element.Unidad}}</b>
+					 </div>
+				</div>
+
+
+			</td>
+		</ng-container>
+
+		<!-- Medida Column -->
+		<ng-container matColumnDef="Medida">
+			<th mat-header-cell *matHeaderCellDef> Medida </th>
+			<td mat-cell *matCellDef="let element"> {{element.Medida}} </td>
+		</ng-container>
+
+		<!-- Marca Column -->
+		<ng-container matColumnDef="Marca">
+			<th mat-header-cell *matHeaderCellDef> Marca </th>
+			<td mat-cell *matCellDef="let element"> {{element.Marca}} </td>
+		</ng-container>
+
+
+		<!-- Dot Column -->
+		<ng-container matColumnDef="Dot">
+			<th mat-header-cell *matHeaderCellDef> Dot </th>
+			<td mat-cell *matCellDef="let element"> {{element.Dot}} </td>
+		</ng-container>
+
+
+		<!-- Design Column -->
+		<ng-container matColumnDef="Design">
+			<th mat-header-cell *matHeaderCellDef> Design </th>
+			<td mat-cell *matCellDef="let element"> {{element.Design}} </td>
+		</ng-container>
+
+
+		<!-- Velocidad Column -->
+		<ng-container matColumnDef="Velocidad">
+			<th mat-header-cell *matHeaderCellDef> Velocidad </th>
+			<td mat-cell *matCellDef="let element"> {{element.Velocidad}} </td>
+		</ng-container>
+
+
+		<!-- Mm Column -->
+		<ng-container matColumnDef="Mm">
+			<th mat-header-cell *matHeaderCellDef> Mm </th>
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Mm"></app-number-card>
+			</td>
+		</ng-container>
+
+
+		<!-- Status Column -->
+		<ng-container matColumnDef="Status">
+			<th mat-header-cell *matHeaderCellDef> Status </th>
+			<td mat-cell *matCellDef="let element">
+
+				<app-status [status]="element.Status"></app-status>
+
+			</td>
+		</ng-container>
+
+
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+
+</div>

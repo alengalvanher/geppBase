@@ -1,0 +1,23 @@
+
+<h6 class="text-secondary"><strong>{{this.subStatus.Eco}}</strong></h6>
+<ng-template [ngIf]="this.Status == 'Disponible'">
+    <!-- <img src="./../../../../assets/images/disponible.svg" alt=""> -->
+    <span href="#" class="badge badge-available">Status: Disponible </span>
+</ng-template>
+
+<ng-template [ngIf]="this.Status == 'Baja'">
+    <!-- <img src="./../../../../assets/images/baja.svg" alt=""> -->
+    <span href="#" class="badge badge-drop">Status: Baja</span>
+</ng-template>
+
+<ng-template [ngIf]="this.Status == 'No disponible'">
+    <!-- <img src="./../../../../assets/images/no-disponible.svg" alt=""> -->
+    <span href="#" class="badge badge-not-available">Status: No disponible </span>
+</ng-template>
+
+<p>
+    <b>Subcategoría:</b> {{this.subStatus.SubStatus}}<br>
+    <b>Fecha:</b> {{this.subStatus.Date | date: 'dd/MM/YYYY'}}<br>
+    <b>Motivo:</b> {{this.subStatus.Reason}}
+</p>
+

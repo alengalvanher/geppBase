@@ -1,0 +1,31 @@
+[
+	{
+		"Edenred": {
+			"logotipo": "",
+			"titulo": "",
+			"actions":[
+				{
+					"Action1":"Evento",
+					"Action2":"Evento"
+				}
+			],
+			"Table": [
+				{
+					"Campo1": "Campo",
+					"Valor":"Valor",
+					"Observaciones":"Observaciones"
+				},
+				{
+					"Campo2": "Campo",
+					"Valor":"Valor",
+					"Observaciones":"Observaciones"
+				}
+				{
+					"Campo3": "Campo",
+					"Valor":"Valor",
+					"Observaciones":"Observaciones"
+				}
+			]
+		}
+	}
+]

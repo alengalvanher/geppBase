@@ -1,0 +1,152 @@
+.hide{
+	display: none;
+}
+.text-uppercase{
+	text-transform: uppercase;
+}
+.columnas-btn {
+    display: inline-block;
+    border: #2E48CB 1px solid;
+    font-family: 'Poppins';
+    font-size: 14px;
+    color: #8894BB;
+    font-weight: 600;
+    padding: 10px 37px 14px 20px;
+    margin-right: 20px;
+    position: relative;
+    height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    & svg {
+        position: absolute;
+        top: 16px;
+        right: 15px;
+    }
+}
+
+
+.link-funcion {
+	cursor: pointer;
+	display: inline-block;
+
+	&:hover {
+		cursor: pointer;
+		opacity: 0.6;
+	}
+}
+
+
+.widthCard {
+	position: relative;
+
+	& > div {
+		display: none;
+	}
+
+	&:hover {
+		& > div {
+			display: block;
+			position: absolute;
+			padding: 5px;
+			background-color: #FFF;
+			border-radius: 5px;
+			top: -23px;
+			left: 99px;
+		}
+	}
+}
+
+
+.mini-modal {
+	padding: 20px;
+	background-color: #FFF;
+	// display: flex;
+	min-width: 250px;
+	border-radius: 10px;
+	// z-index: -999999999999999999999999999999999999999999999999!important;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+	position: relative;
+	left: 100px;
+
+	&::before {
+		content: url('./../../../../assets/icons/flecha.svg');
+		position: relative;
+		top: 25px;
+		left: -10px;
+		width: 10px;
+		height: 13px;
+		z-index: 999999999999999999999999999999999999999999999999!important;
+		box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+	}
+}
+
+.border-bottom{
+	height: 1px;
+	border-bottom: 1px solid var(--og-info);
+}
+
+//MODAL DETALLE NEUMATICOS
+
+.text-light-blue{
+    color: #04AFEF
+}
+.deco-none{
+	text-decoration: none;
+}
+.h-80{
+    height: 80vh;
+}
+.text-blue-gray{
+    color: #707EAD;
+}
+.text-light-blue{
+    color: #04AFEF
+}
+.icon-start-box{
+    background: #E1E7FB;
+    border-radius: 5px;
+    width: 80px;
+    height: 80px;
+}
+.icon-start{
+    color:#707EAD;
+    width: auto;
+    height: 32px;
+}
+.first-icon-input{
+    border: 1px solid #2E48CB;
+    border-right: none;
+    border-radius: 5px;
+}
+.double-icon-input{
+    border-left: none;
+}
+.badge{
+    border-radius: 3px;
+    text-align: center;
+}
+.badge-success{
+    background-color: #62E700;
+}
+.badge-warning{
+    background-color: #FFBF25;
+}
+.badge-danger{
+    background-color: #FF252B;
+}
+.badge-gray{
+    background-color: #E1E7FB;
+}
+.tyre-box{
+    border: 1px solid #2E48CB;
+    border-radius: 10px;
+}
+.completo{
+	text-decoration: underline;
+	color: #04AFEF
+}
+.incompleto{
+	text-decoration: underline;
+	color: #04AFEF
+}

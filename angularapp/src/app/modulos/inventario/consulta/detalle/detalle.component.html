@@ -1,0 +1,431 @@
+<div (click)="closePanel()" class="side-panel-backdrop side-panel-closed"  [ngClass]="openPanel ? 'side-panel-opened' : 'side-panel-closed' "></div>
+<div class="side-panel side-panel-closed" [ngClass]="openPanel ? 'side-panel-opened' : 'side-panel-closed' ">
+    <div class="row">
+        <div class=" col-12 bloque-azul d-flex align-items-center" style="background: #112876; border-radius: 10px; padding: 10px 20px; height: 70px;width: 97%; margin: 10px;">
+            <div class="flex-grow-1">
+                <h6 class="text-white">
+                   <strong>{{this.detailData.Eco}} </strong> <span class="ms-1 me-1"> | </span> {{this.detailData.Cbu}} <span class="ms-1 me-1"> | </span> {{this.detailData.Region}} - {{this.detailData.Site}} <span class="ms-1 me-1"> | </span> {{this.detailData.TypeName}}
+                </h6>
+            </div>
+
+            <div class="d-flex align-items-center">
+                <ng-template [ngIf]="Status == 'Disponible'">
+                    <span href="#" class="badge badge-available" >Status: Disponible </span>
+                </ng-template>
+
+                <ng-template [ngIf]="Status == 'Baja'">
+                    <span href="#" class="badge badge-drop" >Status: Baja</span>
+                </ng-template>
+
+                <ng-template [ngIf]="Status == 'No disponible' ">
+                    <span href="#" class="badge badge-not-available" >Status: No disponible </span>
+                </ng-template>
+
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 licencePlateCard">
+        <div class="col-3 text-center">
+            <h6><strong>PLACA:</strong><span *ngIf="this.detailData.Plate"> {{this.detailData.Plate}}</span></h6>
+        </div>
+        <div class="col-9">
+            <p>
+                <span *ngIf="this.detailData.Direction"><strong>Dirección: </strong>  {{this.detailData.Direction}} <span class="ms-1 me-1"> | </span></span>
+                <span *ngIf="this.detailData.Responsable"><strong>Responsable: </strong> {{this.detailData.Responsable}} <span class="ms-1 me-1"> | </span></span>
+                <span *ngIf="this.detailData.Factory"><strong>Planta: </strong>  {{this.detailData.Factory}} <span class="ms-1 me-1"> | </span></span>
+                <span *ngIf="this.detailData.CeCo"><strong>CeCo: </strong>  {{this.detailData.CeCo}} <span class="ms-1 me-1"> | </span></span>
+                <span *ngIf="this.detailData.Compania"><strong>Compañía: </strong>  {{this.detailData.Compania}} <span class="ms-1 me-1"> | </span></span>
+                <span *ngIf="this.detailData.Number"><strong>No. Activo: </strong>  {{this.detailData.Number}}</span>
+            </p>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1">
+        <div class="col-4">
+            <img class="camion-img" src="./../../../../assets/images/camion.png" alt="">
+        </div>
+        <div class="col-4">
+            <span *ngIf="this.detailData.SapEco">
+                <p class="mb-1"><strong>Económico SAP: </strong></p>
+            <p class="mb-1">{{this.detailData.SapEco}}</p>
+            </span>
+            <span *ngIf="this.detailData.Serie">
+                <p class="mb-1"><strong>No. de Serie: </strong></p>
+            <p class="mb-1">{{this.detailData.Serie}}</p>
+            </span>
+            <span *ngIf="this.detailData.EngineSerie">
+                <p class="mb-1"><strong>No. de Motor: </strong></p>
+                <p class="mb-1">{{this.detailData.EngineSerie}}</p>
+            </span>
+        </div>
+        <div class="col-4">
+            <span *ngIf="this.detailData.Model"><p class="mb-1"><strong>Modelo: </strong> {{this.detailData.Model}}</p> </span>
+            <span *ngIf="this.detailData.PurchaseDate"><p class="mb-1"><strong>Fecha de compra: </strong> {{this.detailData.PurchaseDate | date: 'dd/MM/YYYY' }}</p> </span>
+            <span *ngIf="this.detailData.BrandName"><p class="mb-1"><strong>Marca: </strong> {{this.detailData.BrandName}}</p> </span>
+            <span *ngIf="this.detailData.ModelName"><p class="mb-1"><strong>Tipo: </strong> {{this.detailData.ModelName}}</p> </span>
+            <span *ngIf="this.detailData.CylinderCapacity"><p class="mb-1"><strong>Cilindraje: </strong> {{this.detailData.CylinderCapacity}}</p> </span>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1" >
+        <div class="col-12">
+            <p class="mb-0">NEUMÁTICOS</p>
+            <div class="border-box ">
+                <div class="row ">
+                    <div class="col-1">
+                        <div class="icon-box ms-2">
+                            <img src="./../../../../assets/icons/neumaticos.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-9">
+                        <p class="mb-1">
+                            <strong>ID: </strong> {{this.detailData.IdTire}}
+                            <strong> Cantidad: </strong> {{this.detailData.Quantity}}
+                            <strong> Medida de llanta: </strong> {{this.detailData.TireMeasurement}}
+                        </p>
+
+                    </div>
+                    <div class="col-2 text-center ">
+                        <strong>
+                            <a class="link-nivel-2" (click)="detalleNuematicos(this.detailData.Eco , this.Identifier ,this.detailData.Site)">ver detalle</a>
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex mt-4 ms-1 me-1" >
+        <div class="Flex3" *ngFor="let informationSection of this.detailData.VehicleComplementsList; let i = index">
+            <div *ngIf="informationSection.Brand !== '' && informationSection.Serie !== ''">
+                <p class="mb-0">
+                    {{informationSection.Complement === 'BodyWorK' ? 'CARROCERÍA' : informationSection.Complement === 'Cold' ? 'FRÍO' : 'RAMPA'}}
+                </p>
+                <div class="col-12 border-box ">
+                    <div class="row ">
+                        <div class="col-3">
+                            <div class="icon-box ms-2">
+
+                                <img [src]="informationSection.Complement === 'BodyWorK' ? './../../../../assets/icons/ic_carroceria.png' : informationSection.Complement === 'Cold' ? './../../../../assets/icons/ic_frio.png' : './../../../../assets/icons/ic_rampa.png'" alt="">
+                            </div>
+                        </div>
+                        <div class="col-9">
+                            <p class="mb-1"><strong>Serie: </strong> {{informationSection.Brand}}</p>
+                            <p class="mb-1"><strong>Marca: </strong> {{informationSection.Serie}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-4">
+            <p class="mb-0">FRÍO</p>
+            <div class="col-12 border-box ">
+                <div class="row ">
+                    <div class="col-2">
+                        <div class="icon-box ms-2">
+                            <img src="./../../../../assets/icons/neumaticos.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <p class="mb-1"><strong>Serie: </strong> {{''}}</p>
+                        <p class="mb-1"><strong>Marca: </strong> {{''}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <p class="mb-0">RAMPA</p>
+            <div class="col-12 border-box ">
+                <div class="row ">
+                    <div class="col-2">
+                        <div class="icon-box ms-2">
+                            <img src="./../../../../assets/icons/neumaticos.svg" alt="">
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <p class="mb-1"><strong>Serie: </strong> {{''}}</p>
+                        <p class="mb-1"><strong>Marca: </strong> {{''}}</p>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+    <div class="row mt-4 ms-1 me-1 leasing-info">
+        <div class="leasing-box" *ngIf="this.detailData.DepreciationAmount">
+            <div class="blue-btn" >
+                {{this.detailData.DepreciationAmount | currency}}
+            </div>
+            <h6 class="blue-text">Monto mensual de depreciación</h6>
+        </div>
+        <div class="leasing-box" *ngIf="this.detailData.MissingMonths">
+            <div class="blue-btn">
+                {{this.detailData.MissingMonths}}
+            </div>
+            <h6 class="blue-text">Meses faltantes</h6>
+        </div>
+        <div class="leasing-box" *ngIf="this.detailData.BookValues">
+            <div class="blue-btn">
+                {{this.detailData.BookValues | currency}}
+            </div>
+            <h6 class="blue-text">Valor en libro</h6>
+        </div>
+        <div class="leasing-box" *ngIf="this.detailData.LeasingPurchaseDate">
+            <div class="blue-btn">
+                {{this.detailData.LeasingPurchaseDate}}
+            </div>
+            <h6 class="blue-text">Año de compra</h6>
+        </div>
+        <div class="leasing-box" *ngIf="this.detailData.PurchaseOrigin">
+            <div class="blue-btn">
+                {{this.detailData.PurchaseOrigin}}
+            </div>
+            <h6 class="blue-text">Origen de compra</h6>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1" *ngIf="this.detailData.FuelStatus">
+        <div class="big-border-box">
+            <div class="d-flex align-items-center">
+                <div class="col-1">
+                    <div class="ms-2">
+                        <img src="./../../../../assets/icons/ic_combustible_1.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <h4 class="text-secondary">COMBUSTIBLE</h4>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="d-flex flex-column align-items-end me-3">
+                        <a *ngIf="this.detailData.FuelStatus" class="badge badge-validity">{{this.detailData.FuelStatus}}</a>
+                        <h5 class="text-blue-light">
+                            <span *ngIf="this.detailData.FuelSupplierName">{{this.detailData.FuelSupplierName}}</span>
+                            <span *ngIf="this.detailData.CombDispositivo">- {{this.detailData.CombDispositivo}}</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="blue-box-centered">
+                    <p class="mb-1">
+                        <span *ngIf="this.detailData.FuelInsertDate">
+                            <strong>Fecha Alta: </strong> {{this.detailData.FuelInsertDate | date: 'dd/MM/YYYY' }}
+                        </span>
+                    </p>
+                    <p class="mb-1">
+                        <span *ngIf="this.detailData.MonthlyPayment">
+                            <strong> Mensualidad: </strong> {{this.detailData.MonthlyPayment | currency}}
+                        </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1" *ngIf="this.detailData.InsuranceName">
+        <div class="big-border-box">
+            <div class="d-flex align-items-center">
+                <div class="col-1">
+                    <div class="ms-2">
+                        <img src="./../../../../assets/icons/ic_seguros.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <h4 class="text-secondary">SEGUROS</h4>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="d-flex flex-column align-items-end me-3">
+                        <a *ngIf="this.detailData.InsuranceStatus" class="badge badge-validity">{{this.detailData.InsuranceStatus}}</a>
+                        <h5 class="text-blue-light">
+                            <span *ngIf="this.detailData.InsuranceName">{{this.detailData.InsuranceName}}</span>
+                        </h5>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row  ms-1 me-1 mt-2 justify-content-between">
+                <div class="col-6">
+                    <p class="mb-1">
+                        <span *ngIf="this.detailData.Endorsement"><strong>Endoso: </strong> {{this.detailData.Endorsement}}</span>
+                    </p>
+                </div>
+                <div class="col-6 border-blue-left">
+                    <p class="mb-1">
+                        <span *ngIf="this.detailData.Beneficiary"><strong> Beneficiario Preferente: </strong> {{this.detailData.Beneficiary}}</span>
+
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="blue-box-centered">
+                    <p class="mb-1">
+                        <span *ngIf="this.detailData.InsuranceInsertedDate">
+                            <strong>Fecha Alta: </strong> {{this.detailData.InsuranceInsertedDate | date: 'dd/MM/YYYY' }}
+                        </span>
+                    </p>
+                    <p class="mb-1">
+                        <span *ngIf="this.detailData.MonthlyPayment"><strong> Prima Neta: </strong> {{this.detailData.MonthlyPayment}} <span class="ms-1 me-1"> | </span></span>
+                        <span *ngIf="this.detailData.Duty"><strong> Derechos: </strong> {{this.detailData.Duty}} <span class="ms-1 me-1"> | </span></span>
+                        <span *ngIf="this.detailData.Subtotal"><strong> Subtotal: </strong> {{this.detailData.Subtotal | currency}} </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1" *ngIf="this.detailData.TelemetryStatus">
+        <div class="big-border-box">
+            <div class="d-flex align-items-center">
+                <div class="col-1">
+                    <div class="ms-2">
+                        <img src="./../../../../assets/icons/ic_telemetria.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <h4 class="text-secondary">TELEMETRÍA</h4>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="d-flex flex-column align-items-end me-3">
+                        <a *ngIf="this.detailData.TelemetryStatus" class="badge badge-validity">{{this.detailData.TelemetryStatus}}</a>
+                        <h5 *ngIf="this.detailData.SupplierTelemetryName" class="text-blue-light">{{this.detailData.SupplierTelemetryName}} </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="blue-box-centered">
+                    <p class="mb-1" *ngIf="this.detailData.FuelInsertDate">
+                        <strong>Fecha Alta: </strong> {{this.detailData.FuelInsertDate | date: 'dd/MM/YYYY' }}
+                    </p>
+                    <p class="mb-1" *ngIf="this.detailData.MonthlyPayment">
+                        <strong> Mensualidad: </strong> {{this.detailData.MonthlyPayment | currency}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1" *ngIf="this.detailData.TagStatus">
+        <div class="big-border-box">
+            <div class="d-flex align-items-center">
+                <div class="col-1">
+                    <div class="ms-2">
+                        <img src="./../../../../assets/icons/ic_casetas_1.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <h4 class="text-secondary">CASETAS</h4>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="d-flex flex-column align-items-end me-3">
+                        <a class="badge badge-validity" *ngIf="this.detailData.TagStatus">{{this.detailData.TagStatus}}</a>
+                        <h5 class="text-blue-light" *ngIf="this.detailData.StandSupplierName">{{this.detailData.StandSupplierName}} </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="blue-box-centered">
+                    <p class="mb-1" *ngIf="this.detailData.FuelInsertDate">
+                        <strong>Fecha Alta: </strong> {{this.detailData.FuelInsertDate | date: 'dd/MM/YYYY' }}
+                    </p>
+                    <p class="mb-1" *ngIf="this.detailData.MonthlyPayment">
+                        <strong> Mensualidad: </strong> {{this.detailData.MonthlyPayment | currency}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 ms-1 me-1" *ngIf="this.detailData.LeasingName">
+        <div class="big-border-box">
+            <div class="d-flex align-items-center">
+                <div class="col-1">
+                    <div class="ms-2">
+                        <img src="./../../../../assets/icons/ic_leasing.svg" alt="">
+                    </div>
+                </div>
+                <div class="col-8">
+                    <h4 class="text-secondary">LEASING</h4>
+                </div>
+                <div class="col-3 text-center">
+                    <div class="d-flex flex-column align-items-end me-3">
+                        <!-- <a class="badge badge-validity">{{this.detailData.FuelStatus}}</a> -->
+                        <h5 class="text-blue-light" *ngIf="this.detailData.Lessor">{{this.detailData.LeasingName}} </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2 ms-1 me-1 justify-content-between">
+                <div class="col-6">
+                    <p class="mb-1" *ngIf="this.detailData.LeasingType">
+                        <strong>Tipo: </strong> {{this.detailData.LeasingType}}
+                    </p>
+                    <p class="mb-1" *ngIf="this.detailData.Owner">
+                        <strong> Propietario: </strong> {{this.detailData.Owner}}
+                    </p>
+                    <p class="mb-1" *ngIf="this.detailData.Contract">
+                        <strong> Contrato: </strong> {{this.detailData.Contract}}
+                    </p>
+                </div>
+                <div class="col-6 border-blue-left">
+                    <p class="mb-1" *ngIf="this.detailData.ResidualPercentage">
+                        <strong>Porcentaje residua: </strong> {{this.detailData.ResidualPercentage}}
+                    </p>
+                    <p class="mb-1" *ngIf="this.detailData.ResidualAmount">
+                        <strong> Monto residual: </strong> {{this.detailData.ResidualAmount | currency}}
+                    </p>
+                    <p class="mb-1" *ngIf="this.detailData.Interest">
+                        <strong> Interés: </strong> {{this.detailData.Interest}}
+                    </p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="blue-box-centered">
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="mb-1" *ngIf="this.detailData.StartDate">
+                                <strong> Inicio: </strong> {{this.detailData.StartDate | date: 'dd/MM/YYYY' }} <span class="ms-1 me-1"> | </span>
+                                <strong> Término: </strong> {{this.detailData.EndDate | date: 'dd/MM/YYYY' }}
+                            </p>
+                            <p class="mb-1" *ngIf="this.detailData.Capital">
+                                <strong> Capital: </strong> {{this.detailData.Capital}} <span class="ms-1 me-1"> | </span>
+                                <strong> Interés: </strong> {{this.detailData.InterestRate}}
+                            </p>
+                        </div>
+                        <div class="col-3 border-blue-left" *ngIf="this.detailData.DaysToExpire">
+                            <h4 class="text-blue-light">{{this.detailData.DaysToExpire}} </h4>
+                            <p class="mb-1 text-blue-light">días por vencer</p>
+                        </div>
+                        <div class="col-3 border-blue-left" *ngIf="this.detailData.MissingRent">
+                            <h4 class="text-blue-light">{{this.detailData.MissingRent}} </h4>
+                            <p class="mb-1 text-blue-light">rentas faltantes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <img src="./../../../../assets/hard/detalle.svg" alt=""> -->
+
+</div>
+
+<ng-template #modalTraspasarPasoUno let-modal>
+    <div class="text-end" style="cursor: pointer;">
+        <a (click)="modal.dismiss('Cross click')">
+            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M30 15C30 18.9782 28.4196 22.7936 25.6066 25.6066C22.7936 28.4196 18.9782 30 15 30C11.0218 30 7.20644 28.4196 4.3934 25.6066C1.58035 22.7936 0 18.9782 0 15C0 11.0218 1.58035 7.20644 4.3934 4.3934C7.20644 1.58035 11.0218 0 15 0C18.9782 0 22.7936 1.58035 25.6066 4.3934C28.4196 7.20644 30 11.0218 30 15ZM10.0387 8.71125C9.86271 8.53521 9.62395 8.43632 9.375 8.43632C9.12605 8.43632 8.88729 8.53521 8.71125 8.71125C8.53521 8.88729 8.43632 9.12605 8.43632 9.375C8.43632 9.62395 8.53521 9.86271 8.71125 10.0387L13.6744 15L8.71125 19.9613C8.62408 20.0484 8.55494 20.1519 8.50777 20.2658C8.4606 20.3797 8.43632 20.5017 8.43632 20.625C8.43632 20.7483 8.4606 20.8703 8.50777 20.9842C8.55494 21.0981 8.62408 21.2016 8.71125 21.2887C8.88729 21.4648 9.12605 21.5637 9.375 21.5637C9.49827 21.5637 9.62033 21.5394 9.73422 21.4922C9.84811 21.4451 9.95158 21.3759 10.0387 21.2887L15 16.3256L19.9613 21.2887C20.0484 21.3759 20.1519 21.4451 20.2658 21.4922C20.3797 21.5394 20.5017 21.5637 20.625 21.5637C20.7483 21.5637 20.8703 21.5394 20.9842 21.4922C21.0981 21.4451 21.2016 21.3759 21.2887 21.2887C21.3759 21.2016 21.4451 21.0981 21.4922 20.9842C21.5394 20.8703 21.5637 20.7483 21.5637 20.625C21.5637 20.5017 21.5394 20.3797 21.4922 20.2658C21.4451 20.1519 21.3759 20.0484 21.2887 19.9613L16.3256 15L21.2887 10.0387C21.3759 9.95158 21.4451 9.84811 21.4922 9.73422C21.5394 9.62033 21.5637 9.49827 21.5637 9.375C21.5637 9.25173 21.5394 9.12967 21.4922 9.01578C21.4451 8.90189 21.3759 8.79842 21.2887 8.71125C21.2016 8.62408 21.0981 8.55494 20.9842 8.50777C20.8703 8.4606 20.7483 8.43632 20.625 8.43632C20.5017 8.43632 20.3797 8.4606 20.2658 8.50777C20.1519 8.55494 20.0484 8.62408 19.9613 8.71125L15 13.6744L10.0387 8.71125Z" fill="#F89074"/>
+            </svg>
+        </a>
+    </div>
+    <div class="modal-body" style="padding: 0px 30px;">
+        <div class="bloque-azul d-flex align-items-center mb-3" style="background: #112876; border-radius: 10px; padding: 10px 20px; height: 70px;">
+            <div class="flex-grow-1" style="font-size: 18px; color: #FFF;  text-align: left;">
+                <strong>{{this.detailData.Eco}}</strong> <span class="ms-1 me-1 "> | </span>
+                <strong> Medida de llanta: </strong> {{this.detailData.TireMeasurement}}
+                
+            </div>
+
+        </div>
+        <h6 class="text-secondary p-3">{{this.errorMsg}}.</h6>
+
+        <app-imagen-vehiculo [VehicleTires]="this.detailTyreData"></app-imagen-vehiculo>
+        
+        <p class="d-flex justify-content-center mb-2"><strong>Última fecha de actualización: </strong>{{this.updateTyreData.LastUpdate |  date:'longDate'}}</p>
+        <p class="d-flex justify-content-center"><strong>Responsable de Toma: </strong>{{this.updateTyreData.Responsable}}</p>
+        <p class="d-flex justify-content-center">
+            <button (click)="openSidebar(this.detailData.Eco , this.Identifier ,this.detailData.Site)" class="btn btn-primary d-flex align-items-center" >
+                <span>Actualizar</span>
+            </button>
+        </p>
+    </div>
+</ng-template>

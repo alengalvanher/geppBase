@@ -1,0 +1,4 @@
+<div class="porcentaje">
+	<div class="porcentaje__color" [ngClass]="porcentaje < 100 ? 'yellow' : 'green'" [ngStyle]="{ 'width': porcentaje+'%' }"></div>
+	<div class="porcentaje__porcentaje">{{ porcentaje+'%'}}</div>
+</div>

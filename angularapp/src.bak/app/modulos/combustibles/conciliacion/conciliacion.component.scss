@@ -1,0 +1,80 @@
+.hide{
+	display: none;
+}
+
+
+nav {
+	display: inline-block;
+	border-bottom: #E1E7FB 1px solid;
+	width: 100%;
+	margin-bottom: 15px;
+
+	& .nav-item {
+		font-size: 16px;
+		font-weight: 600;
+		padding: 10px 30px;
+		display: inline-block;
+		color: #112876!important;
+	}
+
+	& .active {
+		color: var(--og-accent)!important;
+		border-bottom: var(--og-accent) 5px solid;
+	}
+}
+
+
+
+.combustibles-card {
+	width: 100%;
+	border: #2E48CB 1px solid;
+	border-radius: 5px;
+	padding: 14px 18px 10px 18px;
+	font-family: 'Poppins';
+    overflow: hidden;
+	display: flex;
+	align-items: center;
+
+	& .izquierda {
+        width: 70%;
+        float: left;
+        display: flex;
+        align-items: center;
+
+        & > div {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 18px;
+            color: #0D205E;
+            line-height: 1em;
+            margin: 0px;
+            margin-bottom: 3px;
+
+            & i {
+                font-weight: normal;
+                font-style: normal;
+            }
+        }
+
+        & div:last-child {
+            padding: 0px 15px;
+        }
+    }
+
+    & .derecha {
+        width: 30%;
+        float: right;
+        text-align: right;
+
+        & button {
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 14px;
+            padding: 14px 10px;
+            color: #FFF;
+            background-color: #F89074;
+            border-radius: 5px;
+        }
+    }
+}

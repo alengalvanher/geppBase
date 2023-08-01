@@ -1,0 +1,61 @@
+.clickeable {
+	cursor: pointer;
+}
+
+.sidenav {
+    // flex-basis: 270px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    float: left;
+    height: 100vh;
+
+	& app-topbar {
+		width: 100%;
+	}
+
+	@media (min-width:780px){
+		display: none;
+	}
+}
+
+.content {
+    overflow: scroll;
+	height: 100vh;
+}
+
+// .router-outlet {
+// 	margin-top: 70px!important;
+// 	display: block;
+// 	padding-top: 15px;
+// }
+
+
+.topbar {
+	background-color: #FFF;
+	border-bottom: #E1E7FB 1px solid;
+
+	& div:first-child {
+		flex: 1;
+	}
+}
+
+// .content {
+// 	display: block;
+// 	width: 100%;
+// }
+
+::ng-deep {
+	.mat-drawer-shown {
+		background: rgba(0, 0, 0, 0.4);
+		width: 100%!important;
+		height: 100vh!important;
+	}
+}
+
+.panel {
+	background-color: #FFF;
+	padding: 15px;
+}
+.mat-drawer{
+    width: 70%;
+}

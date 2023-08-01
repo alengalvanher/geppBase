@@ -1,0 +1,50 @@
+// ================================================================================================
+// ==========================      ESTILOS DEL LAYOUT   ====================================
+// ================================================================================================
+.topbar {
+    height: 70px;
+    background-color: #FFF;
+    border-bottom: #E1E7FB 1px solid;
+
+    & div:first-child {
+        flex: 1;
+    }
+}
+
+.sidenav {
+    flex-grow: 0;
+    flex-shrink: 0;
+    float: left;
+    height: 100vh;
+
+    & app-topbar {
+        width: 100%;
+    }
+}
+
+.content {
+    overflow: scroll;
+    height: 100vh;
+}
+
+
+
+// ================================================================================================
+// ==========================      ESTILOS DEL PANEL LATERAL   ====================================
+// ================================================================================================
+::ng-deep {
+    .mat-drawer-shown {
+        background: rgba(0, 0, 0, 0.4);
+        width: 100% !important;
+        height: 100vh !important;
+    }
+}
+
+.panel {
+    background-color: #FFF;
+    padding: 15px;
+}
+
+.mat-drawer {
+    width: 70%;
+}

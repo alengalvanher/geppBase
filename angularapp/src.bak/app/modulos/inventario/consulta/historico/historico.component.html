@@ -1,0 +1,156 @@
+<div class="container-fluid animate__animated animate__fadeIn animate__delay-0.5s">
+    <app-page-header [title]="'Consulta de inventario'" [icon]="'registro-inventario'"
+		[items]="['Inicio', 'Inventario','Consulta']" [active_item]="'Histórico de movimientos'"></app-page-header>
+
+        <div class="card">
+            <div class="card-header bg-secondary">
+                <div class="d-flex align-items-center">
+					<button class="btn btn-info d-flex align-items-center"  (click)="clickBack.emit(false)">
+						<img class="m-0" src="./../../../../assets/icons/ic_atras.svg" alt="">
+					</button>
+                        <div class="ms-2" style="font-size: 18px; color: #FFF; font-weight: bold; text-align: left;">
+                            {{this.dataHeader[0]}} |
+                            Histórico de movimientos
+                        </div>
+				</div>
+
+				<div class="d-flex align-items-center">
+                    <span class="filter-box d-flex align-items-center text-secondary" >
+                        <a class="m-2 text-secondary me-0" (click)="applyFilter('')"> Todos
+                            <span class="ms-1 me-1">|</span>
+                        </a>
+                        <a class="m-2 text-secondary " [ngClass]="i < (filters.length - 1) ? 'me-0' : ''" *ngFor="let filter of filters; ; let i = index" (click)="applyFilter(filter)"> {{filter}}
+                            <span class="ms-1 me-1" *ngIf="i < (filters.length - 1)">|</span>
+                        </a>
+                    </span>
+
+				</div>
+			</div>
+
+
+            <div class="card-body">
+                <div class="row filter-row">
+					<div class="col-12 mb-4">
+						<div class="d-flex">
+							<div class="flex-grow-1 d-flex align-items-center">
+								<!-- <div style="padding: 10px 5px;">
+									<img src="./../../../../assets/hard/sitio-queretaro.svg" alt="">
+								</div> -->
+							</div>
+
+							<div class="d-flex">
+								<div>
+									<div class="d-flex justify-content-end">
+										<app-table-filter-search (filter)="readingFilter($event)"></app-table-filter-search>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+                <div class="row">
+					<div class="col-12">
+						<div class="table-wrapper">
+							<ng-template [ngIf]="myPreloader" class="col-12">
+
+								<ng-template [ngIf]="myPreloader" >
+									<div class="col-12 text-center p-5 text-secondary">
+										... cargando...
+									</div>
+								</ng-template>
+
+							</ng-template>
+							<ng-template [ngIf]="!myPreloader">
+								<table mat-table [dataSource]="dataInventory" class="w-100">
+
+									<!-- Id Column -->
+									<ng-container matColumnDef="Id">
+										<th mat-header-cell *matHeaderCellDef > Id  </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.Id }}
+										</td>
+									</ng-container>
+
+									<!-- Tipo de Movimiento Column -->
+									<ng-container matColumnDef="Tipo_de_movimiento">
+										<th mat-header-cell *matHeaderCellDef > Tipo de Movimiento </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.MovementType }}
+										</td>
+									</ng-container>
+
+                                    <!-- Status Column -->
+									<ng-container matColumnDef="Status">
+										<th mat-header-cell *matHeaderCellDef > Status  </th>
+										<td mat-cell *matCellDef="let element" >
+											<a class="">
+												<ng-template [ngIf]="element.Status == 'Disponible'">
+													<!-- <img src="./../../../../assets/images/disponible.svg" alt=""> -->
+													<span href="#" class="badge badge-available" >Disponible </span>
+												</ng-template>
+
+												<ng-template [ngIf]="element.Status == 'Baja'">
+													<!-- <img src="./../../../../assets/images/baja.svg" alt=""> -->
+													<span href="#" class="badge badge-drop" >Baja</span>
+												</ng-template>
+
+												<ng-template [ngIf]="element.Status == 'No disponible' ">
+													<!-- <img src="./../../../../assets/images/no-disponible.svg" alt=""> -->
+													<span href="#" class="badge badge-not-available" >No disponible </span>
+												</ng-template>
+											</a>
+										</td>
+									</ng-container>
+
+									<!-- Fecha de movimiento Column -->
+									<ng-container matColumnDef="Fecha_de_movimiento">
+										<th mat-header-cell *matHeaderCellDef > Fecha de Movimiento </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.MovementDate | date: 'dd/MM/YYYY'  }}
+										</td>
+									</ng-container>
+
+									<!-- Detalle de movimiento Column -->
+									<ng-container matColumnDef="Detalle_de_movimiento">
+										<th mat-header-cell *matHeaderCellDef> Detalle de movimiento </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.MovementDetail }}
+										</td>
+									</ng-container>
+
+									<!-- Descripción de movimiento Column -->
+									<ng-container matColumnDef="Descripción">
+										<th mat-header-cell *matHeaderCellDef > Descripción </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.MovementDescription }}
+										</td>
+									</ng-container>
+
+									<!-- Motivo Column -->
+									<ng-container matColumnDef="Responsable">
+										<th mat-header-cell *matHeaderCellDef > Responsable </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.Responsable }}
+										</td>
+									</ng-container>
+
+									<!-- vigencia Column -->
+									<ng-container matColumnDef="Aprobación">
+										<th mat-header-cell *matHeaderCellDef > Aprobación </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.Approved }}
+										</td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+								</table>
+							</ng-template>
+						</div>
+
+						<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+					</div>
+				</div>
+            </div>
+</div>

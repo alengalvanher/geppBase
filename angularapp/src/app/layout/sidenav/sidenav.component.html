@@ -1,0 +1,63 @@
+<div class="sidenav-content" [ngClass]="sideNavClass" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
+	<div class="menu-material">
+		<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+
+			<mat-tree-node *matTreeNodeDef="let node">
+				<a class="submenusub" routerLink="{{ node.enlace }}" routerLinkActive="active-link">
+					<div class="submenusub__text">
+						{{ node.name }}
+					</div>
+				</a>
+			</mat-tree-node>
+
+
+			<mat-tree-node *matTreeNodeDef="let node; when:submenuDos">
+				<a class="submenu" matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name" [ngClass]="{'disabled' : node.disabled}">
+					<div class="submenu__text">
+						{{ node.name }}
+					</div>
+					<div class="submenu__dropdown">
+						<div [ngClass]="treeControl.isExpanded(node) ? 'icon-arrow-down' : 'icon-arrow-right'"></div>
+					</div>
+				</a>
+			</mat-tree-node>
+
+			<mat-tree-node *matTreeNodeDef="let node; when:enlaceDos">
+				<a class="submenu" routerLink="{{ node.enlace }}" [ngClass]="{'disabled' : node.disabled}" routerLinkActive="active-link" (click)="linkClicked(node.enlace)">
+					<div class="submenu__text">
+						{{ node.name }}
+					</div>
+					<div class="submenu__dropdown" *ngIf="node.sub">
+						<div [ngClass]="treeControl.isExpanded(node) ? 'icon-arrow-down' : 'icon-arrow-right'"></div>
+					</div>
+				</a>
+			</mat-tree-node>
+
+
+			<mat-tree-node *matTreeNodeDef="let node; when:submenuUno">
+				<a class="has-child" matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name" [ngClass]="{'disabled' : node.disabled}">
+					<div class="has-child__icono">
+						<span class="{{ node.icon }}"></span>
+					</div>
+					<div class="has-child__text">
+						{{ node.name }}
+					</div>
+					<div class="has-child__dropdown">
+						<div [ngClass]="treeControl.isExpanded(node) ? 'icon-arrow-down' : 'icon-arrow-right'"></div>
+					</div>
+				</a>
+			</mat-tree-node>
+
+			<mat-tree-node *matTreeNodeDef="let node; when:enlaceUno">
+				<a class="has-child" routerLink="{{ node.enlace }}" [ngClass]="{'disabled' : node.disabled}" routerLinkActive="active-link">
+					<div class="has-child__icono">
+						<span class="{{ node.icon }}"></span>
+					</div>
+					<div class="has-child__text">
+						{{ node.name }}
+					</div>
+				</a>
+			</mat-tree-node>
+		</mat-tree>
+	</div>
+</div>

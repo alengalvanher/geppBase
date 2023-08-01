@@ -1,0 +1,136 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12 col-lg-4" style="padding: 30px!important;">
+			<div class="row">
+				<div class="col-12" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Tipo de neumático:</label>
+					<ng-select placeholder="Selecciona un tipo de neumático"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-12" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Marca:</label>
+					<ng-select placeholder="Selecciona un tipo de marca"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-6" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Carga max:</label>
+					<ng-select placeholder="1,000"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-6" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Velocidad max:</label>
+					<ng-select placeholder="130"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="col-12 col-lg-4" style="padding: 30px!important;">
+			<div class="row">
+				<div class="col-6" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Ancho:</label>
+					<ng-select placeholder="Selecciona ancho"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-6" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Alto:</label>
+					<ng-select placeholder="Selecciona alto"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-12" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">Diseño:</label>
+					<ng-select placeholder="Selecciona un diseño"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-6" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">MM:</label>
+					<ng-select placeholder="Selecciona MM"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+
+				<div class="col-6" style="margin-bottom: 25px;">
+					<label class="form-control-label" for="serie">PSI.:</label>
+					<ng-select placeholder="Selecciona PSI"  [appendTo]="'body'">
+						<ng-option *ngFor="let modelo of unidades" [value]="modelo.value">
+							{{ modelo.viewValue }}
+						</ng-option>
+					</ng-select>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-12 col-lg-4" style="padding: 30px!important;">
+			<div class="row">
+				<div class="col-12" style="margin-bottom: 25px;">
+					<div class="form-group">
+						<label class="form-control-label" for="Rin">Rin:</label>
+						<input class="form-control" id="Rin" name="Rin" id="noRin"
+							placeholder="Ingresa el número de Rin" type="text">
+					</div>
+				</div>
+
+				<div class="col-12" style="margin-bottom: 25px;">
+					<div class="form-group">
+						<label class="form-control-label" for="Dot">Dot:</label>
+						<input class="form-control" id="Dot" name="Dot" id="noDot"
+							placeholder="Ingresa el número de Dot" type="text">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-12">
+			<div class="d-flex justify-content-end">
+				<div>
+					<button class="btn btn-primary m-1">
+						Borrar
+					</button>
+				</div>
+
+
+				<div>
+					<button class="btn btn-primary m-1">
+						Guardar
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

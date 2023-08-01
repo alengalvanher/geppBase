@@ -1,0 +1,93 @@
+<div *ngIf="tableFlag" class="container-fluid pt-3 pb-5 animate__animated animate__fadeIn animate__faster">
+
+	<div class="container">
+
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header bg-secondary">
+						<div class="card-header__title text-white d-flex">
+							INVENTARIO DE NEUMÁTICOS
+						</div>
+						<div class="card-header__menu-header">
+							Inicio / Neumáticos / Inventario
+						</div>
+					</div>
+
+
+
+					<div class="card-body">
+
+						<div class="row">
+							<div class="col-12 p-3">
+								<div class="d-flex">
+									<div class="flex-fill">
+										<app-filter-by-date (dataDatePicker)="receivingDate($event)" [position]="'left'"></app-filter-by-date>
+									</div>
+									<div>
+										<app-texto-con-notificacion (clickEmitter)="tireChangeFilter($event)" [texto]="'Todos'" [cantidad]="totalMiniDashboard" [modo]="'info'"></app-texto-con-notificacion>
+									</div>
+									<div>
+										<app-texto-con-notificacion (clickEmitter)="tireChangeFilter($event)" [texto]="'Cambio'" [cantidad]="tires4Change[0]" [modo]="'danger'"></app-texto-con-notificacion>
+									</div>
+									<div>
+										<app-texto-con-notificacion (clickEmitter)="tireChangeFilter($event)" [texto]="'Cambio urgente'" [cantidad]="tires4Change[1]" [modo]="'danger'"></app-texto-con-notificacion>
+									</div>
+									<div>
+										<app-ver-reporte [dateFilter]="dateFilter"></app-ver-reporte>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="row pt-3">
+
+
+							<div class="col-12 col-md-4">
+								<div class="cards-for-table__item d-flex align-items-center">
+									<div class="gray-square">
+										<img src="./../../../../assets/gpicons/ic_camioncito.svg" alt="">
+									</div>
+									<div>
+										<p>Total de neumáticos en uso</p>
+										<h2>{{this.totalMiniDashboard}}</h2>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-12 col-md-4">
+								<div class="cards-for-table__item d-flex align-items-center">
+									<div class="card-body">
+										<app-grafica-donut [chartData]="chartPieOption"></app-grafica-donut>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-12 col-md-4">
+								<div class="cards-for-table__item d-flex align-items-center p-0">
+									<div class="card-body">
+										<app-grafica-bar [chartData]="chartBarOption"></app-grafica-bar>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<app-tabla-especial
+							[columnsData]="this.displayedColumns"
+							[dataHeaders]="this.dataHeaders"
+							[dataSource]="this.dataSource"
+							(dateEmitter)="dateRecall($event)"
+							(filterObjectData)="pillsGrandparent($event)"
+							>
+						</app-tabla-especial>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>

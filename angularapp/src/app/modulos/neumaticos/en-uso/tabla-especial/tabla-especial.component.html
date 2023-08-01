@@ -1,0 +1,102 @@
+<div class="detalle" [ngClass]="{ 'open': panelIsOpen }">
+	<app-cambiar-milimetraje *ngIf="panelIsOpen " [dataInput]="requestMilimetraje"></app-cambiar-milimetraje>
+</div>
+
+
+<div class="d-flex mt-3 mb-2">
+	<div class="flex-grow-1 d-flex align-items-center">
+		<div *ngFor="let Pill of pillsFilter " >
+			<app-select-pastilla
+				[optionsData]="Pill.Options"
+				[typeSelect]="Pill.Mode"
+				(dateEmitter)="dateRecall($event)"
+				(multiPass)="dateRecallMultiSelect($event)"
+				(deleteEmitter)="deletePillFilter($event)"
+				(change)="readPill($event)"
+				>
+			</app-select-pastilla>
+		</div>
+	</div>
+
+	<div class="d-flex">
+		<div class="p-3">
+			<app-boton-pastilla (pillSelect)="pillFilter($event)" [optionsList]="pillFilterOptions"></app-boton-pastilla>
+		</div>
+		<div class="p-3">
+			<app-table-filter-search (filter)="readingFilter($event)"></app-table-filter-search>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="row">
+	 <div class="col-12">
+		<div class="table-wrapper">
+
+			<table class="table-especial" mat-table [dataSource]="dataSourceArray" style="border-radius: 8px!important; border: #CCC 1px solid;">
+
+				<ng-container *ngFor="let displayedCol of columnsData.displayedColumns; let i = index" [matColumnDef]="displayedCol">
+					 <th mat-header-cell *matHeaderCellDef [ngClass]="i < 4 ? 'table-header-text' : null">
+						<span *ngIf="columnsData.displayedColumnsArray[i].ChildHeaders.length == 0">{{displayedCol}}</span>
+						<app-table-header-element *ngIf="columnsData.displayedColumnsArray[i].ChildHeaders.length > 0" [elements]="[ displayedCol, columnsData.displayedColumnsArray[i].ChildHeaders[0], columnsData.displayedColumnsArray[i].ChildHeaders[1]]"></app-table-header-element>
+					</th>
+
+					<td mat-cell *matCellDef="let element" style="padding: 0px; margin: 0px;">
+
+						<ng-template [ngIf]="displayedCol == 'Acciones'">
+							<a (click)="openSidebar(element)" style="cursor: pointer; margin-right: 5px;">
+								<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="0.5" y="0.5" width="22" height="22" rx="4.5" stroke="#F4F5F6"/>
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M11 17.25C12.3924 17.25 13.7277 16.6969 14.7123 15.7123C15.6969 14.7277 16.25 13.3924 16.25 12C16.25 10.6076 15.6969 9.27226 14.7123 8.28769C13.7277 7.30312 12.3924 6.75 11 6.75C9.60761 6.75 8.27226 7.30312 7.28769 8.28769C6.30312 9.27226 5.75 10.6076 5.75 12C5.75 13.3924 6.30312 14.7277 7.28769 15.7123C8.27226 16.6969 9.60761 17.25 11 17.25ZM11 18C12.5913 18 14.1174 17.3679 15.2426 16.2426C16.3679 15.1174 17 13.5913 17 12C17 10.4087 16.3679 8.88258 15.2426 7.75736C14.1174 6.63214 12.5913 6 11 6C9.4087 6 7.88258 6.63214 6.75736 7.75736C5.63214 8.88258 5 10.4087 5 12C5 13.5913 5.63214 15.1174 6.75736 16.2426C7.88258 17.3679 9.4087 18 11 18Z" fill="#83838B" stroke="#83838B" stroke-width="0.5"/>
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8 12.0005C8 12.0999 8.03951 12.1953 8.10984 12.2656C8.18016 12.336 8.27554 12.3755 8.375 12.3755H12.7198L11.1095 13.985C11.0746 14.0198 11.047 14.0612 11.0281 14.1068C11.0092 14.1523 10.9995 14.2012 10.9995 14.2505C10.9995 14.2998 11.0092 14.3486 11.0281 14.3942C11.047 14.4397 11.0746 14.4811 11.1095 14.516C11.1444 14.5508 11.1858 14.5785 11.2313 14.5974C11.2769 14.6162 11.3257 14.6259 11.375 14.6259C11.4243 14.6259 11.4731 14.6162 11.5187 14.5974C11.5642 14.5785 11.6056 14.5508 11.6405 14.516L13.8905 12.266C13.9254 12.2311 13.9531 12.1898 13.972 12.1442C13.9909 12.0986 14.0007 12.0498 14.0007 12.0005C14.0007 11.9511 13.9909 11.9023 13.972 11.8567C13.9531 11.8112 13.9254 11.7698 13.8905 11.735L11.6405 9.48497C11.6056 9.45011 11.5642 9.42245 11.5187 9.40358C11.4731 9.38471 11.4243 9.375 11.375 9.375C11.3257 9.375 11.2769 9.38471 11.2313 9.40358C11.1858 9.42245 11.1444 9.45011 11.1095 9.48497C11.0746 9.51984 11.047 9.56123 11.0281 9.60679C11.0092 9.65234 10.9995 9.70117 10.9995 9.75047C10.9995 9.79978 11.0092 9.84861 11.0281 9.89416C11.047 9.93972 11.0746 9.98111 11.1095 10.016L12.7198 11.6255H8.375C8.27554 11.6255 8.18016 11.665 8.10984 11.7353C8.03951 11.8056 8 11.901 8 12.0005Z" fill="#83838B" stroke="#83838B" stroke-width="0.5"/>
+								</svg>
+							</a>
+
+							<a (click)="openSidebarEdit(element)" style="cursor: pointer; margin-right: 5px;">
+								<svg width="23" height="23" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<rect x="0.5" y="0.5" width="22" height="22" rx="4.5" stroke="#F4F5F6"/>
+									<path d="M15.4275 13.0842L16.1774 12.3343C16.2946 12.2171 16.4985 12.2991 16.4985 12.4679V15.8752C16.4985 16.4962 15.9946 17 15.3736 17H7.12484C6.50383 17 6 16.4962 6 15.8752V7.62637C6 7.00537 6.50383 6.50154 7.12484 6.50154H13.5341C13.7004 6.50154 13.7848 6.70307 13.6676 6.82258L12.9177 7.57247C12.8826 7.60763 12.8357 7.62637 12.7842 7.62637H7.12484V15.8752H15.3736V13.2154C15.3736 13.1662 15.3924 13.1193 15.4275 13.0842ZM19.0973 8.35517L12.9435 14.509L10.8251 14.7433C10.2111 14.8113 9.68852 14.2934 9.75648 13.6747L9.99082 11.5563L16.1446 5.40248C16.6812 4.86584 17.5483 4.86584 18.0826 5.40248L19.095 6.41483C19.6316 6.95147 19.6316 7.82088 19.0973 8.35517ZM16.782 9.07929L15.4205 7.71777L11.0664 12.0742L10.8954 13.6044L12.4256 13.4333L16.782 9.07929ZM18.3005 7.21159L17.2882 6.19924C17.1921 6.10316 17.0351 6.10316 16.9414 6.19924L16.2173 6.92335L17.5788 8.28487L18.3029 7.56076C18.3966 7.46233 18.3966 7.30767 18.3005 7.21159Z" fill="#83838B"/>
+								</svg>
+							</a>
+
+						</ng-template>
+
+						<ng-template [ngIf]="displayedCol == 'Region'">
+							{{element.Region}}
+						</ng-template>
+
+						<ng-template [ngIf]="displayedCol == 'Economico'">
+							{{element.Eco}}
+						</ng-template>
+
+						<ng-template [ngIf]="displayedCol == 'LastReviewDate'">
+							{{element.LastReviewDate | date: 'dd/MM/YYYY' }}
+						</ng-template>
+
+						<ng-template [ngIf]="columnsData.displayedColumns.slice(4).indexOf(displayedCol) !== -1">
+							<ng-container *ngFor="let tyrePosition of element.TireDetailsList; let i = index" >
+								<ng-template [ngIf]="tyrePosition.Tire+'-'+tyrePosition.Position == displayedCol">
+
+									<app-number-card-full
+										[numberoUno]="tyrePosition.Millimeter"
+										[numberoDos]="tyrePosition.PhysicalDamage == null ? '-': tyrePosition.PhysicalDamage"
+										[miniModalData]="tyrePosition == null ? []: tyrePosition"
+										>
+									</app-number-card-full>
+
+								</ng-template>
+							</ng-container>
+						</ng-template>
+					</td>
+				</ng-container>
+
+
+				<tr mat-header-row *matHeaderRowDef="columnsData.displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: columnsData.displayedColumns;"></tr>
+			</table>
+
+		</div>
+		<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+	</div>
+</div>

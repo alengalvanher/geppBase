@@ -1,0 +1,29 @@
+.card {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+    width: 100%!important;
+	margin-bottom: 20px;
+}
+
+.card-header {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 30px 0 20px;
+	font-size: 16px;
+
+    & > div:first-child {
+        flex: 1;
+    }
+
+    &__title {
+        text-align: left;
+    }
+}
+
+.card-body {
+	padding: 18px 18px 20px 18px;
+
+	@media only screen and (min-width: 760px) {
+		padding: 28px 48px 20px 48px;
+	}
+}

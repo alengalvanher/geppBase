@@ -1,0 +1,1016 @@
+<div class="d-flex">
+	<div class="flex-1 d-flex align-items-center">
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/filtros-ejemplo.svg" alt="">
+		</div>
+		<div style="padding: 10px 5px;">
+			<a href="#">+ Agregar Filtro</a>
+		</div>
+	</div>
+	<div class="d-flex">
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/buscador.svg" alt="">
+		</div>
+
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/filtro.svg" alt="">
+		</div>
+
+		<div style="padding: 10px 5px;">
+			<img src="./../../../../../assets/gpsvg/filtro-2.svg" alt="">
+		</div>
+	</div>
+</div>
+
+<div class="table-wrapper">
+	<!-- <ng-template [ngIf]="myPreloader" class="col-12">
+		<div class="dimmer active">
+			<div class="spinner1-lg">
+				<div class="double-bounce1"></div>
+				<div class="double-bounce2"></div>
+			</div>
+		</div>
+	</ng-template> -->
+
+	<table mat-table [dataSource]="dataSource" style="border-radius: 8px!important; border: #CCC 1px solid;">
+
+		<!--- Note that these columns can be defined in any order.
+				  The actual rendered columns are set as a property on the row definition" -->
+
+		<!-- Unidad Column -->
+		<ng-container matColumnDef="Unidad">
+			<th mat-header-cell *matHeaderCellDef> Unidad </th>
+			<td mat-cell *matCellDef="let element" style="width: 280px;">
+
+				<label class="ckbox" for="ckbox-checked" style="display: inline-block;">
+					<input checked type="checkbox" id="ckbox-checked">
+					<span class="ms-1"></span>
+				</label>
+
+
+				<a (click)="BasicOpen(basicmodal)" href="javascript:void(0)" style="margin-right: 8px;">
+					<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M0 9C0 13.9711 4.02891 18 9 18C13.9711 18 18 13.9711 18 9C18 4.02891 13.9711 0 9 0C4.02891 0 0 4.02891 0 9ZM10.4414 13.5352C10.1109 13.8656 9.57656 13.8656 9.24961 13.5352C8.92266 13.2047 8.91914 12.6703 9.24961 12.3434L11.7457 9.84727L4.21875 9.84375C3.75117 9.84375 3.375 9.46758 3.375 9C3.375 8.53242 3.75117 8.15625 4.21875 8.15625H11.7457L9.24961 5.66016C8.91914 5.32969 8.91914 4.79531 9.24961 4.46836C9.58008 4.14141 10.1145 4.13789 10.4414 4.46836L14.3789 8.40234C14.7094 8.73281 14.7094 9.26719 14.3789 9.59414L10.4414 13.5352Z" fill="#83838B"/>
+					</svg>
+				</a>
+
+				<a (click)="BasicOpenDos(basicmodaldos)" href="javascript:void(0)" style="color: #59595B!important; text-decoration: underline;">
+				 	{{element.Unidad}}
+				</a>
+			</td>
+		</ng-container>
+
+		<!-- Medida Column -->
+		<ng-container matColumnDef="Medida">
+			<th mat-header-cell *matHeaderCellDef> Medida recomendada </th>
+			<td mat-cell *matCellDef="let element"> {{element.Medida}} </td>
+		</ng-container>
+
+		<!-- Fecha Column -->
+		<ng-container matColumnDef="Fecha">
+			<th mat-header-cell *matHeaderCellDef> Fecha medición </th>
+			<td mat-cell *matCellDef="let element"> {{element.Fecha}} </td>
+		</ng-container>
+
+		<!-- D Column -->
+		<ng-container matColumnDef="D">
+			<th mat-header-cell *matHeaderCellDef>
+				<app-table-header-element [elements]="['D', '1', '2']"></app-table-header-element>
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Uno" [modal]="true"></app-number-card>
+				<app-number-card [number]="element.Dos"></app-number-card>
+			</td>
+		</ng-container>
+
+		<!-- T1 Column -->
+		<ng-container matColumnDef="T1">
+			<th mat-header-cell *matHeaderCellDef>
+				<app-table-header-element [elements]="['T1', '3', '4']"></app-table-header-element>
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Tres"></app-number-card>
+				<app-number-card [number]="element.Cuatro"></app-number-card>
+			</td>
+		</ng-container>
+
+		<!-- T2 Column -->
+		<ng-container matColumnDef="T2">
+			<th mat-header-cell *matHeaderCellDef>
+				<app-table-header-element [elements]="['T2', '5', '6']"></app-table-header-element>
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Cinco"></app-number-card>
+				<app-number-card [number]="element.Seis"></app-number-card>
+			</td>
+		</ng-container>
+
+		<!-- T3 Column -->
+		<ng-container matColumnDef="T3">
+			<th mat-header-cell *matHeaderCellDef>
+				<app-table-header-element [elements]="['T3', '7', '8']"></app-table-header-element>
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Siete"></app-number-card>
+				<app-number-card [number]="element.Ocho"></app-number-card>
+			</td>
+		</ng-container>
+
+		<!-- T4 Column -->
+		<ng-container matColumnDef="T4">
+			<th mat-header-cell *matHeaderCellDef>
+				<app-table-header-element [elements]="['T4', '9', '10']"></app-table-header-element>
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Nueve"></app-number-card>
+				<app-number-card [number]="element.Diez"></app-number-card>
+			</td>
+		</ng-container>
+
+		<!-- T5 Column -->
+		<ng-container matColumnDef="T5">
+			<th mat-header-cell *matHeaderCellDef>
+				<app-table-header-element [elements]="['T5', '11', '12']"></app-table-header-element>
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				<app-number-card [number]="element.Once"></app-number-card>
+				<app-number-card [number]="element.Doce"></app-number-card>
+			</td>
+		</ng-container>
+
+
+
+		<!-- Notas Column -->
+		<ng-container matColumnDef="Notas">
+			<th mat-header-cell *matHeaderCellDef>
+				Notas
+			</th>
+
+			<td mat-cell *matCellDef="let element">
+				{{element.Notas}}
+			</td>
+		</ng-container>
+
+		<!-- Symbol Column -->
+		<ng-container matColumnDef="symbol">
+			<th mat-header-cell *matHeaderCellDef> Symbol </th>
+			<td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+		</ng-container>
+
+
+
+		<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+		<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	</table>
+
+</div>
+
+
+
+
+
+
+<ng-template #basicmodal let-modal>
+    <div class="modal-header" style="background-color: #59595B;">
+        <h6 class="modal-title" id="modal-basic-title" style="font-size: 18px; font-weight: bold; color: #FFF;">
+			DETALLES DE UNIDAD
+		</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+
+		<div class="d-flex"  style="border-bottom: #CCC 1px solid; margin-bottom: 25px; padding-bottom: 15px;">
+			<div class="flex-1">
+				<h4 style="font-size: 20px; font-weight: 700;">ID 67890</h4>
+				<p style="font-size: 13px;">Medida del neumático: <b>205/60r16 96h</b></p>
+			</div>
+
+			<div>
+				<button type="button" class="btn btn-light" (click)="modal.close('Close click')" style="display: inline-block; margin: 5px;">
+					<svg width="12" height="17" viewBox="0 0 12 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g clip-path="url(#clip0_394_3161)">
+						<path d="M2 0.5C0.896875 0.5 0 1.39688 0 2.5V14.5C0 15.6031 0.896875 16.5 2 16.5H10C11.1031 16.5 12 15.6031 12 14.5V5.5H8C7.44688 5.5 7 5.05312 7 4.5V0.5H2ZM8 0.5V4.5H12L8 0.5ZM6.75 7.75V10.9406L7.71875 9.97188C8.0125 9.67813 8.4875 9.67813 8.77812 9.97188C9.06875 10.2656 9.07187 10.7406 8.77812 11.0312L6.52812 13.2812C6.23438 13.575 5.75938 13.575 5.46875 13.2812L3.21875 11.0312C2.925 10.7375 2.925 10.2625 3.21875 9.97188C3.5125 9.68125 3.9875 9.67813 4.27812 9.97188L5.24687 10.9406V7.75C5.24687 7.33437 5.58125 7 5.99687 7C6.4125 7 6.74687 7.33437 6.74687 7.75H6.75Z" fill="#FF8B00"/>
+						</g>
+						<defs>
+						<clipPath id="clip0_394_3161">
+						<rect width="12" height="16" fill="white" transform="translate(0 0.5)"/>
+						</clipPath>
+						</defs>
+					</svg>
+
+					Descargar
+				</button>
+
+				<button class="btn btn-primary" type="button" style="display: inline-block; margin: 5px;">
+					Enviar
+				</button>
+			</div>
+		</div>
+
+
+		<div>
+
+			<div class="container-fluid">
+				<div class="row" style="margin: 20px 0px;">
+					<div class="col-5 p-3" style="padding: 15px!important;">
+						<div class="d-flex align-items-center align-end justify-content-end" style="text-align: right;">
+							<div>
+								<img src="./../../../../../assets/gpsvg/posiciones1.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-2 p-3" style="padding: 15px!important;">
+						<div class="d-flex align-items-center">
+							<img src="./../../../../../assets/gpsvg/camion.svg" alt="">
+						</div>
+					</div>
+
+					<div class="col-5 p-3" style="padding: 15px!important;">
+						<div class="d-flex align-items-center">
+							<img src="./../../../../../assets/gpsvg/posiciones2.svg" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="d-flex" style="border-top: #CCC 1px solid; margin-top: 25px; padding-top: 15px;">
+			<div class="flex-1">
+				<p>
+					<b>Última actualización:</b> 31 de octubre de 2022<br>
+					<b>Responsable:</b> Daniel Soto
+				</p>
+			</div>
+
+			<div>
+				<button class="btn btn-primary" type="button">Ver detalle</button>
+			</div>
+		</div>
+    </div>
+</ng-template>
+
+
+
+
+
+
+<ng-template #basicmodaldos let-modal>
+    <div class="modal-header" style="background-color: #59595B;">
+        <h6 class="modal-title" id="modal-basic-title" style="font-size: 18px; font-weight: bold; color: #FFF;">
+			DETALLES DE NEUMÁTICOS POR UNIDAD
+		</h6>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body">
+		<div class="d-flex"  style="border-bottom: #CCC 1px solid; margin-bottom: 25px; padding-bottom: 15px;">
+			<div style="padding: 15px;">
+				<img src="./../../../../../assets/gpsvg/camion.png" alt=""><br><br>
+
+				<img src="./../../../../../assets/gpsvg/disponible-dos.svg" alt="">
+			</div>
+
+			<div class="flex-1"  style="padding: 15px; padding-top: 25px;">
+				<h4 style="font-size: 20px; font-weight: 700;">ID 67890</h4>
+
+				<p style="font-size: 13px;">
+					Región 4 - Querétaro<br>
+					Ruta:  <b>45679</b><br>
+					No. de neumáticos:  <b>6</b>
+				</p>
+			</div>
+		</div>
+
+
+
+
+
+		<div class="row"  style="margin-bottom: 25px; padding-bottom: 15px;">
+
+			<div class="col-6">
+				<div class="card" style="border: #D9D9D9 1px solid; border-radius: 10px; overflow: hidden;">
+					<div class="card-header" style="background: #F4F5F6; border: #D9D9D9 1px solid; border-radius: 10px 10px 0 0;">
+						<div class="d-flex align-items-center" style="width: 100%;">
+							<div class="flex-1">
+								POSICIÓN D-1
+							</div>
+
+							<div>
+								<img src="./../../../../../assets/gpsvg/usado.svg" alt="">
+							</div>
+
+							<div style="display: inline-block; padding: 0px 0px 0px 20px;">
+								<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body" style="padding: 0px; margin: 0px; border: #D9D9D9 1px solid;">
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								ID:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								67890
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Medida:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								225/70 R-19.5
+							</div>
+						</div>
+
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Marca:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Michelin
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Diseño:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Multiradio
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								DOT:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								DDT11 6067
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Carga máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								1,000 KG
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Velocidad máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								180 km/hr
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								MM:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								8
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								PSI:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								40
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div class="card-footer" style="border: #D9D9D9 1px solid; border-top: 0px; border-radius: 0 0 10px 10px; text-align: center;">
+						<button class="btn btn-primary">
+							Actualizar
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="card" style="border: #D9D9D9 1px solid; border-radius: 10px; overflow: hidden;">
+					<div class="card-header" style="background: #F4F5F6; border: #D9D9D9 1px solid; border-radius: 10px 10px 0 0;">
+						<div class="d-flex align-items-center" style="width: 100%;">
+							<div class="flex-1">
+								POSICIÓN D-1
+							</div>
+
+							<div>
+								<img src="./../../../../../assets/gpsvg/nuevo.svg" alt="">
+							</div>
+
+							<div style="display: inline-block; padding: 0px 0px 0px 20px;">
+								<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body" style="padding: 0px; margin: 0px; border: #D9D9D9 1px solid;">
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								ID:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								67890
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Medida:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								225/70 R-19.5
+							</div>
+						</div>
+
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Marca:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Michelin
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Diseño:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Multiradio
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								DOT:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								DDT11 6067
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Carga máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								1,000 KG
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Velocidad máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								180 km/hr
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px; background-color: #FEE2E2;">
+							<div class="text-align-left" style="font-size: 13px; font-weight: bold;">
+								MM:
+							</div>
+							<div class="flex-1" style="color: #EF4444; font-size: 10px; text-align: center;">
+								Requiere cambio urgente
+							</div>
+							<div class="text-align-right" style="font-size: 13px; text-align: right; color: #EF4444;">
+								8
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								PSI:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								40
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div class="card-footer" style="border: #D9D9D9 1px solid; border-top: 0px; border-radius: 0 0 10px 10px; text-align: center;">
+						<button class="btn btn-primary">
+							Actualizar
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="card" style="border: #D9D9D9 1px solid; border-radius: 10px; overflow: hidden;">
+					<div class="card-header" style="background: #F4F5F6; border: #D9D9D9 1px solid; border-radius: 10px 10px 0 0;">
+						<div class="d-flex align-items-center" style="width: 100%;">
+							<div class="flex-1">
+								POSICIÓN D-1
+							</div>
+
+							<div>
+								<img src="./../../../../../assets/gpsvg/nuevo.svg" alt="">
+							</div>
+
+							<div style="display: inline-block; padding: 0px 0px 0px 20px;">
+								<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body" style="padding: 0px; margin: 0px; border: #D9D9D9 1px solid;">
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								ID:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								67890
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Medida:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								225/70 R-19.5
+							</div>
+						</div>
+
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Marca:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Michelin
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Diseño:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Multiradio
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								DOT:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								DDT11 6067
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Carga máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								1,000 KG
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Velocidad máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								180 km/hr
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								MM:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								8
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								PSI:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								40
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div class="card-footer" style="border: #D9D9D9 1px solid; border-top: 0px; border-radius: 0 0 10px 10px; text-align: center;">
+						<button class="btn btn-primary">
+							Actualizar
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="card" style="border: #D9D9D9 1px solid; border-radius: 10px; overflow: hidden;">
+					<div class="card-header" style="background: #F4F5F6; border: #D9D9D9 1px solid; border-radius: 10px 10px 0 0;">
+						<div class="d-flex align-items-center" style="width: 100%;">
+							<div class="flex-1">
+								POSICIÓN D-1
+							</div>
+
+							<div>
+								<img src="./../../../../../assets/gpsvg/nuevo.svg" alt="">
+							</div>
+
+							<div style="display: inline-block; padding: 0px 0px 0px 20px;">
+								<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body" style="padding: 0px; margin: 0px; border: #D9D9D9 1px solid;">
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								ID:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								67890
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Medida:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								225/70 R-19.5
+							</div>
+						</div>
+
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Marca:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Michelin
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Diseño:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Multiradio
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								DOT:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								DDT11 6067
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Carga máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								1,000 KG
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Velocidad máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								180 km/hr
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								MM:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								8
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								PSI:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								40
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div class="card-footer" style="border: #D9D9D9 1px solid; border-top: 0px; border-radius: 0 0 10px 10px; text-align: center;">
+						<button class="btn btn-primary">
+							Actualizar
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="card" style="border: #D9D9D9 1px solid; border-radius: 10px; overflow: hidden;">
+					<div class="card-header" style="background: #F4F5F6; border: #D9D9D9 1px solid; border-radius: 10px 10px 0 0;">
+						<div class="d-flex align-items-center" style="width: 100%;">
+							<div class="flex-1">
+								POSICIÓN D-1
+							</div>
+
+							<div>
+								<img src="./../../../../../assets/gpsvg/usado.svg" alt="">
+							</div>
+
+							<div style="display: inline-block; padding: 0px 0px 0px 20px;">
+								<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body" style="padding: 0px; margin: 0px; border: #D9D9D9 1px solid;">
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								ID:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								67890
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Medida:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								225/70 R-19.5
+							</div>
+						</div>
+
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Marca:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Michelin
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Diseño:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Multiradio
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								DOT:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								DDT11 6067
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Carga máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								1,000 KG
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Velocidad máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								180 km/hr
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								MM:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								8
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								PSI:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								40
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div class="card-footer" style="border: #D9D9D9 1px solid; border-top: 0px; border-radius: 0 0 10px 10px; text-align: center;">
+						<button class="btn btn-primary">
+							Actualizar
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<div class="card" style="border: #D9D9D9 1px solid; border-radius: 10px; overflow: hidden;">
+					<div class="card-header" style="background: #F4F5F6; border: #D9D9D9 1px solid; border-radius: 10px 10px 0 0;">
+						<div class="d-flex align-items-center" style="width: 100%;">
+							<div class="flex-1">
+								POSICIÓN D-1
+							</div>
+
+							<div>
+								<img src="./../../../../../assets/gpsvg/usado.svg" alt="">
+							</div>
+
+							<div style="display: inline-block; padding: 0px 0px 0px 20px;">
+								<img src="./../../../../../assets/gpsvg/tres-puntos.svg" alt="">
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body" style="padding: 0px; margin: 0px; border: #D9D9D9 1px solid;">
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								ID:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								67890
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Medida:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								225/70 R-19.5
+							</div>
+						</div>
+
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Marca:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Michelin
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Diseño:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								Multiradio
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								DOT:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								DDT11 6067
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Carga máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								1,000 KG
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								Velocidad máxima:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								180 km/hr
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								MM:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								8
+							</div>
+						</div>
+
+						<div class="d-flex" style="border-bottom: #F4F5F6 1px solid; padding: 10px 15px;">
+							<div class="flex-1 text-align-left" style="font-size: 13px; font-weight: bold;">
+								PSI:
+							</div>
+							<div class="flex-1 text-align-right" style="font-size: 13px; text-align: right;">
+								40
+							</div>
+						</div>
+
+
+
+
+
+
+					</div>
+
+					<div class="card-footer" style="border: #D9D9D9 1px solid; border-top: 0px; border-radius: 0 0 10px 10px; text-align: center;">
+						<button class="btn btn-primary">
+							Actualizar
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+    </div>
+
+
+
+
+
+
+</ng-template>

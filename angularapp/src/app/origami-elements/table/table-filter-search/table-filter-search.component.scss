@@ -1,0 +1,16 @@
+input {
+	background-color: #F4F5F6;
+	border: 0px;
+
+	&::placeholder {
+		color: var(--og-primary-light);
+	}
+}
+
+.btn {
+	border: 0px;
+
+	&:hover, &:active, &:visited, &:focus  {
+		background-color: var(--og-accent);
+	}
+}

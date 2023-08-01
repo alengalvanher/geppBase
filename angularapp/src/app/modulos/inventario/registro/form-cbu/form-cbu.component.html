@@ -1,0 +1,11 @@
+<form [formGroup]="formCbu">
+	<div class="row ">
+		<div class="col-5">
+				<label class="form-control-label text-secondary mb-1 mt-1" for="serie">Selecciona la unidad de negocio*:</label>
+				<select class="form-select form-control select-origami w-100 w-100" formControlName="BusinessUnit" placeholder="Selecciona una unidad de negocio" (change)="cbuChangedFunction($event)">
+					<option selected disabled value="">Selecciona una unidad de negocio</option>
+					<option *ngFor="let BusinessUnit of businessUnitSelectValues" [value]="BusinessUnit.Identifier">{{ BusinessUnit.CbuName }}</option>
+				</select>
+		</div>
+	</div>
+</form>

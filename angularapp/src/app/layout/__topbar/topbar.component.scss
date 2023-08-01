@@ -1,0 +1,28 @@
+.topbar-content {
+	height: 70px;
+
+	& .enlace {
+		cursor: pointer;
+	}
+
+	& .login-tab {
+		height: 70px;
+		display: flex;
+		align-items: center;
+
+		&__picture {
+			padding: 0 5px 0 20px;
+		}
+
+		&__name {
+			color: #112876;
+			font-size: 13px;
+			padding: 0 10px;
+		}
+
+		&__button {
+			padding: 10px 20px 10px 0;
+			cursor: pointer;
+		}
+	}
+}

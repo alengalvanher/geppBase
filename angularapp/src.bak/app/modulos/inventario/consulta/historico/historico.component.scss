@@ -1,0 +1,47 @@
+.filter-box{
+    background-color: var(--og-info);
+    border-radius: 5px;
+    & a{
+        font-size: 13px;
+        text-decoration: none;
+        cursor: pointer;
+        color: var(--og-primary);
+    }
+}
+
+.badge-available{
+    background-color: var(--og-success);   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 5px 10px;
+    border:none;
+	& svg{
+		margin-left: 4px;
+		margin-right: 4px;
+		fill: var(--og-primary);
+	}
+   }
+.badge-not-available{
+    background-color: var(--og-warning);   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 5px 10px;
+    border:none;
+	& svg{
+		margin-left: 4px;
+		margin-right: 4px;
+		fill: var(--og-primary);
+	}
+   }
+.badge-drop{
+    background-color: var(--og-danger);   
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border:none;
+	& svg{
+		margin-left: 4px;
+		margin-right: 4px;
+		fill: #FFF;
+	}
+   }

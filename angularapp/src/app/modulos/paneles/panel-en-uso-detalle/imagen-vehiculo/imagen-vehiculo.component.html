@@ -1,0 +1,18 @@
+<!--
+	Este componente solo revisa la cantidad de llantas y carga la plantilla del vehículo correspondiente.
+ -->
+ <div *ngIf="VehicleTires?.length == 3">
+	<app-plantilla-motocarro> [tires]="VehicleTires"></app-plantilla-motocarro>
+</div>
+
+<div *ngIf="VehicleTires?.length == 4">
+	<app-plantilla-auto [tires]="VehicleTires"></app-plantilla-auto>
+</div>
+
+<div *ngIf="VehicleTires?.length == 6">
+	<app-plantilla-camion [tires]="VehicleTires"></app-plantilla-camion>
+</div>
+
+<div *ngIf="VehicleTires?.length == 22">
+	<app-plantilla-tractocamion [tires]="VehicleTires"></app-plantilla-tractocamion>
+</div>

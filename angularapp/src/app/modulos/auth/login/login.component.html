@@ -1,0 +1,48 @@
+<div class="container-fluid m-0 p-0 flotas-login">
+	<div class="row">
+		<div class="d-none d-md-block col-md-7 sidebar">
+			Siempre <br>
+			cuidando <br>
+			tus activos
+		</div>
+
+
+		<div class="col-5 d-flex justify-content-center align-items-center">
+			<div class="form-wrapper">
+				<div class="text-center p-3 pb-5 mb-5">
+					<img src="./../../../../assets/img/logo-gpfleet.svg" class="w-100">
+				</div>
+
+				<form [formGroup]="loginForm">
+					<div class="form-group mb-3">
+						<input class="form-control w-100" placeholder="Email o nombre de usuario" type="text" required=""
+						placeholder="Usuario" formControlName="email">
+					</div>
+
+					<div class="form-group mb-3">
+						<input class="form-control w-100" placeholder="Contraseña" type="password" formControlName="password">
+					</div>
+
+					<div class="form-group mb-3 d-flex align-items-center p-3">
+						<input type="checkbox" class="form-check-input mt-0 mr-3 d-inline-block">
+						<div class="ml-3 pl-3 d-inline-block">Recordar contraseña</div>
+					</div>
+
+					<div class="container-login100-form-btn mb-3">
+						<button class="btn btn-primary w-100 text-transform-uppercase" [class.loader--text]="authService.showLoader"
+						[disabled]="!loginForm.valid || authService.showLoader" (click)="login()">
+						Iniciar sesión
+						</button>
+					</div>
+
+					<div class="text-center">
+							<a routerLink="/auth/forgot-password" class=" ms-1">
+							¿Olvidaste tu contraseña?
+							</a>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+</div>

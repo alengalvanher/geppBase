@@ -1,0 +1,21 @@
+<div class="neumatico-bloque" [ngClass]="orientacion">
+
+	<div class="neumatico-bloque__posicion">
+		{{ medicion.Position }}
+	</div>
+
+	<div class="neumatico-bloque__psi">
+		<p>
+			<b>PSI</b><br>
+			{{ medicion.PSI }}
+		</p>
+	</div>
+
+	<div class="neumatico-bloque__mm" [class.advertencia]="medicion.Millimeter == 4" [class.peligro]="medicion.Millimeter <= 3">
+		<p>
+			<b>{{ medicion.Millimeter }}</b><br>
+			MM
+		</p>
+	</div>
+
+</div>

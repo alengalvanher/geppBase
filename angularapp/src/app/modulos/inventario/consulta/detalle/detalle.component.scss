@@ -1,0 +1,191 @@
+//Elementos posiblemente no reutilizables
+.licencePlateCard{
+    background: var(--og-info);
+    border: 2px solid var(--og-info);
+    border-radius: 10px;
+    padding: 0px ; 
+    height: 70px;
+    
+    margin: 10px;
+    & div.col-3{
+        display: flex;
+        align-items: center;
+        & h6{
+            margin: 0;
+            color: var(--og-primary)
+        }
+    }
+    & div.col-9{
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        & p{
+            margin: 0;
+            & strong{
+                padding-left: 4px;
+            }
+        }
+    }
+}
+.leasing-info{
+    background: var(--og-info);
+    display: flex;
+    position: relative;
+    left: -25px;
+    height: 15em;
+    justify-content: space-around;
+    width: 105%;
+    justify-content: space-around;
+    & .leasing-box{
+        width: 20%;
+        text-align: center;
+    }
+}
+.blue-btn{
+    background-color: var(--og-primary-light);
+    border-radius: 10px;
+    padding: 10px 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    line-height: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+.blue-text{
+    color: var(--og-primary-light);
+    font-size: 14px;
+    font-weight: 500;
+}
+.border-box{
+    height: 60px;
+    border: 1px solid var(--og-primary-light);
+    border-radius: 10px;
+    & .row{
+        height: 60px;
+        display: flex;
+        align-items: center;
+    }
+}
+.big-border-box{
+    border: 1px solid var(--og-primary-light);
+    border-radius: 10px;
+    padding: 1em;
+    width: 98%;
+    margin: 0px 5px;
+}
+.blue-box-centered{
+    background: var(--og-info);
+    width: 95%;
+    margin: 15px 15px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 1em;
+}
+.border-blue-left{
+    border-left: 1px solid var(--og-primary-light);
+}
+.camion-img{
+    width: 15vw;
+    height: auto;
+}
+//Estilos del panel 
+.side-panel{
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    transition: all .3s ease;
+    padding: 20px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: white;
+    height: 100vh;
+    width: 55vw;
+    transition: all 0.2s ease-out;
+}
+.side-panel-closed{
+    opacity: 0;
+    right: -20000px;
+}
+.side-panel-opened{
+    right: 0;
+    opacity: 1;
+}
+.side-panel-backdrop{
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    transition: all .3s ease;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.7);
+    background: linear-gradient(90deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 45%);;
+    height: 100vh;
+    width: 100vw;
+}
+
+//Elementos reutilizables
+.text-blue-light{
+    color: var(--og-primary-light)
+}
+.Flex3{
+    flex: 1;
+    margin: 10px;
+}
+a.link-nivel-2{
+ color: var(--og-primary-light)
+}
+//Global Badge Status 
+.badge-available{
+    background-color: var(--og-success);   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 8px 10px;
+    border:none;
+   }
+.badge-not-available{
+    background-color: var(--og-warning);   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 5px 10px;
+    border:none;
+	& svg{
+		margin-left: 4px;
+		margin-right: 4px;
+		fill: var(--og-primary);
+	}
+}
+.badge-drop{
+    background-color: var(--og-danger);   
+    text-decoration: none;
+    color: #fff;
+    padding: 5px 10px;
+    border:none;
+	& svg{
+		margin-left: 4px;
+		margin-right: 4px;
+		fill: #FFF;
+	}
+}
+.badge-validity{
+    background-color: #FFF5DE;   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 8px 15px;
+    border:none;
+    width: fit-content;
+   }
+
+.icon-box{
+    background: var(--og-info);
+    border-radius: 10px;
+    padding: 10px ; 
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

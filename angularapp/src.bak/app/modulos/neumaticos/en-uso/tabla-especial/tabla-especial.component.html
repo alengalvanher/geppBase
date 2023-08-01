@@ -1,0 +1,94 @@
+<div class="detalle" [ngClass]="{ 'open': panelIsOpen }">
+	<app-cambiar-milimetraje *ngIf="panelIsOpen " [dataInput]="requestMilimetraje"></app-cambiar-milimetraje>
+</div>
+
+
+<div class="d-flex mt-3 mb-2">
+	<div class="flex-grow-1 d-flex align-items-center">
+		<div *ngFor="let Pill of pillsFilter " >
+			<app-select-pastilla
+				[optionsData]="Pill.Options"
+				[typeSelect]="Pill.Mode"
+				(dateEmitter)="dateRecall($event)"
+				(multiPass)="dateRecallMultiSelect($event)"
+				(deleteEmitter)="deletePillFilter($event)"
+				(change)="readPill($event)"
+				>
+			</app-select-pastilla>
+		</div>
+	</div>
+
+	<div class="d-flex">
+		<div class="p-3">
+			<app-boton-pastilla (pillSelect)="pillFilter($event)" [optionsList]="pillFilterOptions"></app-boton-pastilla>
+		</div>
+		<div class="p-3">
+			<app-table-filter-search (filter)="readingFilter($event)"></app-table-filter-search>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="row">
+	 <div class="col-12">
+		<div class="table-wrapper">
+
+			<table class="table-especial" mat-table [dataSource]="dataSourceArray" style="border-radius: 8px!important; border: #CCC 1px solid;">
+
+				<ng-container *ngFor="let displayedCol of columnsData.displayedColumns; let i = index" [matColumnDef]="displayedCol">
+					 <th mat-header-cell *matHeaderCellDef [ngClass]="i < 4 ? 'table-header-text' : null">
+						<span *ngIf="columnsData.displayedColumnsArray[i].ChildHeaders.length == 0">{{displayedCol}}</span>
+						<app-table-header-element *ngIf="columnsData.displayedColumnsArray[i].ChildHeaders.length > 0" [elements]="[ displayedCol, columnsData.displayedColumnsArray[i].ChildHeaders[0], columnsData.displayedColumnsArray[i].ChildHeaders[1]]"></app-table-header-element>
+					</th>
+
+					<td mat-cell *matCellDef="let element" style="padding: 0px; margin: 0px;">
+
+						<ng-template [ngIf]="displayedCol == 'Acciones'">
+							<a (click)="openSidebar(element)" style="cursor: pointer; margin-right: 5px;">
+								<img src="./../../../../../assets/icons/ic_ver.svg" alt="">
+							</a>
+
+							<a (click)="openSidebarEdit(element)" style="cursor: pointer; margin-right: 5px;">
+								<img src="./../../../../../assets/icons/ic_editar.svg" alt="">
+							</a>
+
+						</ng-template>
+
+						<ng-template [ngIf]="displayedCol == 'Region'">
+							{{element.Region}}
+						</ng-template>
+
+						<ng-template [ngIf]="displayedCol == 'Economico'">
+							{{element.Eco}}
+						</ng-template>
+
+						<ng-template [ngIf]="displayedCol == 'LastReviewDate'">
+							{{element.LastReviewDate | date: 'dd/MM/YYYY' }}
+						</ng-template>
+
+						<ng-template [ngIf]="columnsData.displayedColumns.slice(4).indexOf(displayedCol) !== -1">
+							<ng-container *ngFor="let tyrePosition of element.TireDetailsList; let i = index" >
+								<ng-template [ngIf]="tyrePosition.Tire+'-'+tyrePosition.Position == displayedCol">
+									<app-number-card-full
+										[numberoUno]="tyrePosition.Millimeter"
+										[numberoDos]="tyrePosition.PhysicalDamage == null ? '-': tyrePosition.PhysicalDamage"
+										[miniModalData]="tyrePosition == null ? []: tyrePosition"
+										>
+
+									</app-number-card-full>
+								</ng-template>
+							</ng-container>
+						</ng-template>
+					</td>
+				</ng-container>
+
+
+				<tr mat-header-row *matHeaderRowDef="columnsData.displayedColumns"></tr>
+				<tr mat-row *matRowDef="let row; columns: columnsData.displayedColumns;"></tr>
+			</table>
+
+		</div>
+		<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+	</div>
+</div>

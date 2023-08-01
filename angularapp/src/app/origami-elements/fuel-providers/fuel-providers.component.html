@@ -1,0 +1,15 @@
+<div class="combustibles-card">
+    <div class="izquierda">
+        <h3>{{ objeto.title }}</h3>
+        <h3>{{ objeto.subtitle }}</h3>
+        <h4><b>{{ objeto.semana }}</b> {{ objeto.semana_dos }}</h4>
+
+        <div *ngFor="let enlace of objeto.enlaces">
+			<img src="./../../../../assets/icons/{{ enlace.icono }}.svg"> <a>{{ enlace.texto }}</a>
+        </div>
+    </div>
+
+    <div class="derecha">
+        <img src="{{ objeto.imagen }}" alt="">
+    </div>
+</div>

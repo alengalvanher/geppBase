@@ -1,0 +1,74 @@
+.detalle {
+	background-color: #FFF;
+	z-index: 9999999999999999999999999999999999999999;
+	position: fixed!important;
+	top: 0px;
+	right: -780px;
+	height: 100%;
+	width: 780px;
+	border-left: #000 1px solid;
+	overflow: scroll;
+	transition: right 0.5s ease-out;
+	transition-property:all;
+}
+
+.open {
+	right: 0px;
+	transition: right 0.1s ease-out;
+}
+
+.table-wrapper {
+	width: 100%;
+}
+
+table {
+	width: 100%;
+}
+
+.withMinimodal {
+	position: relative;
+
+	& div {
+		display: none;
+	}
+
+	&:hover {
+
+		& div {
+			display: block;
+			position: absolute;
+		}
+	}
+}
+
+.minimodal {
+	width: 240px;
+	height: 193px;
+	border-radius: 10px;
+	border-radius: #CCC 1px solid;
+	position: absolute;
+	background-color: #FFF;
+}
+
+.mat-header-cell {
+	padding: 0px;
+}
+
+
+.table-especial {
+	& th {
+		padding: 0px!important;
+	}
+	& th.table-header-text{
+		padding: 0px 10px!important;
+	}
+	& td {
+		padding-top: 0px!important;
+		padding-bottom: 0px!important;
+	}
+}
+
+th .ng-star-inserted{
+	color:#7D7D7F;
+}
+

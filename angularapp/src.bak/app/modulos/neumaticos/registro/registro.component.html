@@ -1,0 +1,65 @@
+<div class="container-fluid pt-2 pb-5 animate__animated animate__fadeIn animate__faster">
+
+	<app-page-header [title]="'Registro de neumáticos en almacén'" [icon]="'registro-inventario'"
+		[items]="['Inicio', 'Inventario']" [active_item]="'Registro'"></app-page-header>
+
+	<!-- <app-app-page-header></app-app-page-header> -->
+
+	<div class="card">
+		<div class="card-header bg-secondary">
+			<div class="card-header__title text-white">
+				Carga masiva de inventario de neumáticos en almacén
+			</div>
+		</div>
+
+
+		<div class="card-body">
+			<form [formGroup]="cargaForm">
+				<div class="container">
+					<div class="row">
+						<div class="col-12">
+							<p class="text-secondary">
+								Neumáticos en almacén* (carga tu plantilla de excel actualizada):
+							</p>
+						</div>
+
+						<div class="col-12">
+							<div class="form-group">
+								<input class="form-control file-input w-100" formControlName="archivo" type="file"
+									id="fileUpload" #fileUpload name="fileUpload">
+							</div>
+						</div>
+
+
+						<ng-template [ngIf]="myPreloader" class="col-12 text-center p-5">
+							... cargando.
+						</ng-template>
+
+
+						<div class="button-group">
+							<button type="submit" class="btn btn-info"
+								[disabled]="this.cargaForm.controls.archivo.status == 'INVALID'"
+								(click)="this.cargaForm.reset()">
+								Borrar
+							</button>
+
+							<button type="submit" class="btn btn-primary" (click)="enviarFormulario()"
+								[disabled]="this.cargaForm.controls.archivo.status == 'INVALID'">
+								Guardar
+							</button>
+						</div>
+
+
+
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+
+	</div><!-- card -->
+
+	<app-alert *ngIf="alert" [data]="dataAlert" (closed)="revisarCerrado($event)"></app-alert>
+</div>
+

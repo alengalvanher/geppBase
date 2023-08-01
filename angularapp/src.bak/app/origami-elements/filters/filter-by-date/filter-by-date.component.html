@@ -1,0 +1,127 @@
+<div [ngClass]="position === 'right'  ? 'show-right' : 'show-left'">
+
+		<div class="input-group input-datepicker">
+			<button class="btn btn-info text-white btn-bordered" type="button">
+				<svg width="17" height="20" viewBox="0 0 17 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M15 2.49967H14.1667V0.833008H12.5V2.49967H4.16667V0.833008H2.5V2.49967H1.66667C0.75 2.49967 0 3.24967 0 4.16634V17.4997C0 18.4163 0.75 19.1663 1.66667 19.1663H15C15.9167 19.1663 16.6667 18.4163 16.6667 17.4997V4.16634C16.6667 3.24967 15.9167 2.49967 15 2.49967ZM15 17.4997H1.66667V6.66634H15V17.4997Z" fill="#707EAD"/>
+					</svg>
+
+			</button>
+			<input type="text" class="form-control btn-bordered h-auto select-picker-date" placeholder="Selecciona una fecha" (focus)="showDatePicker()" [formControl]="dateDisplay">
+
+
+			<!-- <button class="btn  text-secondary btn-white" type="button">
+				<svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M6.07894 7.78781L0.21221 1.92106C-0.0707368 1.63811 -0.0707368 1.17938 0.21221 0.896463L0.89647 0.212204C1.17893 -0.0702607 1.63673 -0.0708043 1.91986 0.210996L6.59125 4.8605L11.2626 0.210996C11.5457 -0.0708043 12.0035 -0.0702607 12.286 0.212204L12.9703 0.896463C13.2532 1.17941 13.2532 1.63814 12.9703 1.92106L7.10356 7.78781C6.82061 8.07073 6.36188 8.07073 6.07894 7.78781Z" fill="#112876"/>
+				</svg>
+			</button> -->
+
+		</div>
+
+		<div class="datepicker" [ngClass]="!displayDatePicker ? 'show' : 'hide'" >
+
+			<!-- <pre>
+				{{ datePickerForm.value | json}}
+			</pre> -->
+
+			<div class="botonera">
+				<button [ngClass]="vista == 'semana' ? 'active' : 'inactive'" (click)="changeView('semana')">Semana</button>
+				<button [ngClass]="vista == 'mes' ? 'active' : 'inactive'" (click)="changeView('mes')">Mes</button>
+				<button [ngClass]="vista == 'periodo' ? 'active' : 'inactive'" (click)="changeView('periodo')">Período personalizado</button>
+			</div>
+
+
+			<div>
+				<ng-template [ngIf]="vista == 'semana'">
+
+					<form [formGroup]="datePickerForm">
+						<div class="datepicker-group">
+							<div class="datepicker-group__item mt-2">
+								<label class="form-control-label text-secondary" for="Year">Año*:</label>
+								<select class="form-select form-control select-origami select-datepicker" id="Year" formControlName="Year" placeholder="Selecciona la arrendadora">
+									<option selected disabled value="">Año</option>
+									<option *ngFor="let year of aniosSelectValues" [value]="year.value">{{ year.viewValue }}</option>
+								</select>
+							</div>
+
+							<div class="datepicker-group__item mt-2">
+								<label class="form-control-label text-secondary" for="Week">Semana*:</label>
+								<select class="form-select form-control select-origami select-datepicker" id="Week" formControlName="Week" placeholder="Selecciona la arrendadora">
+									<option selected disabled value="">Semana</option>
+									<option *ngFor="let week of weeksSelectValues" [value]="week.value">{{ week.viewValue }}</option>
+								</select>
+							</div>
+						</div>
+					</form>
+
+
+					<div class="datepicker-buttongroup mt-2 mb-1">
+						<button class="btn btn-info" (click)="hideDatePicker()">Borrar</button>
+						<button class="btn btn-primary" (click)="sendDatePickerData()" [disabled]="!(datePickerForm.get('Week').value && datePickerForm.get('Year').value)">Aceptar</button>
+					</div>
+
+				</ng-template>
+
+				<ng-template [ngIf]="vista == 'mes'">
+					<form [formGroup]="datePickerForm">
+						<div class="datepicker-group">
+
+							<div class="datepicker-group__item mt-2">
+								<label class="form-control-label text-secondary" for="Year">Año*:</label>
+								<select class="form-select form-control select-origami select-datepicker" id="Year" formControlName="Year" placeholder="Selecciona la arrendadora">
+									<option selected disabled value="">Año</option>
+									<option *ngFor="let year of aniosSelectValues" [value]="year.value">{{ year.viewValue }}</option>
+								</select>
+							</div>
+							<div class="datepicker-group__item mt-2">
+								<label class="form-control-label text-secondary" for="Week">Mes*:</label>
+								<select class="form-select form-control select-origami select-datepicker" id="Month" formControlName="Month" placeholder="Selecciona la arrendadora">
+									<option selected disabled value="">Mes</option>
+									<option *ngFor="let month of monthsSelectValues" [value]="month.value">{{ month.viewValue }}</option>
+								</select>
+							</div>
+						</div>
+					</form>
+
+					<div class="datepicker-buttongroup mt-2 mb-1">
+						<button class="btn btn-info" (click)="hideDatePicker()">Borrar</button>
+						<button class="btn btn-primary" (click)="sendDatePickerData()" [disabled]="!(datePickerForm.get('Month').value && datePickerForm.get('Year').value)">Aceptar</button>
+					</div>
+				</ng-template>
+
+				<ng-template [ngIf]="vista == 'periodo'">
+					<form [formGroup]="datePickerForm">
+						<div class="datepicker-group">
+							<div class="datepicker-group__item mt-2">
+								<label class="form-control-label text-secondary" for="PurchaseDate">Desde*:</label>
+
+								<div class="input-group">
+									<input (click)="d1.toggle()" class="form-control select-origami" placeholder="DD/MM/AAAA"
+									formControlName="StartDate" id="StartDate"
+									ngbDatepicker #d1="ngbDatepicker" style="border-radius: 5px!important; width: 100%;">
+								</div>
+							</div>
+
+							<div class="datepicker-group__item mt-2">
+								<label class="form-control-label text-secondary" for="PurchaseDate">Hasta*:</label>
+								<div class="input-group">
+
+									<input (click)="d2.toggle()" class="form-control select-origami" placeholder="DD/MM/AAAA"
+									formControlName="EndDate" id="EndDate"
+									ngbDatepicker #d2="ngbDatepicker" style="border-radius: 5px!important; width: 100%;">
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<div class="datepicker-buttongroup mt-2 mb-1">
+						<button class="btn btn-info" (click)="hideDatePicker()">Borrar</button>
+						<button class="btn btn-primary" (click)="sendDatePickerData()" [disabled]="!(datePickerForm.get('StartDate').value && datePickerForm.get('EndDate').value)">Aceptar</button>
+					</div>
+
+				</ng-template>
+			</div>
+
+		</div>
+
+</div>

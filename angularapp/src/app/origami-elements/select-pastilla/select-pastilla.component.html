@@ -1,0 +1,120 @@
+<div class="form-group me-3" >
+	
+    <div *ngIf="typeSelect !== 'Vigencia' && typeSelect !== 'Cbu' && typeSelect !== 'Región' && typeSelect !== 'Region' && typeSelect !== 'LastMeasure'" 
+            class="input-group">
+        <select class="form-select form-control select-origami z-10" formControlName="Pill"
+            [id]="'Pill-'+typeSelect" (change)="emitSelect($event)" >
+            <option disabled  selected value="">{{typeSelect}}</option>
+            <ng-container *ngFor="let Pill of optionsData ">
+                <option  [value]="Pill.Value">{{ Pill.Text }}</option>
+            </ng-container>
+        </select>
+        <div class="columnas-btn pastilla-ph" *ngIf="displayPlaceholder">
+            {{typeSelect}} 
+        </div>
+        <button class="input-group-text bi bi-calendar3" (click)="deletePill($event)" [id]="typeSelect" type="button">
+           <img [id]="typeSelect" src="../../../assets/icons/ic_pill_x.svg" alt="">
+        </button>
+    </div>								
+    <div *ngIf="typeSelect == 'Vigencia' || typeSelect == 'LastMeasure' " class="d-flex p-0 " >
+        <div class="dp-hidden position-absolute d-flex justify-content-center ">
+			<div class="input-group">
+				<input
+					name="datepicker"
+					class="form-control"
+					ngbDatepicker
+					#datepicker="ngbDatepicker"
+					[autoClose]="'outside'"
+					(dateSelect)="onDateSelection($event)"
+					[displayMonths]="2"
+					[dayTemplate]="t"
+					outsideDays="hidden"
+					[startDate]="fromDate!"
+					tabindex="-1"
+				/>
+				<ng-template #t let-date let-focused="focused">
+					<span
+						class="custom-day"
+						[class.focused]="focused"
+						[class.range]="isRange(date)"
+						[class.faded]="isHovered(date) || isInside(date)"
+						(mouseenter)="hoveredDate = date"
+						(mouseleave)="hoveredDate = null"
+					>
+						{{ date.day }}
+					</span>
+				</ng-template>
+			</div>
+		</div>
+		<div class="input-group col-12">
+			<input
+				#dpFromDate
+				class="form-control"
+				placeholder="Fecha de Inicio" 
+				name="dpFromDate"
+				[value]="formatter.format(fromDate).concat(' a ').concat(formatter.format(toDate))"
+				(input)="fromDate = validateInput(fromDate, dpFromDate.value)"
+                (onchange)="someEvent.emit($any($event).target.value)"
+                style="width: 14rem"
+			/>
+            <button class="input-group-text bi bi-calendar3" (click)="deletePill($event)" [id]="typeSelect" type="button">
+                <img [id]="typeSelect" src="../../../assets/icons/ic_pill_x.svg" alt="">
+            </button>
+			<button class="input-group-text bi bi-calendar3" (click)="datepicker.toggle()" type="button">
+                <svg width="17" height="20" viewBox="0 0 17 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15 2.49967H14.1667V0.833008H12.5V2.49967H4.16667V0.833008H2.5V2.49967H1.66667C0.75 2.49967 0 3.24967 0 4.16634V17.4997C0 18.4163 0.75 19.1663 1.66667 19.1663H15C15.9167 19.1663 16.6667 18.4163 16.6667 17.4997V4.16634C16.6667 3.24967 15.9167 2.49967 15 2.49967ZM15 17.4997H1.66667V6.66634H15V17.4997Z"
+                            fill="#707EAD" />
+                    </svg>
+            </button>
+		</div>
+        <div class="input-group" style="display: none; ">
+            <input
+                #dpToDate
+                class="form-control"
+                placeholder="Fecha final"
+                name="dpToDate"
+                [value]="formatter.format(toDate)"
+                (input)="toDate = validateInput(toDate, dpToDate.value)"
+                style="width: 7rem"
+            />
+            <button class="input-group-text bi bi-calendar3" (click)="datepicker.toggle()" type="button">
+                <svg width="17" height="20" viewBox="0 0 17 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M15 2.49967H14.1667V0.833008H12.5V2.49967H4.16667V0.833008H2.5V2.49967H1.66667C0.75 2.49967 0 3.24967 0 4.16634V17.4997C0 18.4163 0.75 19.1663 1.66667 19.1663H15C15.9167 19.1663 16.6667 18.4163 16.6667 17.4997V4.16634C16.6667 3.24967 15.9167 2.49967 15 2.49967ZM15 17.4997H1.66667V6.66634H15V17.4997Z"
+                            fill="#707EAD" />
+                    </svg>
+            </button>
+        </div>
+	</div>
+    <div *ngIf="typeSelect == 'Cbu' || typeSelect == 'Región' || typeSelect == 'Region'" class="d-flex p-0 input-group" >
+        <div class="columnas-btn ms-3" [matMenuTriggerFor]="selectTableDisplayMenu">
+            {{typeSelect}}
+            
+            <svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M7.4999 0.666582L5.00036 0.666582L1.66763 0.666582L0.83445 0.666582C0.511592 0.666582 0.217375 0.854048 0.0793796 1.14566C-0.0586161 1.43727 -0.0143532 1.78357 0.193942 2.03352L4.35985 7.03261C4.51867 7.22268 4.75301 7.33203 5.00036 7.33203C5.24771 7.33203 5.48204 7.22268 5.64086 7.03261L9.80677 2.03352C10.0125 1.78617 10.0593 1.43988 9.92133 1.14566C9.78334 0.851443 9.48912 0.666582 9.16626 0.666582L7.4999 0.666582Z"
+                    fill="#707EAD" />
+            </svg>
+        </div>
+        <button class="input-group-text bi bi-calendar3 rounded-right" (click)="deletePill($event)" [id]="typeSelect" type="button">
+            <img [id]="typeSelect" src="../../../assets/icons/ic_pill_x.svg" alt="">
+        </button>
+        <mat-menu #selectTableDisplayMenu="matMenu">
+            <div style="display: block; padding: 15px 15px 0px 15px;">
+                <div class="example-section" [formGroup]="multiSelect" (click)="$event.stopPropagation();">
+        
+                    <div class="form-check" *ngFor="let item of optionsData ">
+                        <input class="form-check-input" type="checkbox" value="{{ item.Value }}" id="{{ item.Value }}" formControlName="{{ item.Text }}">
+                        <label class="form-check-label" for="{{ item.Value }}">
+                            {{item.Text}}
+                        </label>
+                    </div>
+        
+                </div>
+            </div>
+        </mat-menu>
+    </div>
+</div>

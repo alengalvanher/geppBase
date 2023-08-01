@@ -1,0 +1,15 @@
+<div class="container">
+	<div *ngIf="dataInput" class="row">
+		<div class="col-12">
+			<h3>LA DATA ES: </h3>
+
+			{{ dataInput | json }}
+		</div>
+	</div>
+
+	<div *ngIf="dataResponesTireList" class="row">
+		<div class="col-6" *ngFor="let elemento of dataResponesTireList">
+			<app-editor-neumatico-individual [item]="elemento" [PhysicalDamage]="PhysicalDamageCatalog"></app-editor-neumatico-individual>
+		</div>
+	</div>
+</div>

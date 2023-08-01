@@ -1,0 +1,219 @@
+.og-mini-modal {
+	display: block;
+	position: fixed;
+	width: 240px;
+	height: 193px;
+	background-color: #FFF;
+	top: 0px;
+	right: 0px;
+	border-radius: 10px;
+	padding: 20px;
+	z-index: 50;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+
+	&::before {
+		content: url('./../../../assets/icons/flecha.svg');
+		position: absolute;
+		top: 27px;
+		right: -10px;
+		-moz-transform: scale(-1, -1);
+		-o-transform: scale(-1, -1);
+		-webkit-transform: scale(-1, -1);
+		transform: scale(-1, -1);
+		width: 10px;
+		height: 13px;
+		box-shadow: 50px 6px 6px rgba(0, 0, 0, 0.2);
+	}
+
+
+	&__header {
+		display: flex;
+
+		&__titulo {
+			flex-grow: 1;
+			text-align: left;
+			padding: 10px;
+		}
+
+		& .blueSquare{
+			display: block;
+			width: 42px;
+			height: 42px;
+			border-radius: 5px;
+			align-items: center;
+			justify-content: center;
+			font-size: 30px;
+			font-weight: 600;
+			color: var(--og-info-dark);
+			background-color: var(--og-info-light);
+		}
+
+		.mmSquare{
+			width: 50px;
+			height: 40px;
+		}
+	}
+
+	&__body {
+		padding: 15px 0px;
+
+		& p {
+			text-align: left;
+			display: block;
+			color: var(--og-primary-dark);
+			font-size: 10px;
+			line-height: 15px;
+			font-weight: 400;
+
+			& b {
+				font-weight: 500;
+			}
+		}
+	}
+}
+
+
+// .wrapper {
+// 	display: inline-block;
+// }
+
+// .box	{
+// 	height: 40px;
+// 	width: 40px;
+// 	display: flex;
+// 	align-items: center;
+// 	float: left;
+
+// 	& div {
+// 		width: 100%;
+// 		text-align: center;
+// 		position: relative;
+
+// 		& .modalita {
+// 			position: absolute;
+// 			left: 15px;
+// 			display: none;
+// 			width: 240px;
+// 			height: 190px;
+// 			background-color: #FFF;
+// 			border-radius: 10px;
+// 			border: #EEE 1px solid;
+// 			z-index: 1000000;
+// 		}
+
+// 		&:hover {
+// 			& .modalita {
+// 				display: block;
+// 			}
+// 		}
+// 	}
+// }
+
+.success {
+	color: #112876;
+	background-color: #DFFACC;
+}
+
+.warning {
+	color: #112876;
+	background-color: #FFDF92;
+}
+
+.danger {
+	color: #FFFFFF;
+	background-color: #FF252B;
+}
+
+//Mini modal styles
+.mmSquare.success, .small-dot.success {
+	color: #112876;
+	background-color: #62E700;
+}
+
+.mmSquare.warning , .small-dot.warning{
+	color: #112876;
+	background-color: #FECA57;
+}
+
+.mmSquare.danger, .small-dot.danger {
+	color: #FFFFFF;
+	background-color: #FF252B;
+}
+
+.small-dot{
+	height: 10px;
+	width: 10px;
+	border-radius: 50%;
+	display: inline-block;
+    margin: 0px 5px;
+}
+.mini-tabla {
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	height: 48px;
+
+	& tr {
+		padding: 0px;
+		margin: 0px;
+		border: none;
+		height: 40px;
+	}
+
+	& td {
+		padding: 0px;
+		margin: 0px;
+		border: none;
+		height: 40px;
+
+		&:first-child {
+			width: 39px;
+			height: 40px;
+			border-right: #E1E7FB 1px solid;
+		}
+	}
+}
+
+
+
+.withMinimodal {
+	& a {
+		text-decoration: underline;
+		position: relative;
+		cursor: pointer;
+	}
+}
+.miniModal{
+	background: #FFFFFF;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+	border-radius: 10px;
+	width: 300px;
+	height: auto;
+}
+.detailText{
+	text-align: left;
+	font-size: 13px;
+}
+.small-text{
+	font-size: 12px;
+}
+
+.mmSquare {
+	height: 42px;
+	border-radius: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	// background-color: #62E700;
+	font-size: 150px;
+	color:#112876;
+
+	& p{
+		margin-bottom: 0 !important;
+	}
+}
+
+
+

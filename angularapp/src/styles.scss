@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap');
+
+
+
+
+
+
+
+
+
+@import url('./assets/icomoon/style.css');
+// General Styles
+* {
+	font-family: 'Montserrat', sans-serif;
+}
+
+
+
+
+
+
+// Custom bootstrap
+@import './assets/scss/bootstrap';
+@import './assets/scss/bootstrap/card';
+@import './assets/scss/bootstrap/buttons';
+@import './assets/scss/bootstrap/form';
+@import './assets/scss/bootstrap/modal';
+
+
+// Material
+@import './assets/scss/material';
+@import './assets/scss/material/mat-table';
+@import "./assets/scss/material/stepper";
+@import "./assets/scss/material/datepicker";
+
+// Animations
+@import './../node_modules/animate.css/animate.min.css';
+
+
+
+body {
+	background-color: #F7F8F9;
+}
+
+a {
+	color: #04AFEF;
+
+	&:hover {
+		opacity: var(--og-primary);
+	}
+}
+
+
+.columnas-btn {
+    display: inline-block;
+    border: var(--og-primary) 1px solid;
+    font-size: 14px;
+    color: #8894BB;
+    font-weight: 600;
+    padding: 12px 37px 14px 20px;
+    margin-right: 20px;
+    position: relative;
+    height: 45px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    & svg {
+        position: absolute;
+        top: 18px;
+        right: 15px;
+    }
+}
+
+
+.modal-footer {
+	border: 0px;
+	display: flex;
+	justify-content: center;
+	padding-bottom: 55px;
+}
+
+
+.disabled {
+	opacity: 0.3;
+}
+
+
+
+.origami-card-info {
+    border: 1px solid var(--og-primary-light);
+    border-radius: 5px;
+	padding: 0px 18px;
+	height: 62px;
+	display: flex;
+	align-items: center;
+}
+
+
+.input-group-text {
+	background-color: var(--og-info);
+}
+
+.card-with-table {
+	padding: 20px 28px;
+}
+
+
+
+.mat-menu-item {
+	font-size: 13px;
+	color: var(--og-primary);
+}
+
+
+.ui-datepicker-div {
+	z-index: 999;
+}
+
+.datepicker {
+    z-index: 999 !important;
+}
+
+
+
+
+// Bar
+.mat-progress-bar-background {
+	fill: #cbd0e9
+}
+
+.mat-progress-bar-buffer {
+	background-color: #cbd0e9
+}
+
+.mat-progress-bar-fill::after {
+	background-color: var(--og-primary)
+}

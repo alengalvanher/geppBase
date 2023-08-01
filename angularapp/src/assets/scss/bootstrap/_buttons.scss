@@ -1,0 +1,56 @@
+.btn {
+    border: 0;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 9px 15px;
+
+    & img {
+        margin-right: 10px;
+    }
+}
+
+.btn-bordered {
+	border: var(--og-primary) 1px solid;
+}
+
+.btn-primary {
+	background-color: var(--og-accent);
+    color: #FFF;
+
+
+    &:hover, &:active, &:focus, &:disabled {
+        opacity: 0.8;
+		color: #FFF;
+    }
+}
+
+.btn-info {
+    background-color: var(--og-accent-light);
+    color: var(--og-accent);
+
+    &:hover, &:focus {
+        opacity: 0.8;
+		color: #FFF;
+    }
+
+	&:active {
+        background-color: var(--og-accent-light)!important;
+		color: var(--og-accent);
+    }
+}
+
+.button-group {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding: 20px 0px;
+
+    & button {
+        margin: 0 10px;
+
+        &:last-child {
+            margin-right: 0px;
+        }
+    }
+}

@@ -1,0 +1,136 @@
+<div class="floatbar d-flex align-items-center">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12 col-sm-6 d-flex align-items-center">
+
+				<div class="floatbar__title text-center text-sm-left">
+					<span class="text-white">{{ Eco }}</span> | <span>{{ cbu }}</span>
+					<!-- <span>Camión</span> -->
+				</div>
+
+			</div>
+
+			<div class="col-12 col-sm-6 text-end text-sm-right">
+				<div class="d-inline-block">
+					<button class="btn btn-success btn-sm d-flex align-items-center status" style="text-transform:initial;">
+						Status: disponible
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card mt-3">
+	<div class="container-fluid bloque-tabs">
+
+		<div class="tabs-menu row pt-3">
+			<!-- Tabs -->
+			<div ngbNav #nav="ngbNav" [activeId]="1" class="panel-tabs d-flex">
+				<div class="col-12 col-md-6 col-lg-3" [ngbNavItem]="1">
+					<a ngbNavLink class="mb-3">
+						<div class="flotas-tab mb-3 d-flex">
+							<div class="flotas-tab__number">
+								1
+							</div>
+
+							<div class="flotas-tab__title">
+								Información de compañía
+							</div>
+
+							<hr style="float: right; height: 2px; background-color: #112876;">
+						</div>
+
+						<app-porcentaje [porcentaje]="responseForPercentage.CompanyInformationPercentaje"></app-porcentaje>
+					</a>
+
+					<ng-template ngbNavContent>
+
+						<app-paso-uno></app-paso-uno>
+
+					</ng-template>
+				</div>
+
+				<!-- <div class="line-tabs" style="width: 10px;">
+					<div></div>
+				</div> -->
+
+
+				<div class="col-12 col-md-6 col-lg-3" [ngbNavItem]="2">
+					<a ngbNavLink class="mb-3">
+						<div class="flotas-tab mb-3 d-flex">
+							<div class="flotas-tab__number">
+								2
+							</div>
+
+							<div class="flotas-tab__title d-inline-block flex-fill">
+								Información operativa
+							</div>
+						</div>
+
+						<app-porcentaje [porcentaje]="responseForPercentage.OperativeInformation"></app-porcentaje>
+					</a>
+
+					<ng-template ngbNavContent>
+						<div class="tab-pane">
+							<app-paso-dos></app-paso-dos>
+						</div>
+					</ng-template>
+				</div>
+
+
+
+				<div class="col-12 col-md-6 col-lg-3" [ngbNavItem]="3">
+					<a ngbNavLink class="mb-3">
+						<div class="flotas-tab mb-3 d-flex">
+							<div class="flotas-tab__number">
+								3
+							</div>
+
+							<div class="flotas-tab__title d-inline-block flex-fill">
+								Información financiera
+							</div>
+						</div>
+
+						<app-porcentaje [porcentaje]="responseForPercentage.FinancialInformation"></app-porcentaje>
+					</a>
+
+					<ng-template ngbNavContent>
+						<div class="tab-pane">
+							<app-paso-tres></app-paso-tres>
+						</div>
+					</ng-template>
+				</div>
+
+
+
+				<div class="col-12 col-md-6 col-lg-3" [ngbNavItem]="4">
+					<a ngbNavLink class="mb-3">
+						<div class="flotas-tab mb-3 d-flex">
+							<div class="flotas-tab__number">
+								4
+							</div>
+
+							<div class="flotas-tab__title d-inline-block flex-fill">
+								Aditamentos
+							</div>
+						</div>
+
+						<app-porcentaje [porcentaje]="responseForPercentage.ComplementsInformation"></app-porcentaje>
+					</a>
+
+					<ng-template ngbNavContent>
+						<div class="tab-pane">
+							<app-paso-cuatro></app-paso-cuatro>
+						</div>
+					</ng-template>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="p-3">
+			<div [ngbNavOutlet]="nav"></div>
+		</div>
+	</div>
+</div>

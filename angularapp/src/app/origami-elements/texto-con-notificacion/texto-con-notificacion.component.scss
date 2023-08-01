@@ -1,0 +1,41 @@
+.texto-con-notificacion {
+    width: 100%;
+    display: inline-block;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+
+.notificacion {
+    width: 100%;
+    text-align: right;
+
+    & > div {
+
+        color: #FFF;
+        font-size: 10px;
+        font-weight: bold;
+        display: inline-block;
+        padding: 0px 5px;
+        border-radius: 6px;
+    }
+}
+.notificacion.info {
+    & > div{
+        background-color: var(--og-accent);
+    }
+}
+.notificacion.danger {
+    & > div {
+        background-color: var(--og-danger);
+    }
+}
+.texto {
+    width: 100%;
+    margin-top: -5px;
+
+    & > div {
+        font-size: 13px; padding-right: 10px;
+        color: var(--og-primary);
+        text-decoration: underline;
+    }
+}

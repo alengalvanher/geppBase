@@ -1,0 +1,24 @@
+<mat-drawer-container class="main" hasBackdrop="true">
+	<div class="sidenav">
+		<app-sidenav></app-sidenav>
+	</div>
+
+	<div class="content">
+		<div class="topbar">
+			<app-topbar></app-topbar>
+		</div>
+
+
+		<div class="router-outlet">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+
+	<mat-drawer class="panel" #drawer [mode]="'over'" position="end">
+		<!-- <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button> -->
+		<app-panel-en-uso-detalle *ngIf="usoDetalle" [data]="dataUsoDetalle"></app-panel-en-uso-detalle>
+		<app-panel-en-uso-edicion *ngIf="usoEdicion" [data]="dataUsoEdicion"></app-panel-en-uso-edicion>
+		<app-inventarios-consulta-historicos *ngIf="consultaHistoricos"></app-inventarios-consulta-historicos>
+		<app-inventario-detalle *ngIf="inventarioDetalle"></app-inventario-detalle>
+	</mat-drawer>
+</mat-drawer-container>

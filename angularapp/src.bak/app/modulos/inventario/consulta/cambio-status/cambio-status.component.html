@@ -1,0 +1,137 @@
+<div class="cambio-status-wrapper">
+    <div class="bloque-azul d-flex align-items-center" style="background: #112876; border-radius: 10px; padding: 10px 20px; height: 70px;">
+        <div class="flex-grow-1" style="font-size: 18px; color: #FFF; font-weight: bold; text-align: left;">
+            {{this.dataHeader[0]}} |
+            {{this.dataHeader[1]}} |
+            {{this.dataHeader[2]}} -
+            {{this.dataHeader[3]}} |
+            {{this.dataHeader[4]}}
+        </div>
+
+    </div>
+    <form [formGroup]="formChangeStatus">
+        <div *ngIf="Step === 1 || Step === 3" class="row">
+            <fieldset >
+
+                <div class="d-flex justify-content-around align-items-center mt-5 ms-5 me-5 mb-3">
+                    <ng-container *ngFor="let Status of StatusList; let i = index" #itemsRadio>
+                        <div *ngIf="Status.Status" class="d-flex align-items-center">
+                            <input class="m-2" type="radio" id="{{ Status.Identifier }}"
+                                    name="Status"
+                                    [value]="Status.Identifier"
+                                    formControlName="Status"
+                                    (click)="clicked(Status.Identifier, i, Status.StatusDesc)"
+                                    />
+                            <label for="{{ Status.Identifier }}">{{Status.StatusDesc}}</label>
+                        </div>
+                    </ng-container>
+                </div>
+
+              </fieldset>
+        </div>
+        <div *ngIf="Step == 2" class="step-two m-3">
+            <div class="row ">
+                <div class="col-12 p-3 text-center">
+                    <p style="font-size: 16px; color: #112876;">
+                        Estás traspasando la unidad {{this.dataHeader[0]}} <br>
+                        del estatus <strong>{{this.dataHeader[7]}}</strong> al status <strong>{{this.StatusText}}</strong>
+                        <br>
+                        ¿Estás seguro que deseas continuar?
+                    </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-info" style="margin-right: 20px;" (click)="back2stepOne()">
+                        Atrás
+                    </button>
+
+                    <button class="btn btn-primary" (click)="back2statusForm()">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="Step == 3" class="step-two m-3">
+            <div class="col-12 mt-3 mb-3">
+                <div class="form-group">
+                    <label class="form-control-label text-secondary mb-1 mt-1" for="SubStatus">Sitio*:</label>
+                    <select class="form-select form-control select-origami w-100" formControlName="SubStatus" id="SubStatus" (change)="onChangeSubstatus($event)">
+                        <option selected disabled value="">Subestatus*</option>
+                        <ng-container *ngFor="let SubStatus of SubstatusList">
+                            <option *ngIf="SubStatus.Status" [value]="SubStatus.Identifier">{{ SubStatus.SubstatusDesc }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 mt-3 mb-3">
+                <div class="form-group">
+                    <label class="form-control-label text-secondary mb-1 mt-1" for="Reason">Motivo:</label>
+                    <input class="form-control w-100" id="Reason" name="Reason" formControlName="Reason"
+                        placeholder="Describe brevemente el motivo" type="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-center">
+                    <button class="btn btn-info" style="margin-right: 20px;" (click)="back2stepOne()">
+                        BORRAR
+                    </button>
+
+                    <button class="btn btn-primary"
+                        [disabled]="!(formChangeStatus.valid && (formChangeStatus.touched ||  formChangeStatus.dirty))"
+                        (click)="sendVehicleAvailability()"
+                        >
+                        GUARDAR
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="Step == 4" class="step-three">
+            <div class="row">
+                <div class="col-12 mt-3 mb-4 d-flex justify-content-center align-items-center flex-column">
+                    <div class="m-4">
+                        <img src="./../../../../assets/icons/ic_good.png" alt="">
+                    </div>
+                    <h6 class="text-secondary">
+                       <strong>Se ha traspasado la unidad {{this.dataHeader[0]}} con éxito.</strong>
+                    </h6>
+                    <div class="w-100 ms-3 mt-3">
+                        <p class="mb-1"><strong>Status:</strong> {{this.dataHeader[7]}} </p>
+                        <p class="mb-1"><strong>Substatus:</strong> {{this.SubstatusText}} </p>
+                        <p class="mb-1"><strong>Fecha:</strong> {{this.Today}} </p>
+                        <p class="mb-1"><strong>Motivo:</strong> {{this.formChangeStatus.value.Reason}} </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mt-3 mb-4 d-flex justify-content-center">
+                    <button style="margin-right: 20px;" type="button" class="btn btn-primary" (click)="clickBack.emit('status')">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="Step == 5" class="step-four">
+            <div class="row">
+                <div class="col-12 mt-3 mb-4 d-flex justify-content-center align-items-center flex-column">
+                    <div class="m-4">
+                        <img src="./../../../../assets/icons/ic_wrong.png" alt="">
+                    </div>
+                    <h6 class="text-secondary">
+                       <strong>Hubo un problema al realizar el traspaso. <br>favor de intentarlo más tarde.</strong>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 mt-3 mb-4 d-flex justify-content-center">
+                    <button style="margin-right: 20px;" type="button" class="btn btn-primary" (click)="clickBack.emit('status')">
+                        Continuar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

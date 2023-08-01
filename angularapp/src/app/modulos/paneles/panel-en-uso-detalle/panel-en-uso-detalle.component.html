@@ -1,0 +1,56 @@
+<div class="row">
+	<div class="col-12">
+		<div class="bloque-simple">
+			<div>
+				{{this.dataResponse?.VehicleInformation.Eco}} |
+				{{this.dataResponse?.VehicleInformation.CbuName}} |
+				{{this.dataResponse?.VehicleInformation.RegionName}} |
+				{{this.dataResponse?.VehicleInformation.TypeName}}
+			</div>
+
+			<div>
+				<div class="d-flex align-items-center">
+					<ng-template [ngIf]="this.dataResponse.VehicleInformation.Status == 'Disponible'">
+						<span href="#" class="badge badge-available" >Status: Disponible </span>
+					</ng-template>
+	
+					<ng-template [ngIf]="this.dataResponse.VehicleInformation.Status == 'Baja'">
+						<span href="#" class="badge badge-drop" >Status: Baja</span>
+					</ng-template>
+	
+					<ng-template [ngIf]="this.dataResponse.VehicleInformation.Status == 'No disponible' ">
+						<span href="#" class="badge badge-not-available" >Status: No disponible </span>
+					</ng-template>
+	
+
+				<!-- <app-vehicle-status></app-vehicle-status>
+
+				<div class="badge badge-success">
+					Status: {{ dataResponse.VehicleInformation.Status }} 
+				</div> -->
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-12 pt-3 pb-5 pl-1 pr-1">
+		<h6 class="text-secondary"><strong>NEUMÁTICOS: {{ dataResponse?.TireUpdateInformation.TireCount }}</strong></h6>
+		<p class="text-secondary mb-1"><strong>Fecha de última actualización: </strong>{{ dataResponse?.TireUpdateInformation.LastUpdate | date:'d/M/yy' }}</p>
+		<p class="text-secondary mt-1"><strong>Responsable de toma: </strong> {{ dataResponse?.TireUpdateInformation.Responsable }}</p>
+	</div>
+
+
+	
+	<app-imagen-vehiculo [VehicleTires]="dataResponse?.VehicleTires"></app-imagen-vehiculo>
+	
+
+	<div *ngIf="dataResponse">
+		<div *ngIf="dataResponesTireList" class="row">
+			<div class="col-6" *ngFor="let elemento of dataResponesTireList">
+				<app-detalle-neumatico-individual [item]="elemento"
+					[PhysicalDamage]="PhysicalDamageCatalog"></app-detalle-neumatico-individual>
+			</div>
+		</div>
+	</div>
+
+</div>

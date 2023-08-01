@@ -1,0 +1,109 @@
+//Elementos posiblemente no reutilizables
+.licencePlateCard{
+    background: var(--og-info);
+    border: 2px solid var(--og-info);
+    border-radius: 10px;
+    padding: 0px ; 
+    height: 70px;
+    
+    margin: 10px;
+    & div.col-3{
+        display: flex;
+        align-items: center;
+        & h6{
+            margin: 0;
+            color: var(--og-primary)
+        }
+    }
+    & div.col-9{
+        display: flex;
+        align-items: center;
+        background-color: #fff;
+        & p{
+            margin: 0;
+            & strong{
+                padding-left: 4px;
+            }
+        }
+    }
+}
+.leasing-info{
+    background: var(--og-info);
+    display: flex;
+    & .leasing-box{
+        width: 20%;
+        text-align: center;
+    }
+}
+.blue-btn{
+    background-color: var(--og-primary-light);
+    border-radius: 10px;
+    padding: 10px 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    line-height: 15px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 35px;
+    margin-bottom: 25px;
+}
+.blue-text{
+    color: var(--og-primary-light);
+    font-size: 14px;
+    font-weight: 500;
+}
+.col-border-box{
+    height: 60px;
+    border: 1px solid var(--og-primary-light);
+    border-radius: 10px;
+    & .row{
+        height: 60px;
+        display: flex;
+        align-items: center;
+    }
+}
+.big-border-box{
+    border: 1px solid var(--og-primary-light);
+    border-radius: 10px;
+    padding: 1em;
+}
+.blue-box-centered{
+    background: var(--og-info);
+    width: 98%;
+    margin: 15px 15px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 1em;
+}
+
+//Elementos reutilizables
+.text-blue-light{
+    color: var(--og-primary-light)
+}
+//Global Badge Status 
+.badge-available{
+    background-color: var(--og-success);   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 8px 10px;
+    border:none;
+   }
+.badge-validity{
+    background-color: #FFF5DE;   
+    text-decoration: none;
+    color: var(--og-primary);
+    padding: 8px 15px;
+    border:none;
+    width: fit-content;
+   }
+
+.icon-box{
+    background: var(--og-info);
+    border-radius: 10px;
+    padding: 10px ; 
+    height: 40px;
+    width: 40px;
+}

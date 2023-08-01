@@ -1,0 +1,79 @@
+.neumatico-bloque {
+	display: flex;
+	border: var(--og-primary-light) 1px solid;
+	border-radius: 8px;
+	// padding: 3px;
+	margin-bottom: 10px;
+
+	& div {
+		align-self: flex-start;
+		width: 40px;
+		height: 40px;
+		margin: 7px;
+		border-radius: 5px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		overflow: hidden;
+	}
+
+	&__posicion {
+		background-color: var(--og-info-light);
+		color: var(--og-info-dark);
+		font-size: 20px;
+	}
+
+	&__psi {
+		background-color: var(--og-info-light);
+		color: var(--og-primary-dark);
+
+		& p {
+			font-size: 12px;
+			display: block;
+			text-align: center;
+			line-height: 1em;
+			padding: 0px;
+			margin: 0px;
+		}
+	}
+
+	&__mm {
+		background-color: var(--og-success);
+		color: var(--og-primary-dark);
+
+		& p {
+			font-size: 12px;
+			display: block;
+			text-align: center;
+			line-height: 1em;
+			padding: 0px;
+			margin: 0px;
+		}
+	}
+
+	& .advertencia {
+		background-color: var(--og-warning);
+	}
+
+	& .peligro {
+		background-color: var(--og-danger);
+		& p {
+			color: var(--og-danger-contrast);
+		}
+	}
+
+	& .tracto{
+		margin-right: 5px;
+	}
+}
+
+.horizontal {
+	width: 170px;
+	flex-direction: row;
+}
+
+.vertical {
+	width: 60px;
+	flex-direction: column;
+}

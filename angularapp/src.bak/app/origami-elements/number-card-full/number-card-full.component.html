@@ -1,0 +1,50 @@
+<table class="mini-tabla">
+	<tr>
+		<td [ngClass]="colors[numberoUno]" class="withMinimodal">
+			<a (mouseover)="showModal($event)" (mouseout)="hideModal()">
+				{{ numberoUno }}
+			</a>
+		</td>
+		<td [ngClass]="numberoDos !== '-' ? colors[numberoUno]: ''">
+			{{ numberoDos }}
+		</td>
+	</tr>
+</table>
+
+
+
+
+<div *ngIf="showModalValue" class="og-mini-modal" [ngStyle]="{'top': modalCoordinates.y, 'left': modalCoordinates.x}">
+	<div class="og-mini-modal__header">
+		<div>
+			<span class="blueSquare">{{ miniModalData.Position.slice(1) }}</span>
+		</div>
+
+		<div class="og-mini-modal__header__titulo">
+			<!-- <div class="og-mini-modal__header__status">
+				<span class="small-dot warning"></span> {{this.miniModalData.TireDetail.TireCondition}}
+			</div> -->
+
+			<p class="og-mini-modal__header__economico">
+				<strong>{{ this.miniModalData.TireDetail.Eco }}</strong>
+			</p>
+		</div>
+
+		<div class="mmSquare" [ngClass]="colors[numberoUno]">
+			<p><strong>{{this.miniModalData.TireDetail.Millimeter}}</strong> <span class="small-text"> MM</span></p>
+			<p><strong>PSI:</strong>{{this.miniModalData.TireDetail.PSI}}</p>
+		</div>
+	</div>
+
+
+	<div class="og-mini-modal__body">
+		<p>
+			<b>Medida:</b> {{this.miniModalData.TireDetail.Measure}}<br>
+			<b>Marca de llanta:</b> {{this.miniModalData.TireDetail.Brand}}<br>
+			<b>Diseño:</b> {{this.miniModalData.TireDetail.Design}}<br>
+			<b>DOT:</b> {{this.miniModalData.TireDetail.DOT}}<br>
+			<b>Carga max:</b> {{this.miniModalData.TireDetail.MaximumCapacity}}<br>
+			<b>Velocidad max:</b> {{this.miniModalData.TireDetail.MaximumSpeed}}
+		</p>
+	</div>
+</div>

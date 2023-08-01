@@ -1,0 +1,340 @@
+<div [ngClass]="{'hide':(this.openHistoricPanel)}" class="container-fluid animate__animated animate__fadeIn animate__delay-0.5s">
+	<app-page-header [title]="'Consulta de inventario'" [icon]="'registro-inventario'"
+		[items]="['Inicio', 'Inventario']" [active_item]="'Consulta'"></app-page-header>
+
+    <div class="container">
+		<div class="card">
+            <div class="card-header bg-secondary">
+				<div class="card-header__title text-white">
+					Última actualización: {{this.lastUpdateDate | date:'longDate'}}
+				</div>
+
+				<button class="btn btn-primary d-flex align-items-center" [routerLink]="['/inventario/registro']">
+					<img src="./../../../../assets/icons/plus-circle.svg" alt="">
+					<span>Registrar nueva unidad</span>
+				</button>
+
+				<div class="d-flex align-items-center">
+					<app-boton-descargar-excel [dataSource]="rawData"></app-boton-descargar-excel>
+				</div>
+			</div>
+
+
+            <div class="card-body">
+                <div class="row">
+					<div class="col-12 mb-4">
+						<div class="d-flex">
+							<div class="flex-grow-1 d-flex align-items-center">
+
+								<div *ngFor="let Pill of pillsFilter " >
+									<app-select-pastilla
+										[optionsData]="Pill.Options"
+										[typeSelect]="Pill.Mode"
+										(deleteEmitter)="deletePillFilter($event)"
+										(dateEmitter)="dateRecall($event)"
+										(multiPass)="dateRecallMultiSelect($event)"
+										(change)="readPill($event)"
+										>
+									</app-select-pastilla>
+								</div>
+
+							</div>
+
+							<div class="d-flex">
+								<div>
+									<div class="d-flex justify-content-end">
+
+										<app-boton-pastilla (pillSelect)="pillFilter($event)" [optionsList]="pillFilterOptions"></app-boton-pastilla>
+
+										<app-table-filter-columns [columns]="displayedColumnsReescribir" (returnedColumns)="renderColumns($event)"></app-table-filter-columns>
+
+										<app-table-filter-search (filter)="readingFilter($event)"></app-table-filter-search>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="col-12">
+						<div class="table-wrapper">
+							<ng-template [ngIf]="myPreloader" class="col-12">
+
+								<ng-template [ngIf]="myPreloader" >
+									<div class="col-12 text-center p-5 text-secondary">
+										... cargando...
+									</div>
+								</ng-template>
+
+							</ng-template>
+							<ng-template [ngIf]="!myPreloader">
+								<table mat-table [dataSource]="dataInventory" class="w-100">
+
+									<!-- Actions with id -->
+									<ng-container matColumnDef="Id">
+										<th mat-header-cell *matHeaderCellDef>Acciones</th>
+										<td mat-cell *matCellDef="let element" class="m-0 p-0" style="width: 130px;">
+
+											<div style="margin: 0px!important; text-align: center;" class="d-flex justify-content-center">
+												<a (click)="editar(element, $event)" class="button_icon link-funcion" placement="top" ngbTooltip="Edición">
+													<img src="./../../../../assets/icons/inventario_ic_seguimiento.svg" alt="">
+												</a>
+
+												<a (click)="historico(element)" class="button_icon link-funcion" placement="top" ngbTooltip="Histórico">
+													<img src="./../../../../assets/icons/inventario_ic_historico.svg" alt="">
+												</a>
+
+												<a (click)="traspasar(element)" class="button_icon link-funcion" placement="top" ngbTooltip="Traspaso">
+													<img src="./../../../../assets/icons/inventario_ic_traspasar.svg" alt="">
+												</a>
+
+												<a (click)="cargarDetalle(element.Identifier, element.Status)" class="button_icon link-funcion" placement="top" ngbTooltip="Ver más">
+													<img src="./../../../../assets/icons/inventario_ic_ver_mas.svg" alt="">
+												</a>
+
+
+												<!-- <a (click)="openSidebar(element)" class="button_icon link-funcion" placement="top" ngbTooltip="Ver más">
+													<img src="./../../../../assets/icons/inventario_ic_ver_mas.svg" alt="">
+												</a> -->
+											</div>
+										</td>
+									</ng-container>
+
+									<!-- Status Column -->
+									<ng-container matColumnDef="Status">
+										<th mat-header-cell *matHeaderCellDef> Status  </th>
+										<td mat-cell *matCellDef="let element">
+											<app-boton-status [element]="element" (clickBack)="closeModalViaEvent($event)"></app-boton-status>
+										</td>
+									</ng-container>
+
+									<!-- Substatus Column -->
+									<ng-container matColumnDef="Substatus">
+										<th mat-header-cell *matHeaderCellDef> Substatus </th>
+										<td mat-cell *matCellDef="let element">
+											<a class="sub-status widthCard" (mouseenter)="cargarSubStatus(element.Identifier, element.Status)">
+												{{ element.SubStatus }}
+
+												<div class="mini-modal" style="z-index: 999999999999999999999999999999999999999; cursor: pointer;">
+													<div class="display-inline-block text-start p-2">
+													   <ng-template [ngIf]="element.Identifier == this.idVehicle">
+														   <app-substatus></app-substatus>
+													   </ng-template>
+												   </div>
+											   </div>
+											</a>
+										</td>
+									</ng-container>
+
+									<!-- Económico Column -->
+									<ng-container matColumnDef="Económico">
+										<th mat-header-cell *matHeaderCellDef> Económico </th>
+										<td mat-cell *matCellDef="let element">
+											{{ element.Eco }}
+										</td>
+									</ng-container>
+
+									<!-- status_info Column -->
+									<ng-container matColumnDef="Información">
+										<th mat-header-cell *matHeaderCellDef > Status Información </th>
+										<td mat-cell *matCellDef="let element" >
+											<div class="d-flex items-align-center" >
+												<ng-template [ngIf]="element.StatusInformation == 'Completo'">
+													<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;width: 15px">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 11.3869 17.0518 13.6761 15.364 15.364C13.6761 17.0518 11.3869 18 9 18C6.61305 18 4.32387 17.0518 2.63604 15.364C0.948212 13.6761 0 11.3869 0 9C0 6.61305 0.948212 4.32387 2.63604 2.63604C4.32387 0.948212 6.61305 0 9 0C11.3869 0 13.6761 0.948212 15.364 2.63604C17.0518 4.32387 18 6.61305 18 9ZM13.5337 5.59125C13.4534 5.51117 13.3577 5.44812 13.2524 5.40587C13.1471 5.36361 13.0344 5.34303 12.921 5.34534C12.8076 5.34765 12.6958 5.37281 12.5923 5.41931C12.4888 5.46582 12.3958 5.53271 12.3187 5.616L8.41162 10.5941L6.057 8.23837C5.89705 8.08933 5.6855 8.0082 5.46691 8.01205C5.24832 8.01591 5.03976 8.10446 4.88518 8.25905C4.73059 8.41364 4.64204 8.6222 4.63818 8.84079C4.63432 9.05938 4.71546 9.27093 4.8645 9.43088L7.84125 12.4087C7.92144 12.4888 8.01693 12.5519 8.12203 12.5942C8.22713 12.6366 8.33968 12.6573 8.45296 12.6552C8.56625 12.6531 8.67795 12.6282 8.78141 12.582C8.88486 12.5358 8.97795 12.4692 9.05512 12.3863L13.5461 6.7725C13.6992 6.61331 13.7838 6.40043 13.7817 6.17958C13.7796 5.95872 13.691 5.74749 13.5349 5.59125H13.5337Z" fill="#62E700"/>
+													</svg>
+													<span class="completo" style="width: 90px; margin: auto -5px; text-decoration: none;"> {{ element.StatusInformation }} </span>
+												</ng-template>
+
+												<ng-template [ngIf]="element.StatusInformation == 'Incompleto'">
+													<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px; width: 15px">
+														<path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 11.3869 17.0518 13.6761 15.364 15.364C13.6761 17.0518 11.3869 18 9 18C6.61305 18 4.32387 17.0518 2.63604 15.364C0.948212 13.6761 0 11.3869 0 9C0 6.61305 0.948212 4.32387 2.63604 2.63604C4.32387 0.948212 6.61305 0 9 0C11.3869 0 13.6761 0.948212 15.364 2.63604C17.0518 4.32387 18 6.61305 18 9ZM9 4.5C8.85781 4.50008 8.71721 4.52994 8.58726 4.58767C8.45731 4.64539 8.3409 4.7297 8.24551 4.83515C8.15013 4.9406 8.07789 5.06487 8.03345 5.19994C7.98901 5.33501 7.97336 5.47789 7.9875 5.61937L8.38125 9.56475C8.39448 9.71974 8.4654 9.86413 8.57998 9.96934C8.69455 10.0746 8.84444 10.1329 9 10.1329C9.15556 10.1329 9.30545 10.0746 9.42002 9.96934C9.5346 9.86413 9.60552 9.71974 9.61875 9.56475L10.0125 5.61937C10.0266 5.47789 10.011 5.33501 9.96655 5.19994C9.92211 5.06487 9.84987 4.9406 9.75449 4.83515C9.6591 4.7297 9.54269 4.64539 9.41274 4.58767C9.28279 4.52994 9.14219 4.50008 9 4.5ZM9.00225 11.25C8.70388 11.25 8.41773 11.3685 8.20675 11.5795C7.99578 11.7905 7.87725 12.0766 7.87725 12.375C7.87725 12.6734 7.99578 12.9595 8.20675 13.1705C8.41773 13.3815 8.70388 13.5 9.00225 13.5C9.30062 13.5 9.58677 13.3815 9.79774 13.1705C10.0087 12.9595 10.1272 12.6734 10.1272 12.375C10.1272 12.0766 10.0087 11.7905 9.79774 11.5795C9.58677 11.3685 9.30062 11.25 9.00225 11.25Z" fill="#FFBF25"/>
+													</svg>
+													<span (click)="incompleto(element.Identifier, [element.Eco, element.Cbu, element.Region, element.Site, element.VehicleType])" class="incompleto" style="width: 90px; margin: auto auto; cursor: pointer;"> {{ element.StatusInformation }} </span>
+												</ng-template>
+											</div>
+										</td>
+									</ng-container>
+
+									<!-- cbu Column -->
+									<ng-container matColumnDef="Cbu">
+										<th mat-header-cell *matHeaderCellDef> CBU </th>
+										<td mat-cell *matCellDef="let element">
+											{{ element.Cbu }}
+										</td>
+									</ng-container>
+
+									<!-- region Column -->
+									<ng-container matColumnDef="Región">
+										<th mat-header-cell *matHeaderCellDef> Región </th>
+										<td mat-cell *matCellDef="let element">
+											{{ element.Region }}
+										</td>
+									</ng-container>
+
+									<!-- sitio Column -->
+									<ng-container matColumnDef="Sitio">
+										<th mat-header-cell *matHeaderCellDef> Sitio </th>
+										<td mat-cell *matCellDef="let element">
+											{{ element.Site }}
+										</td>
+									</ng-container>
+
+									<!-- poliza Column -->
+									<ng-container matColumnDef="Póliza">
+										<th mat-header-cell *matHeaderCellDef> Póliza </th>
+										<td mat-cell *matCellDef="let element">
+											{{ element.Policy }}
+										</td>
+									</ng-container>
+
+									<!-- vigencia Column -->
+									<ng-container matColumnDef="Vigencia">
+										<th mat-header-cell *matHeaderCellDef> Vigencia </th>
+										<td mat-cell *matCellDef="let element">
+											{{ element.Validity }}
+										</td>
+									</ng-container>
+
+									<!-- caseta Column -->
+									<ng-container matColumnDef="Tag">
+										<th mat-header-cell *matHeaderCellDef > Caseta Tag </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.Tag }}
+										</td>
+									</ng-container>
+
+									<!-- proveedor Column -->
+									<ng-container matColumnDef="Proveedor_de_combustible">
+										<th mat-header-cell *matHeaderCellDef > Comb Proveedor </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.CombSupplier }}
+										</td>
+									</ng-container>
+
+									<!-- telemetría Column -->
+									<ng-container matColumnDef="Telemetría">
+										<th mat-header-cell *matHeaderCellDef > Status de telemetría </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.TelemetryStatus }}
+										</td>
+									</ng-container>
+
+									<!-- tipo de vehículo Column -->
+									<ng-container matColumnDef="Tipo_de_vehículo">
+										<th mat-header-cell *matHeaderCellDef > Tipo de vehículo </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.VehicleType }}
+										</td>
+									</ng-container>
+
+									<!-- placa Column -->
+									<ng-container matColumnDef="Placa">
+										<th mat-header-cell *matHeaderCellDef > Placas </th>
+										<td mat-cell *matCellDef="let element" >
+											{{ element.Plate }}
+										</td>
+									</ng-container>
+
+									<!-- progress Column -->
+									<ng-container matColumnDef="Info">
+										<th mat-header-cell *matHeaderCellDef > Información registrada </th>
+										<td mat-cell *matCellDef="let element" >
+											<ngb-progressbar class="mb-3" [showValue]="true" type="warning" [value]="100/2"></ngb-progressbar>
+										</td>
+									</ng-container>
+
+									<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+									<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+								</table>
+							</ng-template>
+						</div>
+
+						<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+					</div>
+				</div>
+            </div>
+        </div>
+
+		<!-- PANEL DE DETALLE DE VEHÍCULO -->
+		<app-detalle></app-detalle>
+
+		<ng-template #modalIncompleto let-modal>
+			<div class="text-end" style="cursor: pointer;">
+				<a (click)="modal.dismiss('Cross click')">
+					<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M30 15C30 18.9782 28.4196 22.7936 25.6066 25.6066C22.7936 28.4196 18.9782 30 15 30C11.0218 30 7.20644 28.4196 4.3934 25.6066C1.58035 22.7936 0 18.9782 0 15C0 11.0218 1.58035 7.20644 4.3934 4.3934C7.20644 1.58035 11.0218 0 15 0C18.9782 0 22.7936 1.58035 25.6066 4.3934C28.4196 7.20644 30 11.0218 30 15ZM10.0387 8.71125C9.86271 8.53521 9.62395 8.43632 9.375 8.43632C9.12605 8.43632 8.88729 8.53521 8.71125 8.71125C8.53521 8.88729 8.43632 9.12605 8.43632 9.375C8.43632 9.62395 8.53521 9.86271 8.71125 10.0387L13.6744 15L8.71125 19.9613C8.62408 20.0484 8.55494 20.1519 8.50777 20.2658C8.4606 20.3797 8.43632 20.5017 8.43632 20.625C8.43632 20.7483 8.4606 20.8703 8.50777 20.9842C8.55494 21.0981 8.62408 21.2016 8.71125 21.2887C8.88729 21.4648 9.12605 21.5637 9.375 21.5637C9.49827 21.5637 9.62033 21.5394 9.73422 21.4922C9.84811 21.4451 9.95158 21.3759 10.0387 21.2887L15 16.3256L19.9613 21.2887C20.0484 21.3759 20.1519 21.4451 20.2658 21.4922C20.3797 21.5394 20.5017 21.5637 20.625 21.5637C20.7483 21.5637 20.8703 21.5394 20.9842 21.4922C21.0981 21.4451 21.2016 21.3759 21.2887 21.2887C21.3759 21.2016 21.4451 21.0981 21.4922 20.9842C21.5394 20.8703 21.5637 20.7483 21.5637 20.625C21.5637 20.5017 21.5394 20.3797 21.4922 20.2658C21.4451 20.1519 21.3759 20.0484 21.2887 19.9613L16.3256 15L21.2887 10.0387C21.3759 9.95158 21.4451 9.84811 21.4922 9.73422C21.5394 9.62033 21.5637 9.49827 21.5637 9.375C21.5637 9.25173 21.5394 9.12967 21.4922 9.01578C21.4451 8.90189 21.3759 8.79842 21.2887 8.71125C21.2016 8.62408 21.0981 8.55494 20.9842 8.50777C20.8703 8.4606 20.7483 8.43632 20.625 8.43632C20.5017 8.43632 20.3797 8.4606 20.2658 8.50777C20.1519 8.55494 20.0484 8.62408 19.9613 8.71125L15 13.6744L10.0387 8.71125Z" fill="#F89074"/>
+					</svg>
+				</a>
+			</div>
+
+			<div class="modal-body text-center origami-modal" style="padding: 0px 30px 30px 30px;">
+
+				<div class="bloque-azul d-flex align-items-center mb-3" style="background: #112876; border-radius: 10px; padding: 10px 20px; height: 70px;">
+					<div class="flex-grow-1" style="font-size: 18px; color: #FFF;  text-align: left;">
+						<strong>{{this.informationProgressHeader[0]}}</strong> <span class="ms-1 me-1 "> | </span>
+						<strong>{{this.informationProgressHeader[1]}}</strong> <span class="ms-1 me-1"> | </span>
+						<strong>{{this.informationProgressHeader[2]}}</strong> <span class="ms-1 me-1"> - </span>
+						<strong>{{this.informationProgressHeader[3]}}</strong> <span class="ms-1 me-1"> | </span>
+						<strong>{{this.informationProgressHeader[4]}}</strong>
+					</div>
+
+				</div>
+				<section class="container-fluid mt-2 " >
+					<div class="row mt-2">
+						<div class="col-6 d-flex flex-column align-content-around flex-wrap" *ngFor="let informationSection of this.informationProgress.InformationProgress; let i = index">
+							<div [ngClass]="i === 0 || i === 1 ? null : 'border-bottom'" class="w-100 mt-2 mb-2"></div>
+							<h6 class="text-secondary text-uppercase text-start mt-2"><strong>{{informationSection.SectionName}}</strong></h6>
+							<p class="mb-1"><ngb-progressbar
+								[type]="informationSection.Percentage < 33 ? 'danger' : (informationSection.Percentage < 33 && informationSection.Percentage < 66 )? 'warning' : 'success'  "
+								[textType]="informationSection.Percentage < 33 ? 'white' : 'secondary' "
+								[value]="informationSection.Percentage"
+								[showValue]="true">
+							</ngb-progressbar></p>
+							<ul class="text-start mb-1 mt-1">
+								<li class="text-secondary"  *ngFor="let missingInformation of informationSection.MissingInformation"> {{missingInformation}}</li>
+							</ul>
+						</div>
+					</div>
+				</section>
+			</div>
+		</ng-template>
+
+		<ng-template #modalTraspasarPasoUno let-modal>
+			<div class="text-end" style="cursor: pointer;">
+				<a (click)="modal.dismiss('Cross click')">
+					<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M30 15C30 18.9782 28.4196 22.7936 25.6066 25.6066C22.7936 28.4196 18.9782 30 15 30C11.0218 30 7.20644 28.4196 4.3934 25.6066C1.58035 22.7936 0 18.9782 0 15C0 11.0218 1.58035 7.20644 4.3934 4.3934C7.20644 1.58035 11.0218 0 15 0C18.9782 0 22.7936 1.58035 25.6066 4.3934C28.4196 7.20644 30 11.0218 30 15ZM10.0387 8.71125C9.86271 8.53521 9.62395 8.43632 9.375 8.43632C9.12605 8.43632 8.88729 8.53521 8.71125 8.71125C8.53521 8.88729 8.43632 9.12605 8.43632 9.375C8.43632 9.62395 8.53521 9.86271 8.71125 10.0387L13.6744 15L8.71125 19.9613C8.62408 20.0484 8.55494 20.1519 8.50777 20.2658C8.4606 20.3797 8.43632 20.5017 8.43632 20.625C8.43632 20.7483 8.4606 20.8703 8.50777 20.9842C8.55494 21.0981 8.62408 21.2016 8.71125 21.2887C8.88729 21.4648 9.12605 21.5637 9.375 21.5637C9.49827 21.5637 9.62033 21.5394 9.73422 21.4922C9.84811 21.4451 9.95158 21.3759 10.0387 21.2887L15 16.3256L19.9613 21.2887C20.0484 21.3759 20.1519 21.4451 20.2658 21.4922C20.3797 21.5394 20.5017 21.5637 20.625 21.5637C20.7483 21.5637 20.8703 21.5394 20.9842 21.4922C21.0981 21.4451 21.2016 21.3759 21.2887 21.2887C21.3759 21.2016 21.4451 21.0981 21.4922 20.9842C21.5394 20.8703 21.5637 20.7483 21.5637 20.625C21.5637 20.5017 21.5394 20.3797 21.4922 20.2658C21.4451 20.1519 21.3759 20.0484 21.2887 19.9613L16.3256 15L21.2887 10.0387C21.3759 9.95158 21.4451 9.84811 21.4922 9.73422C21.5394 9.62033 21.5637 9.49827 21.5637 9.375C21.5637 9.25173 21.5394 9.12967 21.4922 9.01578C21.4451 8.90189 21.3759 8.79842 21.2887 8.71125C21.2016 8.62408 21.0981 8.55494 20.9842 8.50777C20.8703 8.4606 20.7483 8.43632 20.625 8.43632C20.5017 8.43632 20.3797 8.4606 20.2658 8.50777C20.1519 8.55494 20.0484 8.62408 19.9613 8.71125L15 13.6744L10.0387 8.71125Z" fill="#F89074"/>
+					</svg>
+				</a>
+			</div>
+			<div class="modal-body" style="padding: 0px 30px;">
+				<app-traspaso-unidad [dataHeader]="modalHeaderData" (clickBack)="closeModalViaEvent($event)"></app-traspaso-unidad>
+			</div>
+		</ng-template>
+
+		<ng-template #flujoCambioStatus let-modal>
+			<div class="text-end" style="cursor: pointer;">
+				<a (click)="modal.dismiss('Cross click')">
+					<img src="./../../../../assets/icons/ic_cerrar.svg" alt="">
+				</a>
+			</div>
+			<div class="modal-body">
+				<app-cambio-status [dataHeader]="modalHeaderData" (clickBack)="closeModalViaEvent($event)"></app-cambio-status>
+			</div>
+		</ng-template>
+	</div>
+
+
+
+
+
+
+
+</div>
+
+<!--HISTÓRICO DE VEHÍCULO -->
+<app-historico *ngIf="this.openHistoricPanel" [ngClass]="{'hide':!(this.openHistoricPanel)}" [dataHeader]="modalHeaderData" (clickBack)="closeHistorico($event)"></app-historico>

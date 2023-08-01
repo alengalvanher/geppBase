@@ -1,0 +1,62 @@
+<div class="container-fluid">
+
+
+	<div class="card mt-3">
+
+		<div class="card-header">
+			<div class="flex-1">
+				<h2>Registro de neumáticos</h2>
+			</div>
+
+			<div>
+				<p><a href="#">Inicio</a> / <a href="#">Neumáticos</a> / Registro de neumáticos</p>
+			</div>
+		</div>
+
+		<div class="card-body">
+
+
+			<div class="d-flex" style="margin-bottom: 30px;">
+				<div class="flex-1" style="padding-right: 20px;">
+
+					<nav ngbNav #nav3="ngbNav">
+						<ng-container ngbNavItem>
+							<a ngbNavLink>En uso</a>
+							<ng-template ngbNavContent>
+
+								<app-form-stock></app-form-stock>
+
+							</ng-template>
+						</ng-container>
+						<ng-container ngbNavItem>
+							<a ngbNavLink>En stock</a>
+							<ng-template ngbNavContent>
+
+								<app-form-stock></app-form-stock>
+
+							</ng-template>
+						</ng-container>
+					</nav>
+
+				</div>
+
+
+				<div style="padding-left: 10px; padding-top: 15px;">
+					<button class="btn btn-primary">
+						CARGA MASIVA
+					</button>
+				</div>
+			</div>
+
+
+
+
+			<div>
+				<div [ngbNavOutlet]="nav3"></div>
+			</div>
+		</div>
+
+	</div>
+
+
+</div>

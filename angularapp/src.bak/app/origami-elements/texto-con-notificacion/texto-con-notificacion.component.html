@@ -1,0 +1,12 @@
+<div class="texto-con-notificacion" (click)="clickEmitter.emit(this.texto)">
+    <div class="notificacion" [ngClass]="modo">
+        <div>
+            {{ cantidad }}
+        </div>
+    </div>
+    <div class="texto">
+        <div>
+            {{ texto }}
+        </div>
+    </div>
+</div>

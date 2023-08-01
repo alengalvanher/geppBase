@@ -1,0 +1,92 @@
+<div class="card">
+	<div class="card-header bg-secondary">
+		<div class="card-header__title text-white">
+			Posición {{ item.Position }}  | {{ item.Position }}
+		</div>
+	</div>
+
+	<div class="card-body">
+
+		<b>Id:</b> {{ item.Id }} <br>
+		<b>Medida:</b> {{ item.Measure }} <br>
+		<b>Marca:</b> {{ item.Brand }} <br>
+		<b>Diseño:</b> {{ item.Design }} <br>
+		<b>DOT:</b> {{ item.DOT }} <br>
+		<b>Carga Max:</b> {{ item.MaximumCapacity }} <br>
+		<b>Velocidad max:</b> {{ item.MaximumSpeed }} <br>
+		<div *ngIf="!edicion">
+			<b>MM:</b> {{ item.Millimeter }} <br>
+			<b>PSI:</b> {{ item.PSI }} <br>
+			<b>Condición fisica:</b> {{ item.TireCondition }} <br>
+
+
+			<div class="col-12">
+				<button type="submit" class="btn btn-primary" (click)="actualizar()">
+					Actualizar
+				</button>
+			</div>
+		</div>
+
+
+
+		<div *ngIf="edicion">
+			<form [formGroup]="formMillimeter">
+
+				<div class="col-12 col-md-6 col-lg-4 mt-3">
+					<div class="form-group">
+						<label class="form-control-label text-secondary mb-1 mt-1" for="Year">Milimetraje*:</label>
+						<select class="form-select form-control select-origami w-100" formControlName="Millimeter"
+							id="Year" placeholder="2022">
+							<option selected disabled value="">Selecciona el mm</option>
+							<ng-container *ngFor="let item of milimetrajes">
+								<option *ngIf="item.viewValue" [value]="item.value">{{ item.viewValue }}</option>
+							</ng-container>
+						</select>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-6 col-lg-4 mt-3">
+					<div class="form-group">
+						<label class="form-control-label text-secondary mb-1 mt-1" for="Year">PSI*:</label>
+						<select class="form-select form-control select-origami w-100" formControlName="PSI"
+							id="Year" placeholder="2022">
+							<option selected disabled value="">Selecciona el año</option>
+							<ng-container *ngFor="let item of psi">
+								<option *ngIf="item.viewValue" [value]="item.value">{{ item.viewValue }}</option>
+							</ng-container>
+						</select>
+					</div>
+				</div>
+
+
+				<div class="col-12 col-md-6 col-lg-4 mt-3">
+					<div class="form-group">
+						<label class="form-control-label text-secondary mb-1 mt-1" for="Year">Año*:</label>
+						<select class="form-select form-control select-origami w-100" formControlName="TireCondition"
+							id="Year" placeholder="2022">
+							<option selected disabled value="">Selecciona el año</option>
+							<ng-container *ngFor="let item of PhysicalDamage.PhysicalDamage">
+								<option *ngIf="item.PhysicalDamage" [value]="item.Identifier">{{ item.PhysicalDamage }}</option>
+							</ng-container>
+						</select>
+					</div>
+				</div>
+
+
+				<div class="col-12">
+					<button type="submit" class="btn btn-info" (click)="cancelar()">
+						Cancelar
+					</button>
+
+					<button type="submit" class="btn btn-primary" (click)="enviar()">
+						Actualizar
+					</button>
+				</div>
+			</form>
+
+		</div>
+
+
+
+	</div>
+</div>

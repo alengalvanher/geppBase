@@ -1,0 +1,8 @@
+<a class="filter-btn-area" mat-button [matMenuTriggerFor]="menu">
+	<img src="./../../../../assets/icons/btn_filtrar.svg" alt="">
+</a>
+<mat-menu #menu="matMenu">
+	<button mat-menu-item *ngFor="let item of this.optionsList" (click)="pillSelect.emit(item)">
+		{{item}}
+	</button>
+</mat-menu>

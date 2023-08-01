@@ -1,0 +1,92 @@
+input[type=file] {
+	font-size: 13px;
+	color: #707EAD;
+
+	&:active,
+	&:focus {
+		color: #707EAD;
+	}
+
+	&::file-selector-button {
+		background-color: #E1E7FB !important;
+		color: #707EAD;
+		height: 45px;
+		padding: auto 16px;
+		font-size: 13px;
+	}
+
+	&:hover {
+		&::file-selector-button {
+			background-color: #AFBFF4 !important;
+		}
+	}
+}
+
+
+.form-control-label {
+	font-weight: 400;
+	font-size: 14px;
+	color: var(--og-primary);
+	margin-bottom: 10px;
+	text-align: left;
+	display: block;
+}
+
+.select-origami {
+	background: url(./../../../assets/icons/select-after.svg) top right no-repeat;
+	background-position: right 0.75rem center;
+
+	color: #8894BB;
+	font-size: 13px;
+	height: 45px;
+	padding-right: 32px;
+
+	&:active,
+	&:focus {
+		color: #8894BB !important;
+	}
+}
+
+.input-table-search {
+	width: 270px;
+}
+
+.form-control {
+	font-size: 13px;
+	width: auto;
+}
+
+.select-light {
+	min-width: 95px;
+	font-size: 14px;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #14318E;
+
+	background: #FFF url(./../../../assets/icons/arrow-select-2.svg) top right no-repeat;
+	background-position: right 0.75rem center;
+
+	&:active,
+	&:focus {
+		color: #14318E !important;
+	}
+}
+
+
+input {
+	height: 45px;
+}
+
+
+.form-group {
+	.btn {
+		height: 45px!important;
+	}
+}
+
+
+.form-check-label {
+	font-size: 13px;
+	color: var(--og-info-text);
+	padding: 0px 5px;
+}

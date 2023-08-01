@@ -1,0 +1,112 @@
+<div *ngIf="data?.IsOutCedis" class="caja">
+	<a (click)="abrirModalDiscrepancias()">
+		<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path fill-rule="evenodd" clip-rule="evenodd" d="M14 7.5C14 9.35652 13.2625 11.137 11.9497 12.4497C10.637 13.7625 8.85652 14.5 7 14.5C5.14348 14.5 3.36301 13.7625 2.05025 12.4497C0.737498 11.137 0 9.35652 0 7.5C0 5.64348 0.737498 3.86301 2.05025 2.55025C3.36301 1.2375 5.14348 0.5 7 0.5C8.85652 0.5 10.637 1.2375 11.9497 2.55025C13.2625 3.86301 14 5.64348 14 7.5ZM7 4C6.88941 4.00006 6.78005 4.02329 6.67898 4.06819C6.57791 4.11308 6.48736 4.17865 6.41318 4.26067C6.33899 4.34269 6.2828 4.43934 6.24824 4.5444C6.21368 4.64945 6.2015 4.76058 6.2125 4.87063L6.51875 7.93925C6.52904 8.0598 6.5842 8.1721 6.67331 8.25393C6.76243 8.33576 6.87901 8.38117 7 8.38117C7.12099 8.38117 7.23757 8.33576 7.32669 8.25393C7.4158 8.1721 7.47096 8.0598 7.48125 7.93925L7.7875 4.87063C7.7985 4.76058 7.78632 4.64945 7.75176 4.5444C7.7172 4.43934 7.66101 4.34269 7.58682 4.26067C7.51264 4.17865 7.42209 4.11308 7.32102 4.06819C7.21995 4.02329 7.11059 4.00006 7 4ZM7.00175 9.25C6.76969 9.25 6.54713 9.34219 6.38303 9.50628C6.21894 9.67038 6.12675 9.89294 6.12675 10.125C6.12675 10.3571 6.21894 10.5796 6.38303 10.7437C6.54713 10.9078 6.76969 11 7.00175 11C7.23381 11 7.45637 10.9078 7.62047 10.7437C7.78456 10.5796 7.87675 10.3571 7.87675 10.125C7.87675 9.89294 7.78456 9.67038 7.62047 9.50628C7.45637 9.34219 7.23381 9.25 7.00175 9.25Z" fill="#FF252B"/>
+		</svg>
+
+
+		{{ data.CedisStation }}
+	</a>
+</div>
+
+<div *ngIf="!data?.IsOutCedis" class="caja">
+	{{ data.CedisStation }}
+</div>
+
+
+
+
+
+
+
+
+
+<ng-template #simpleAlert let-modal>
+	<div class="text-end" style="cursor: pointer;">
+		<a (click)="modal.dismiss('Cross click')">
+			<img src="./../../../../assets/icons/ic_cerrar.svg" alt="">
+		</a>
+	</div>
+
+
+	<div class="modal-body text-center origami-modal">
+		<div class="mb-3">
+
+			<div class="row">
+				<div class="col-12 mb-3">
+					<div class="barra-azul">
+						{{ responseDiscrepancias.VehicleInformation.Eco }} <b>|</b>
+						{{ responseDiscrepancias.VehicleInformation.CbuName }} <b>|</b>
+						{{ responseDiscrepancias.VehicleInformation.RegionName }} - {{ responseDiscrepancias.VehicleInformation.CurrentUbication }} <b>|</b>
+						{{ responseDiscrepancias.VehicleInformation.TypeName }} <b>|</b>
+					</div>
+				</div>
+
+				<div class="col-12 mb-3" style="text-align: left;">
+					<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M14 7.5C14 9.35652 13.2625 11.137 11.9497 12.4497C10.637 13.7625 8.85652 14.5 7 14.5C5.14348 14.5 3.36301 13.7625 2.05025 12.4497C0.737498 11.137 0 9.35652 0 7.5C0 5.64348 0.737498 3.86301 2.05025 2.55025C3.36301 1.2375 5.14348 0.5 7 0.5C8.85652 0.5 10.637 1.2375 11.9497 2.55025C13.2625 3.86301 14 5.64348 14 7.5V7.5ZM7 4C6.88941 4.00006 6.78005 4.02329 6.67898 4.06819C6.57791 4.11308 6.48736 4.17865 6.41318 4.26067C6.33899 4.34269 6.2828 4.43934 6.24824 4.5444C6.21368 4.64945 6.2015 4.76058 6.2125 4.87063L6.51875 7.93925C6.52904 8.0598 6.5842 8.1721 6.67331 8.25393C6.76243 8.33576 6.87901 8.38117 7 8.38117C7.12099 8.38117 7.23757 8.33576 7.32669 8.25393C7.4158 8.1721 7.47096 8.0598 7.48125 7.93925L7.7875 4.87063C7.7985 4.76058 7.78632 4.64945 7.75176 4.5444C7.7172 4.43934 7.66101 4.34269 7.58682 4.26067C7.51264 4.17865 7.42209 4.11308 7.32102 4.06819C7.21995 4.02329 7.11059 4.00006 7 4V4ZM7.00175 9.25C6.76969 9.25 6.54713 9.34219 6.38303 9.50628C6.21894 9.67038 6.12675 9.89294 6.12675 10.125C6.12675 10.3571 6.21894 10.5796 6.38303 10.7437C6.54713 10.9078 6.76969 11 7.00175 11C7.23381 11 7.45637 10.9078 7.62047 10.7437C7.78456 10.5796 7.87675 10.3571 7.87675 10.125C7.87675 9.89294 7.78456 9.67038 7.62047 9.50628C7.45637 9.34219 7.23381 9.25 7.00175 9.25Z" fill="#FF252B"/>
+						</svg>
+
+					<span style="color: #112876; font-weight: semi-bold; font-size: 14px;">
+						Discrepancias detectadas
+					</span>
+
+				</div>
+			</div>
+
+
+			<div class="table-wrapper">
+
+				<table mat-table [dataSource]="tableData" class="w-100">
+
+
+					<!-- cbu Column -->
+					<ng-container matColumnDef="Cedis">
+						<th mat-header-cell *matHeaderCellDef> CEDIS asignado </th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.AssignedCedis }}
+						</td>
+					</ng-container>
+
+					<!-- region Column -->
+					<ng-container matColumnDef="Ubicacion">
+						<th mat-header-cell *matHeaderCellDef> Ubicación identificada </th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.CurrentUbication }}
+						</td>
+					</ng-container>
+
+					<!-- sitio Column -->
+					<ng-container matColumnDef="Fecha">
+						<th mat-header-cell *matHeaderCellDef> Fecha </th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.MsgTime }}
+						</td>
+					</ng-container>
+
+
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+				</table>
+
+
+			</div>
+
+		</div>
+
+		<!-- <p style="font-size: 18px; color: #112876;">
+			<ng-template [ngIf]="responseData.Success == false">
+				{{ responseData.Message }}
+			</ng-template>
+
+			<ng-template [ngIf]="responseData.Success == true">
+				Tu formulario se ha envíado con éxito
+			</ng-template>
+		</p>
+		<a class="btn btn-primary" (click)="modalDismiss()">
+			Aceptar
+		</a> -->
+	</div>
+</ng-template>

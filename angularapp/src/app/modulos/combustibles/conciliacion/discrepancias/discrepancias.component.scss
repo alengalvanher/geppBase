@@ -1,0 +1,20 @@
+.caja {
+	width: 120px;
+}
+
+a {
+	color: #3FC2F3;
+	text-decoration: underline;
+}
+
+.barra-azul {
+	background-color: #112876;
+	padding: 15px;
+	border-radius: 10px;
+	color: #FFF;
+	text-align: left;
+
+	& b {
+		color: #2E48CB;
+	}
+}

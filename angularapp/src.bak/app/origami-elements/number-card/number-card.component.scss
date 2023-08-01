@@ -1,0 +1,52 @@
+.wrapper {
+	display: inline-block;
+}
+
+.box	{
+	height: 40px;
+	width: 40px;
+	display: flex;
+	align-items: center;
+	float: left;
+
+	& div {
+		width: 100%;
+		text-align: center;
+		position: relative;
+
+		& .modalita {
+			position: absolute;
+			left: 15px;
+			display: none;
+			width: 240px;
+			height: 190px;
+			background-color: #FFF;
+			border-radius: 10px;
+			border: #EEE 1px solid;
+			z-index: 1000000;
+		}
+
+		&:hover {
+			& .modalita {
+				display: block;
+			}
+		}
+	}
+}
+
+.success {
+	color: #22C55E;
+	background-color: #DCFCE7;
+	border-right: #E1E7FB 1px solid;
+}
+
+.warning {
+	color: #585863;
+	background-color: #FEF9C3;
+}
+
+.danger {
+	color: #EF4444;
+	background-color: #FEE2E2;
+}
+

@@ -1,0 +1,48 @@
+.neumatico-item {
+	border: #2E48CB 1px solid;
+	border-radius: 10px;
+	padding: 0px;
+	overflow: hidden;
+	margin-bottom: 20px;
+
+	&__header {
+		background-color: #112876;
+		padding: 15px 20px;
+
+		&__text {
+			color: #FFF;
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
+
+	&__bloque {
+		padding: 15px 20px;
+		font-size: 13px;
+		line-height: 1.8em;
+
+		& b {
+			font-weight: 500;
+		}
+
+		&__light {
+			background-color: #F4F5F9;
+			border: #E1E7FB 1px solid;
+
+			& input, & select {
+				background-color: #FFF;
+			}
+		}
+	}
+
+	&__botonera {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 15px;
+
+		& button {
+			margin: 3px;
+		}
+	}
+}

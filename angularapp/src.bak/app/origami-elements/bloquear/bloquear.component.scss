@@ -1,0 +1,13 @@
+.candado-wrapper {
+	display: block;
+	position: relative;
+	// background-color:aqua;
+	display: inline-block;
+
+	& .red {
+		display: block;
+		position: absolute;
+		right: -5px;
+		top: -8px;
+	}
+}

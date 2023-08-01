@@ -1,0 +1,65 @@
+<div *ngIf="tableFlag" class="container-fluid pt-3 pb-5 animate__animated animate__fadeIn animate__faster">
+
+	<app-page-header [title]="'Inventario de neumáticos en uso'" [icon]="'neumaticos'" [items]="['Inicio', 'Neumáticos', 'Inventario']"
+		[active_item]="'En uso'"></app-page-header>
+
+
+	<div class="card">
+		<div class="card-header bg-secondary">
+			<div class="d-flex">
+				<div class="flex-grow-1">
+					<app-filter-by-date (dataDatePicker)="receivingDate($event)" [position]="'left'"></app-filter-by-date>
+				</div>
+
+				<app-texto-con-notificacion (clickEmitter)="tireChangeFilter($event)" [texto]="'Todos'" [cantidad]="totalMiniDashboard" [modo]="'info'"></app-texto-con-notificacion>
+
+				<app-texto-con-notificacion (clickEmitter)="tireChangeFilter($event)" [texto]="'Cambio'" [cantidad]="tires4Change[0]" [modo]="'danger'"></app-texto-con-notificacion>
+
+				<app-texto-con-notificacion (clickEmitter)="tireChangeFilter($event)" [texto]="'Cambio urgente'" [cantidad]="tires4Change[1]" [modo]="'danger'"></app-texto-con-notificacion>
+
+				<div class="pr-5">
+					<app-ver-reporte [dateFilter]="dateFilter"></app-ver-reporte>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="card-body">
+
+			<div class="row">
+				<div class="col-12 col-md-6 col-lg-4 mb-3">
+					<div class="cards-for-table__item d-flex align-items-center">
+						<div>
+							<h5>Resumen de inventario en uso</h5>
+							<h2>{{this.totalMiniDashboard}}</h2>
+							<p>Neumáticos en uso</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-6 col-lg-4 mb-3">
+					<div class="cards-for-table__item d-flex align-items-center">
+						<app-grafica-donut [chartData]="chartPieOption"></app-grafica-donut>
+					</div>
+				</div>
+
+				<div class="col-12 col-md-6 col-lg-4 mb-3">
+					<div class="cards-for-table__item d-flex align-items-center">
+						<app-grafica-bar [chartData]="chartBarOption"></app-grafica-bar>
+					</div>
+				</div>
+			</div>
+
+
+			<app-tabla-especial
+				[columnsData]="this.displayedColumns"
+				[dataHeaders]="this.dataHeaders"
+				[dataSource]="this.dataSource"
+				(dateEmitter)="dateRecall($event)"
+				(filterObjectData)="pillsGrandparent($event)"
+				>
+			</app-tabla-especial>
+		</div>
+	</div>
+</div>

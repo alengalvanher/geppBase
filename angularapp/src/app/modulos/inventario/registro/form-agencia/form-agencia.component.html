@@ -1,0 +1,171 @@
+<div class="card">
+	<div class="card-header bg-secondary">
+		<div class="card-header__title text-white">
+			Registro de unidad única
+		</div>
+	</div>
+
+	<div class="card-body">
+		<div class="row">
+			<form [formGroup]="cargaForm">
+				<div class="row">
+					<div class="col-12 mt-3">
+						<label class="form-control-label text-secondary mb-1 mt-1">Factura (carga tu factura en
+							XML):</label>
+					</div>
+
+					<div class="col-12 col-md-8 col-lg-9 mt-3">
+						<div class="form-group">
+							<input class="form-control file-input w-100" formControlName="archivo" type="file"
+								id="fileUpload" #fileUpload name="fileUpload">
+						</div>
+					</div>
+					<div class="col-12 col-md-4 col-lg-3 mt-3">
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary w-100" (click)="prepararArchivo()"
+								[disabled]="this.cargaForm.controls.archivo.status == 'INVALID'">
+								Guardar
+							</button>
+						</div>
+					</div>
+				</div>
+			</form>
+			<form [formGroup]="formAgencyInformation">
+				<div class="row">
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<div class="form-group">
+							<label class="form-control-label text-secondary mb-1 mt-1" for="Serie">
+								No. de serie*:
+							</label>
+
+							<input class="form-control w-100" id="Serie" name="Serie" formControlName="Serie"
+								placeholder="Ingresa el número de serie" type="text" readonly>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<div class="form-group">
+							<label class="form-control-label text-secondary mb-1 mt-1" for="EngineSerie">
+								Serie de motor*:
+							</label>
+
+							<input class="form-control w-100" id="EngineSerie" name="EngineSerie"
+								formControlName="EngineSerie" placeholder="Ingresa el número de serie del motor"
+								type="text">
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<label class="form-control-label text-secondary mb-1 mt-1" for="PurchaseDate">Fecha de
+							compra*:</label>
+						<div class="input-group col-12 ps-0 mb-1" style="padding-right: 0px">
+							<div class="input-group-text" (click)="d2.toggle()">
+								<svg width="17" height="20" viewBox="0 0 17 20" fill="none"
+									xmlns="http://www.w3.org/2000/svg">
+									<path
+										d="M15 2.49967H14.1667V0.833008H12.5V2.49967H4.16667V0.833008H2.5V2.49967H1.66667C0.75 2.49967 0 3.24967 0 4.16634V17.4997C0 18.4163 0.75 19.1663 1.66667 19.1663H15C15.9167 19.1663 16.6667 18.4163 16.6667 17.4997V4.16634C16.6667 3.24967 15.9167 2.49967 15 2.49967ZM15 17.4997H1.66667V6.66634H15V17.4997Z"
+										fill="#707EAD" />
+								</svg>
+							</div>
+
+							<input (click)="d2.toggle()" class="form-control" placeholder="DD/MM/AAAA"
+								formControlName="PurchaseDate" id="PurchaseDate" ngbDatepicker #d2="ngbDatepicker">
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<div class="form-group">
+							<label class="form-control-label text-secondary mb-1 mt-1" for="Year">Año*:</label>
+							<select class="form-select form-control select-origami w-100" formControlName="Year"
+								id="Year" placeholder="2022">
+								<option selected disabled value="">Selecciona el año</option>
+								<ng-container *ngFor="let Year of YearList">
+									<option *ngIf="Year.Status" [value]="Year.Identifier">{{ Year.Year }}</option>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<div class="form-group">
+							<label class="form-control-label text-secondary mb-1 mt-1" for="Brand">Marca*:</label>
+							<select class="form-select form-control select-origami w-100" formControlName="Brand"
+								id="Brand" (click)="selectClickedFunction()">
+								<option selected disabled value="">Selecciona una marca</option>
+								<ng-container *ngFor="let Brand of BrandList">
+									<option *ngIf="Brand.Status" [value]="Brand.Identifier">{{ Brand.BrandName }}
+									</option>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<label class="form-control-label text-secondary mb-1 mt-1" for="Model">Modelo*:</label>
+						<select class="form-select form-control select-origami w-100" formControlName="Model"
+							id="Model">
+							<option selected disabled value="">Selecciona el modelo</option>
+							<ng-container *ngFor="let Model of ModelList">
+								<option *ngIf="Model.Status" [value]="Model.Identifier">{{ Model.ModelName }}</option>
+							</ng-container>
+						</select>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<div class="form-group">
+							<label class="form-control-label text-secondary mb-1 mt-1" for="Serie">Cilindraje:</label>
+							<input class="form-control w-100" id="CylinderCapacity" name="CylinderCapacity"
+								formControlName="CylinderCapacity" placeholder="Selecciona el cilindraje" type="text">
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<label class="form-control-label text-secondary" for="VehicleType">Tipo*:</label>
+						<select class="form-select form-control select-origami w-100" formControlName="VehicleType" placeholder="Selecciona un tipo de unidad">
+							<option selected disabled value="">Selecciona un tipo de unidad</option>
+							<option *ngFor="let tipoUnidad of VehicleTypeList" [value]="tipoUnidad.Identifier">{{ tipoUnidad.TypeName }}</option>
+						</select>
+					</div>
+					<div class="col-12 col-md-6 col-lg-4 mt-3">
+						<label class="form-control-label text-secondary" for="SubVehicleType">Subtipo*:</label>
+						<select class="form-select form-control select-origami w-100" formControlName="SubVehicleType" placeholder="Selecciona un subtipo">
+							<option selected disabled value="">Selecciona un subtipo</option>
+							<option *ngFor="let subtipo of SubVehicleTypeList" [value]="subtipo.Identifier">{{ subtipo.SubTypeName }}</option>
+						</select>
+					</div>
+
+				</div>
+
+
+				<div class="button-group mt-4">
+					<!-- <button class="btn btn-info" matStepperPrevious>Atrás</button> -->
+					<button type="submit" class="btn btn-primary" (click)="sendForm()"
+						[disabled]="!formAgencyInformation.valid">Registrar</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<ng-template #successAlert let-modal>
+	<div class="text-end cursor">
+		<a (click)="modal.dismiss('Cross click')">
+			<img src="./../../../../assets/icons/ic_cerrar.svg" alt="">
+		</a>
+	</div>
+
+
+	<div class="modal-body text-center">
+		<p>
+			La nueva unidad con económico: {{ responseData.Eco }}<br>
+			Se ha registrado con éxito
+		</p>
+		<a class="btn btn-primary" (click)="successConfirm()">
+			Continuar
+		</a>
+	</div>
+</ng-template>

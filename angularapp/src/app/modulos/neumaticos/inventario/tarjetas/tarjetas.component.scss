@@ -1,0 +1,38 @@
+
+
+.mini-card {
+
+	&__izquierda {
+		width: 25%;
+		float: left;
+		text-align: right;
+		padding-right: 10px;
+	}
+
+	&__derecha {
+		width: 75%;
+		float: right;
+	}
+
+	& p {
+		font-size: 12px;
+		color: #454547;
+		line-height: 1em;
+		margin:  0px;
+		padding: 0px;
+	}
+
+	& h4 {
+		font-size: 32px;
+		font-weight: 700;
+		color: #454547;
+		margin: 0px;
+		padding: 0px;
+		line-height: 1em;
+	}
+
+	& .naranja {
+		color: #FF8B00;
+	}
+
+}

@@ -1,0 +1,56 @@
+<button class="btn btn-primary d-flex align-items-center"  (click)="cargarDetalleNeumaticos()">
+	Ver reporte
+</button>
+
+
+
+
+
+
+
+<ng-template #detalleNeumaticos let-modal>
+	<div class="text-end" style="cursor: pointer;">
+		<a (click)="modal.dismiss('Cross click')">
+			<img src="./../../../../assets/icons/ic_cerrar.svg" alt="">
+		</a>
+	</div>
+
+
+	<div class="modal-body text-center origami-modal">
+		<div class="card-header bg-secondary">
+			<div class="d-flex align-items-center justify-content-between">
+
+					<div class="ms-2" style="font-size: 18px; color: #FFF; font-weight: bold; text-align: left;">
+						REPORTE DE NEUMÁTICOS PARA CAMBIO | REGIÓN 3
+					</div>
+					<button class="btn btn-primary d-flex align-items-center" [disabled]="this.disableFileSave" (click)="descargar()">
+						Descargar
+					</button>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="w-100">
+				<div class="cards-for-table__item d-flex align-items-center justify-content-start w-100">
+					<div class="w-100">
+						<h5>Total de neumáticos identificados para cambio</h5>
+						<div class="row">
+							<div class="col-4">
+								<h2>{{ responseTiresToChange.TotalVehicle }}</h2>
+								<p>Unidades</p>
+							</div>
+							<div class="col-4">
+								<h2>{{ responseTiresToChange.TotalFrontTires }}</h2>
+								<p>Neumáticos delanteros</p>
+							</div>
+							<div class="col-4">
+								<h2>{{ responseTiresToChange.TotalBackTires }}</h2>
+								<p>Neumáticos traseros</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</ng-template>

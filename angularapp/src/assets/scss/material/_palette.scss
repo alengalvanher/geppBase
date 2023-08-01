@@ -1,0 +1,68 @@
+$dark-primary-text: #717174;
+$light-primary-text: #FFF;
+
+$origami-blue-palette: (
+	50: 'f2f2f2',
+	100: 'd8d8d9',
+	200: 'bdbdc0',
+	300: 'a3a3a6',
+	400: '8a8a8d',
+	500: '717174',
+	600: '59595C',
+	700: '404043',
+	800: '26262a',
+	900: '0d0d11',
+	A100: 'c7c7c8',
+	A200: '9e9ea0',
+	A400: '757577',
+	A700: '5c5c5e',
+	contrast: (
+		50: $dark-primary-text,
+		100: $dark-primary-text,
+		200: $dark-primary-text,
+		300: $dark-primary-text,
+		400: $dark-primary-text,
+		500: $light-primary-text,
+		600: $light-primary-text,
+		700: $light-primary-text,
+		800: $light-primary-text,
+		900: $light-primary-text,
+		A100: $dark-primary-text,
+		A200: $dark-primary-text,
+		A400: $dark-primary-text,
+		A700: $dark-primary-text,
+	)
+);
+
+$origami-orange-palette: (
+	50: 'fff2e0',
+	100: 'ffe0b3',
+	200: 'ffcc80',
+	300: 'ffb84d',
+	400: 'ffa726',
+	500: 'ff8b00',
+	600: 'ff8100',
+	700: 'ff7400',
+	800: 'ff6800',
+	900: 'ff4d00',
+	A100: 'ffffff',
+	A200: 'fff1e0',
+	A400: 'ffe0b2',
+	A700: 'ffcf99',
+	contrast: (
+		50: $dark-primary-text,
+		100: $dark-primary-text,
+		200: $dark-primary-text,
+		300: $dark-primary-text,
+		400: $dark-primary-text,
+		500: $dark-primary-text,
+		600: $dark-primary-text,
+		700: $dark-primary-text,
+		800: $light-primary-text,
+		900: $light-primary-text,
+		A100: $dark-primary-text,
+		A200: $dark-primary-text,
+		A400: $dark-primary-text,
+		A700: $dark-primary-text,
+	)
+);

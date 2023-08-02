@@ -20,6 +20,8 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import {MatSort, Sort, MatSortModule} from '@angular/material/sort';
+
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -115,6 +117,7 @@ registerLocaleData(localEs,'es');
     MatFormFieldModule,
     MatSelectModule,
     MatPaginatorModule,
+    MatSortModule,
     MatProgressSpinnerModule,
     ReactiveFormsModule,
     FormsModule,

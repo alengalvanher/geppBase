@@ -7,12 +7,43 @@ import { environment } from "./../../../environments/environment";
 })
 export class InventarioService {
   serverUrl: string = "/api/Fleet/";
-
+  geppURL:string = 'https://gepptelemetry.azurewebsites.net/api/reports/'
 
   constructor(private _httpClient: HttpClient) {
   }
 
+  //GEPP-------
+  GetOdometerReport(object){
+    const options = {
+			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
+		};
+		let body = {}
+		
+		return this._httpClient.post<Blob>(`${this.geppURL}GetOdometerReport`,
+			body,
+			{
+				observe: 'response',
+				responseType: 'blob' as 'json'
+			}
+		)
+  }
+  GetPositionHistoryReport(object){
+    const options = {
+			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
+		};
+		let body = {}
+		
+		return this._httpClient.post<Blob>(`${this.geppURL}GetPositionHistoryReport`,
+			body,
+			{
+				observe: 'response',
+				responseType: 'blob' as 'json'
+			}
+		)
+  }
 
+  //GEPP-------
+  
   getInventory(data: any) {
     let url = `${this.serverUrl}Fleet/GetVehicleInventary`;
     let body = data;

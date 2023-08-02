@@ -47,7 +47,7 @@ export  const menuData: any[] = [
         path: '/inventario',
         Menusub: true,
         active: true,
-        headTitle: 'Inventario de Unidades',
+        headTitle: 'Información operativa',
 		children: [
 			{ type: 'enlaceDos', name: 'Reportes', icon: '', isLink: true, enlace: '/inventario/carga', reset: "false" },
 			// { type: 'enlaceDos', name: 'Registro', icon: '', isLink: true, enlace: '/inventario/registro', reset: "true" },

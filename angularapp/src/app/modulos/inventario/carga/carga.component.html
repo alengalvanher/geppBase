@@ -121,13 +121,13 @@
 	
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
-									<table mat-table [dataSource]="responseData" class="w-100">
+									<table mat-table matSort [dataSource]="responseData" class="w-100">
 	
 										
 	
 										<!-- Status Column -->
 										<ng-container matColumnDef="Status">
-											<th mat-header-cell *matHeaderCellDef> Status  </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Status  </th>
 											<td mat-cell *matCellDef="let element">
 												<app-boton-status [element]="element" ></app-boton-status>
 											</td>
@@ -135,7 +135,7 @@
 	
 										<!-- Substatus Column -->
 										<ng-container matColumnDef="Substatus">
-											<th mat-header-cell *matHeaderCellDef> Substatus </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Substatus </th>
 											<td mat-cell *matCellDef="let element">
 												<a class="sub-status widthCard" >
 													{{ element.SubStatus }}
@@ -147,7 +147,7 @@
 	
 										<!-- Económico Column -->
 										<ng-container matColumnDef="Económico">
-											<th mat-header-cell *matHeaderCellDef> Económico </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Económico </th>
 											<td mat-cell *matCellDef="let element">
 												{{ element.Eco }}
 											</td>
@@ -155,7 +155,7 @@
 	
 										<!-- status_info Column -->
 										<ng-container matColumnDef="Información">
-											<th mat-header-cell *matHeaderCellDef > Status Información </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Status Información </th>
 											<td mat-cell *matCellDef="let element" >
 												<div class="d-flex items-align-center" >
 													<ng-template [ngIf]="element.StatusInformation == 'Completo'">
@@ -177,7 +177,7 @@
 	
 										<!-- cbu Column -->
 										<ng-container matColumnDef="Cbu">
-											<th mat-header-cell *matHeaderCellDef> CBU </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> CBU </th>
 											<td mat-cell *matCellDef="let element">
 												{{ element.Cbu }}
 											</td>
@@ -185,7 +185,7 @@
 	
 										<!-- region Column -->
 										<ng-container matColumnDef="Región">
-											<th mat-header-cell *matHeaderCellDef> Región </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Región </th>
 											<td mat-cell *matCellDef="let element">
 												{{ element.Region }}
 											</td>
@@ -193,7 +193,7 @@
 	
 										<!-- sitio Column -->
 										<ng-container matColumnDef="Sitio">
-											<th mat-header-cell *matHeaderCellDef> Sitio </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Sitio </th>
 											<td mat-cell *matCellDef="let element">
 												{{ element.Site }}
 											</td>
@@ -201,7 +201,7 @@
 	
 										<!-- poliza Column -->
 										<ng-container matColumnDef="Póliza">
-											<th mat-header-cell *matHeaderCellDef> Póliza </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Póliza </th>
 											<td mat-cell *matCellDef="let element">
 												{{ element.Policy }}
 											</td>
@@ -209,7 +209,7 @@
 	
 										<!-- vigencia Column -->
 										<ng-container matColumnDef="Vigencia">
-											<th mat-header-cell *matHeaderCellDef> Vigencia </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Vigencia </th>
 											<td mat-cell *matCellDef="let element">
 												{{ element.Validity }}
 											</td>
@@ -217,7 +217,7 @@
 	
 										<!-- caseta Column -->
 										<ng-container matColumnDef="Tag">
-											<th mat-header-cell *matHeaderCellDef > Caseta Tag </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Caseta Tag </th>
 											<td mat-cell *matCellDef="let element" >
 												{{ element.Tag }}
 											</td>
@@ -225,7 +225,7 @@
 	
 										<!-- proveedor Column -->
 										<ng-container matColumnDef="Proveedor_de_combustible">
-											<th mat-header-cell *matHeaderCellDef > Comb Proveedor </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Comb Proveedor </th>
 											<td mat-cell *matCellDef="let element" >
 												{{ element.CombSupplier }}
 											</td>
@@ -233,7 +233,7 @@
 	
 										<!-- telemetría Column -->
 										<ng-container matColumnDef="Telemetría">
-											<th mat-header-cell *matHeaderCellDef > Status de telemetría </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Status de telemetría </th>
 											<td mat-cell *matCellDef="let element" >
 												{{ element.TelemetryStatus }}
 											</td>
@@ -241,7 +241,7 @@
 	
 										<!-- tipo de vehículo Column -->
 										<ng-container matColumnDef="Tipo_de_vehículo">
-											<th mat-header-cell *matHeaderCellDef > Tipo de vehículo </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tipo de vehículo </th>
 											<td mat-cell *matCellDef="let element" >
 												{{ element.VehicleType }}
 											</td>
@@ -249,7 +249,7 @@
 	
 										<!-- placa Column -->
 										<ng-container matColumnDef="Placa">
-											<th mat-header-cell *matHeaderCellDef > Placas </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Placas </th>
 											<td mat-cell *matCellDef="let element" >
 												{{ element.Plate }}
 											</td>
@@ -257,7 +257,7 @@
 	
 										<!-- progress Column -->
 										<ng-container matColumnDef="Info">
-											<th mat-header-cell *matHeaderCellDef > Información registrada </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Información registrada </th>
 											<td mat-cell *matCellDef="let element" >
 												<ngb-progressbar class="mb-3" [showValue]="true" type="warning" [value]="100/2"></ngb-progressbar>
 											</td>

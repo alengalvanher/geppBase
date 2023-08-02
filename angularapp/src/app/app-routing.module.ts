@@ -25,15 +25,19 @@ export const content: Routes = [
 ];
 
 const routes: Routes = [
+
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AdminGuard],
     children: content
   },
   {
-    path: 'auth/login',
-    component: LoginComponent
+    path: '**',
+    redirectTo: 'inventario'
+  },
+  {
+    path: 'inventario',
+    loadChildren: () => import('./modulos/inventario/inventario.module').then(m => m.InventarioModule),
   },
 ];
 

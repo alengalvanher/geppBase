@@ -30,6 +30,7 @@ import { PanelesModule } from "./modulos/paneles/paneles.module";
 //Graphs
 import { NgxEchartsModule } from 'ngx-echarts';
 
+
 @NgModule({
   declarations: [
     AppComponent,

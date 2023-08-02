@@ -1,0 +1,39 @@
+<div class="container-fluid animate__animated animate__fadeIn animate__delay-0.5s">
+
+	<div class="container mt-3">
+
+
+		<div class="card">
+			<div class="card-header bg-secondary">
+				<div class="card-header__title text-white">
+					Carga masiva de inventario
+				</div>
+
+				<div>
+					<button class="btn btn-primary d-flex align-items-center" >
+						<img src="./../../../../assets/icons/plus-circle.svg" alt="">
+						<span>Reportes</span>
+					</button>
+				</div>
+			</div><!-- card-header -->
+
+
+			<div class="card-body">
+				<div class="button-group">
+                    <button type="button" class="btn btn-info"
+                        [disabled]="false"
+                        (click)="consultaReporte()">
+                        Reporte 1
+                    </button>
+
+                    <button type="button" class="btn btn-primary" 
+                        (click)="consultaReporte()"
+                        [disabled]="false">
+                        Guardar
+                    </button>
+                </div>
+			</div>
+		</div><!-- card -->
+	</div>
+
+</div>

@@ -3,23 +3,49 @@
 	<div class="container mt-3">
 
 
-		<div class="card">
-			<div class="card-header bg-secondary">
+		<div class="card animate__animated animate__fadeIn animate__delay-0.5s" *ngIf="!reportTablePanel">
+			<div class="card-header bg-primary">
 				<div class="card-header__title text-white">
-					Carga masiva de inventario
+					Reportes
 				</div>
 
 				<div>
-					<button class="btn btn-primary d-flex align-items-center" [routerLink]="['/inventario/registro']">
+					<!-- <button class="btn btn-secondary d-flex align-items-center" [routerLink]="['/inventario/registro']">
 						<img src="./../../../../assets/icons/plus-circle.svg" alt="">
 						<span>Registrar nueva unidad</span>
-					</button>
+					</button> -->
 				</div>
 			</div><!-- card-header -->
 
 
-			<div class="card-body">
-				<form [formGroup]="cargaForm">
+			<div class="card-body h-full">
+				<div class="row">
+					<div class="col-6 p-2">
+						<button class="btn btn-light w-100 d-flex align-items-center" (click)="reportPanelAppear(1)">
+							<img src="./../../../../assets/icons/ic_clock.svg" alt="">
+							<span class="text-primary">Historial de posiciones</span>
+						</button>
+					</div>
+					<div class="col-6 p-2 d-flex justify-content-end">
+						<button class="btn btn-light w-100 d-flex align-items-center" (click)="reportPanelAppear(2)">
+							<img src="./../../../../assets/icons/ic_road.svg" alt="">
+							<span class="text-primary">Km transcurridos</span>
+						</button>
+					</div>
+					<div class="col-6 p-2">
+						<button class="btn btn-light w-100 d-flex align-items-center" (click)="reportPanelAppear(3)">
+							<img src="./../../../../assets/icons/ic_job.svg" alt="">
+							<span class="text-primary">Eventos de manejo</span>
+						</button>
+					</div>
+					<div class="col-6 p-2 d-flex justify-content-end">
+						<button class="btn btn-light w-100 d-flex align-items-center" (click)="reportPanelAppear(4)">
+							<img src="./../../../../assets/icons/ic_clock-full.svg" alt="">
+							<span class="text-primary">Tiempo en planta</span>
+						</button>
+					</div>
+				</div>
+				<!-- <form [formGroup]="cargaForm">
 					<div class="container">
 						<div class="row">
 							<div class="col-12">
@@ -42,22 +68,215 @@
 
 
 							<div class="button-group">
-								<button type="submit" class="btn btn-info"
+								<button type="submit" class="btn btn-light w-100"
 									[disabled]="this.cargaForm.controls.archivo.status == 'INVALID'"
 									(click)="this.cargaForm.reset()">
 									Borrar
 								</button>
 
-								<button type="submit" class="btn btn-primary" (click)="enviarFormulario()"
+								<button type="submit" class="btn btn-secondary" (click)="enviarFormulario()"
 									[disabled]="this.cargaForm.controls.archivo.status == 'INVALID'">
 									Guardar
 								</button>
 							</div>
 						</div>
 					</div>
-				</form>
+				</form> -->
 			</div>
-		</div><!-- card -->
+		</div>
+		<div class="card animate__animated animate__fadeIn animate__delay-0.5s" *ngIf="reportTablePanel">
+			<div class="card-header bg-primary">
+				<div class="card-header__title text-white d-flex">
+					<div class="w-100 d-flex justify-content-between">
+						<div class="d-flex flex-row">
+							<button class="btn btn-light d-flex align-items-center" (click)="reportPanelDisppear()">
+								<img src="./../../../../assets/icons/ic_atras.svg" alt="">
+							</button>
+							<span class="ms-3">{{this.panelTitle}}</span>
+						</div>
+						<div>
+							<button class="btn btn-light d-flex align-items-center text-primary" (click)="downloadReport()">
+								<img src="./../../../../assets/icons/ic_xls.svg" alt="">
+								Exportar XLS
+							</button>
+						</div>
+					</div>
+					
+				</div>
+			</div><!-- card-header -->
+
+
+			<div class="card-body h-full">
+				<div class="row">
+					<div class="row">
+						<div class="col-12">
+							<div class="table-wrapper">
+								<ng-template [ngIf]="myPreloader" class="col-12">
+	
+									<ng-template [ngIf]="myPreloader" >
+										<div class="col-12 text-center p-5 text-secondary">
+											... cargando...
+										</div>
+									</ng-template>
+	
+								</ng-template>
+								<ng-template [ngIf]="!myPreloader">
+									<table mat-table [dataSource]="responseData" class="w-100">
+	
+										
+	
+										<!-- Status Column -->
+										<ng-container matColumnDef="Status">
+											<th mat-header-cell *matHeaderCellDef> Status  </th>
+											<td mat-cell *matCellDef="let element">
+												<app-boton-status [element]="element" ></app-boton-status>
+											</td>
+										</ng-container>
+	
+										<!-- Substatus Column -->
+										<ng-container matColumnDef="Substatus">
+											<th mat-header-cell *matHeaderCellDef> Substatus </th>
+											<td mat-cell *matCellDef="let element">
+												<a class="sub-status widthCard" >
+													{{ element.SubStatus }}
+	
+													
+												</a>
+											</td>
+										</ng-container>
+	
+										<!-- Económico Column -->
+										<ng-container matColumnDef="Económico">
+											<th mat-header-cell *matHeaderCellDef> Económico </th>
+											<td mat-cell *matCellDef="let element">
+												{{ element.Eco }}
+											</td>
+										</ng-container>
+	
+										<!-- status_info Column -->
+										<ng-container matColumnDef="Información">
+											<th mat-header-cell *matHeaderCellDef > Status Información </th>
+											<td mat-cell *matCellDef="let element" >
+												<div class="d-flex items-align-center" >
+													<ng-template [ngIf]="element.StatusInformation == 'Completo'">
+														<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px;width: 15px">
+															<path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 11.3869 17.0518 13.6761 15.364 15.364C13.6761 17.0518 11.3869 18 9 18C6.61305 18 4.32387 17.0518 2.63604 15.364C0.948212 13.6761 0 11.3869 0 9C0 6.61305 0.948212 4.32387 2.63604 2.63604C4.32387 0.948212 6.61305 0 9 0C11.3869 0 13.6761 0.948212 15.364 2.63604C17.0518 4.32387 18 6.61305 18 9ZM13.5337 5.59125C13.4534 5.51117 13.3577 5.44812 13.2524 5.40587C13.1471 5.36361 13.0344 5.34303 12.921 5.34534C12.8076 5.34765 12.6958 5.37281 12.5923 5.41931C12.4888 5.46582 12.3958 5.53271 12.3187 5.616L8.41162 10.5941L6.057 8.23837C5.89705 8.08933 5.6855 8.0082 5.46691 8.01205C5.24832 8.01591 5.03976 8.10446 4.88518 8.25905C4.73059 8.41364 4.64204 8.6222 4.63818 8.84079C4.63432 9.05938 4.71546 9.27093 4.8645 9.43088L7.84125 12.4087C7.92144 12.4888 8.01693 12.5519 8.12203 12.5942C8.22713 12.6366 8.33968 12.6573 8.45296 12.6552C8.56625 12.6531 8.67795 12.6282 8.78141 12.582C8.88486 12.5358 8.97795 12.4692 9.05512 12.3863L13.5461 6.7725C13.6992 6.61331 13.7838 6.40043 13.7817 6.17958C13.7796 5.95872 13.691 5.74749 13.5349 5.59125H13.5337Z" fill="#62E700"/>
+														</svg>
+														<span class="completo" style="width: 90px; margin: auto -5px; text-decoration: none;"> {{ element.StatusInformation }} </span>
+													</ng-template>
+	
+													<ng-template [ngIf]="element.StatusInformation == 'Incompleto'">
+														<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-left: 10px; width: 15px">
+															<path fill-rule="evenodd" clip-rule="evenodd" d="M18 9C18 11.3869 17.0518 13.6761 15.364 15.364C13.6761 17.0518 11.3869 18 9 18C6.61305 18 4.32387 17.0518 2.63604 15.364C0.948212 13.6761 0 11.3869 0 9C0 6.61305 0.948212 4.32387 2.63604 2.63604C4.32387 0.948212 6.61305 0 9 0C11.3869 0 13.6761 0.948212 15.364 2.63604C17.0518 4.32387 18 6.61305 18 9ZM9 4.5C8.85781 4.50008 8.71721 4.52994 8.58726 4.58767C8.45731 4.64539 8.3409 4.7297 8.24551 4.83515C8.15013 4.9406 8.07789 5.06487 8.03345 5.19994C7.98901 5.33501 7.97336 5.47789 7.9875 5.61937L8.38125 9.56475C8.39448 9.71974 8.4654 9.86413 8.57998 9.96934C8.69455 10.0746 8.84444 10.1329 9 10.1329C9.15556 10.1329 9.30545 10.0746 9.42002 9.96934C9.5346 9.86413 9.60552 9.71974 9.61875 9.56475L10.0125 5.61937C10.0266 5.47789 10.011 5.33501 9.96655 5.19994C9.92211 5.06487 9.84987 4.9406 9.75449 4.83515C9.6591 4.7297 9.54269 4.64539 9.41274 4.58767C9.28279 4.52994 9.14219 4.50008 9 4.5ZM9.00225 11.25C8.70388 11.25 8.41773 11.3685 8.20675 11.5795C7.99578 11.7905 7.87725 12.0766 7.87725 12.375C7.87725 12.6734 7.99578 12.9595 8.20675 13.1705C8.41773 13.3815 8.70388 13.5 9.00225 13.5C9.30062 13.5 9.58677 13.3815 9.79774 13.1705C10.0087 12.9595 10.1272 12.6734 10.1272 12.375C10.1272 12.0766 10.0087 11.7905 9.79774 11.5795C9.58677 11.3685 9.30062 11.25 9.00225 11.25Z" fill="#FFBF25"/>
+														</svg>
+														
+													</ng-template>
+												</div>
+											</td>
+										</ng-container>
+	
+										<!-- cbu Column -->
+										<ng-container matColumnDef="Cbu">
+											<th mat-header-cell *matHeaderCellDef> CBU </th>
+											<td mat-cell *matCellDef="let element">
+												{{ element.Cbu }}
+											</td>
+										</ng-container>
+	
+										<!-- region Column -->
+										<ng-container matColumnDef="Región">
+											<th mat-header-cell *matHeaderCellDef> Región </th>
+											<td mat-cell *matCellDef="let element">
+												{{ element.Region }}
+											</td>
+										</ng-container>
+	
+										<!-- sitio Column -->
+										<ng-container matColumnDef="Sitio">
+											<th mat-header-cell *matHeaderCellDef> Sitio </th>
+											<td mat-cell *matCellDef="let element">
+												{{ element.Site }}
+											</td>
+										</ng-container>
+	
+										<!-- poliza Column -->
+										<ng-container matColumnDef="Póliza">
+											<th mat-header-cell *matHeaderCellDef> Póliza </th>
+											<td mat-cell *matCellDef="let element">
+												{{ element.Policy }}
+											</td>
+										</ng-container>
+	
+										<!-- vigencia Column -->
+										<ng-container matColumnDef="Vigencia">
+											<th mat-header-cell *matHeaderCellDef> Vigencia </th>
+											<td mat-cell *matCellDef="let element">
+												{{ element.Validity }}
+											</td>
+										</ng-container>
+	
+										<!-- caseta Column -->
+										<ng-container matColumnDef="Tag">
+											<th mat-header-cell *matHeaderCellDef > Caseta Tag </th>
+											<td mat-cell *matCellDef="let element" >
+												{{ element.Tag }}
+											</td>
+										</ng-container>
+	
+										<!-- proveedor Column -->
+										<ng-container matColumnDef="Proveedor_de_combustible">
+											<th mat-header-cell *matHeaderCellDef > Comb Proveedor </th>
+											<td mat-cell *matCellDef="let element" >
+												{{ element.CombSupplier }}
+											</td>
+										</ng-container>
+	
+										<!-- telemetría Column -->
+										<ng-container matColumnDef="Telemetría">
+											<th mat-header-cell *matHeaderCellDef > Status de telemetría </th>
+											<td mat-cell *matCellDef="let element" >
+												{{ element.TelemetryStatus }}
+											</td>
+										</ng-container>
+	
+										<!-- tipo de vehículo Column -->
+										<ng-container matColumnDef="Tipo_de_vehículo">
+											<th mat-header-cell *matHeaderCellDef > Tipo de vehículo </th>
+											<td mat-cell *matCellDef="let element" >
+												{{ element.VehicleType }}
+											</td>
+										</ng-container>
+	
+										<!-- placa Column -->
+										<ng-container matColumnDef="Placa">
+											<th mat-header-cell *matHeaderCellDef > Placas </th>
+											<td mat-cell *matCellDef="let element" >
+												{{ element.Plate }}
+											</td>
+										</ng-container>
+	
+										<!-- progress Column -->
+										<ng-container matColumnDef="Info">
+											<th mat-header-cell *matHeaderCellDef > Información registrada </th>
+											<td mat-cell *matCellDef="let element" >
+												<ngb-progressbar class="mb-3" [showValue]="true" type="warning" [value]="100/2"></ngb-progressbar>
+											</td>
+										</ng-container>
+	
+										<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+										<tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+	
+									</table>
+								</ng-template>
+							</div>
+	
+							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
 	</div>
 
 </div>
@@ -91,7 +310,7 @@
 			Tu archivo se ha cargado correctamente.
 		</p>
 
-		<a class="btn btn-primary" (click)="modalDismiss()">
+		<a class="btn btn-secondary" (click)="modalDismiss()">
 			Continuar
 		</a>
 	</div>
@@ -122,7 +341,7 @@
 			Por favor inténtelo nuevamente.
 		</p>
 
-		<a class="btn btn-primary" (click)="modalDismiss()">
+		<a class="btn btn-secondary" (click)="modalDismiss()">
 			Continuar
 		</a>
 	</div>

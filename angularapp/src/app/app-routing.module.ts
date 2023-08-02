@@ -17,6 +17,10 @@ export const content: Routes = [
   {
     path: 'neumaticos',
     loadChildren: () => import('./modulos/neumaticos/neumaticos.module').then(m => m.NeumaticosModule),
+  },
+  {
+    path: 'reportes',
+    loadChildren: () => import('./modulos/reportes/reportes.module').then(m => m.ReportesModule),
   }
 ];
 

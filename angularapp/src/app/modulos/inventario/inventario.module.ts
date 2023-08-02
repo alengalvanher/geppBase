@@ -22,15 +22,14 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 import { RegistroComponent } from './registro/registro.component';
 import { CargaComponent } from './carga/carga.component';
 import { ConsultaComponent } from './consulta/consulta.component';
-
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
 
 import { FormGestoriaComponent } from './registro/form-gestoria/form-gestoria.component';
 import { FormNeumaticosComponent } from './registro/form-neumaticos/form-neumaticos.component';
@@ -42,11 +41,9 @@ import { FormLeasingComponent } from './registro/form-leasing/form-leasing.compo
 import { FormActivoFijoComponent } from './registro/form-activo-fijo/form-activo-fijo.component';
 import { FormInformacionCompaniaComponent } from './registro/form-informacion-compania/form-informacion-compania.component';
 
-import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-
 import { CargadearchivosService } from "./../../servicios/carga/cargadearchivos.service";
 import { DetalleComponent } from './consulta/detalle/detalle.component';
-import { RouterModule } from '@angular/router';
+
 
 import { OrigamiElementsModule } from "./../../origami-elements/origami-elements.module";
 import { FlotasElementsModule } from "../../flotas-elements/fe-flotas-elements.module";

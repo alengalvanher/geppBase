@@ -51,8 +51,8 @@ export class CargaComponent {
 	displayedColumnsReescribir4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];;
 
 	initialDateObject:any = {
-		"InitialDate": this.formatDate(new Date),
-		"FinalDate": ''
+		"INITIALDATE": this.formatDate(new Date),
+		"FINALDATE": ''
 	}
 
 	constructor(
@@ -66,7 +66,8 @@ export class CargaComponent {
 			let yesterday = new Date(today.getTime() - (24*60*60*1000));
 			let yesterday2 = new Date(yesterday.getTime() - (24*60*60*1000));
 
-			this.initialDateObject.FinalDate = this.formatDate(yesterday2)
+			this.initialDateObject.INITIALDATE = this.formatDate(yesterday2)
+			this.initialDateObject.FINALDATE = this.formatDate(today)
 			console.log(this.initialDateObject)
 
 			this.currentDate = this.initialDateObject
@@ -94,7 +95,7 @@ export class CargaComponent {
 	downloadReport(){
 		switch(this.panelTitle) { 
 			case "Historial de posiciones": { 
-				this.inventarioService.GetPositionHistoryReport({}).subscribe({
+				this.inventarioService.GetPositionHistoryReport(this.currentDate).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteHistorialDePosiciones.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -123,7 +124,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "KM transcurridos": { 
-				this.inventarioService.GetOdometerReport({}).subscribe({
+				this.inventarioService.GetOdometerReport(this.currentDate).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteKMRecorridos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -151,7 +152,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Eventos de manejo": { 
-				this.inventarioService.GetEventsReport({}).subscribe({
+				this.inventarioService.GetEventsReport(this.currentDate).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteDeEventos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -179,7 +180,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Tiempo en planta": { 
-				this.inventarioService.GetPlantUptimeReport({}).subscribe({
+				this.inventarioService.GetPlantUptimeReport(this.currentDate).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteTiempoEnPlanta.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')

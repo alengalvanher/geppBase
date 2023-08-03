@@ -41,11 +41,14 @@ export class CargaComponent {
 	displayedColumns1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet','Type'];
 	displayedColumnsReescribir1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet','Type'];
 	//Reporte KM transcurridos
-	displayedColumns2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
-	displayedColumnsReescribir2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
+	displayedColumns2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers'];
+	displayedColumnsReescribir2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers'];
 	//Reporte de tiempo en planta
-	displayedColumns4: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
-	displayedColumnsReescribir4: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
+	displayedColumns3: string[] = [ 'UnidadID', 'Unit', 'Start_time', 'End_time', 'ZoneName', 'TotalTimeInZone', 'SubFleet'];
+	displayedColumnsReescribir3: string[] = [ 'UnidadID', 'Unit', 'Start_time', 'End_time', 'ZoneName', 'TotalTimeInZone', 'SubFleet'];
+	//Reporte de tiempo en planta
+	displayedColumns4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];
+	displayedColumnsReescribir4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];;
 
 	initialDateObject:any = {
 		"InitialDate": this.formatDate(new Date),
@@ -93,7 +96,7 @@ export class CargaComponent {
 			case "Historial de posiciones": { 
 				this.inventarioService.GetPositionHistoryReport(this.currentDate).subscribe({
 					next: (data) => {
-						let nombreArchivo = "descarga.xlsx"
+						let nombreArchivo = "ReporteHistorialDePosiciones.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
 		
 						if (contentDisposition) {
@@ -122,7 +125,7 @@ export class CargaComponent {
 			case "KM transcurridos": { 
 				this.inventarioService.GetOdometerReport(this.currentDate).subscribe({
 					next: (data) => {
-						let nombreArchivo = "descarga.xlsx"
+						let nombreArchivo = "ReporteKMRecorridos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
 		
 						if (contentDisposition) {
@@ -148,14 +151,37 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Eventos de manejo": { 
-				
+				this.inventarioService.GetEventsReport(this.currentDate).subscribe({
+					next: (data) => {
+						let nombreArchivo = "ReporteDeEventos.xlsx"
+						const contentDisposition = data.headers.get('Content-Disposition')
+		
+						if (contentDisposition) {
+							const fileNameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+							const matches = fileNameRegex.exec(contentDisposition);
+							if (matches != null && matches[1]) {
+								nombreArchivo = matches[1].replace(/['"]/g, '');
+							}
+						}
+		
+						saveAs(data.body, nombreArchivo);
+		
+						console.log("Se descargó con éxito", data)
+					},
+					error: (error) => {
+						console.log("Ocurrió un error", error)
+					},
+					complete: () => {
+						console.log("Se completó")
+					}
+				})
 				return {}
 			   break; 
 			} 
 			case "Tiempo en planta": { 
 				this.inventarioService.GetPlantUptimeReport(this.currentDate).subscribe({
 					next: (data) => {
-						let nombreArchivo = "descarga.xlsx"
+						let nombreArchivo = "ReporteTiempoEnPlanta.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
 		
 						if (contentDisposition) {
@@ -203,9 +229,9 @@ export class CargaComponent {
 								this.responseData.paginator = this.paginator;
 								this.translatePaginator()
 								this.responseData.sort = this.sort;
-								this.myPreloader = false;
+								
 							}, 1);
-						
+							this.myPreloader = false;
 						}
 					},
 					error: (error) => console.log("Error", error),
@@ -226,9 +252,9 @@ export class CargaComponent {
 									this.responseData.paginator = this.paginator;
 									this.translatePaginator()
 									this.responseData.sort = this.sort;
-									this.myPreloader = false;
+									
 								}, 1);
-							
+								this.myPreloader = false;
 							}
 						},
 						error: (error) => console.log("Error", error),
@@ -238,24 +264,41 @@ export class CargaComponent {
 			} 
 			case 3: { 
 				this.panelTitle =  "Eventos de manejo"
-				return {}
-			   break; 
-			} 
-			case 4: { 
-				this.panelTitle =  "Tiempo en planta"
-				this.inventarioService.GetPlantUptimeReportData(this.currentDate).subscribe({
+				this.inventarioService.GetEventsReportData({}).subscribe({
 					next: (response:any) => {
 							if(response.Success ){
 								
-								this.responseData = new MatTableDataSource(response['OdometerReport']);
+								this.responseData = new MatTableDataSource(response['Events']);
 			
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
 									this.translatePaginator()
 									this.responseData.sort = this.sort;
-									this.myPreloader = false;
+									
 								}, 1);
-							
+								this.myPreloader = false;
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+				return {}
+			   break; 
+			} 
+			case 4: { 
+				this.panelTitle =  "Tiempo en planta"
+				this.inventarioService.GetPlantUptimeReportData({}).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['PlantUptimes']);
+			
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
 							}
 						},
 						error: (error) => console.log("Error", error),

@@ -4,3 +4,37 @@
 .h-full{
     min-height: 70vh;
 }
+.speed-green{
+    background-color: #DCFCE7;
+    width: 35px;
+    padding: 3px;
+    border-radius: 2px;
+    & img {
+        height: 10px;
+        width: auto;
+    }
+}
+.speed-yellow{
+    background-color: #FEF9C3;
+    width: 35px;
+    padding: 3px;
+    border-radius: 2px;
+    & img {
+        height: 10px;
+        width: auto;
+    }
+}
+.speed-red{
+    background-color: #FFEAEA;
+    width: 35px;
+    padding: 3px;
+    border-radius: 2px;
+    & img {
+        height: 10px;
+        width: auto;
+    }
+}
+.footer{
+    height: 15px;
+    width: auto;
+}

@@ -11,7 +11,7 @@ export class InventarioService {
 
   constructor(private _httpClient: HttpClient) {
   }
-
+  
   //GEPP-------
   GetPositionHistoryReportData(data: any) {
     let url = `${this.geppURL}GetPositionHistoryReportData`;
@@ -29,6 +29,13 @@ export class InventarioService {
   }
   GetPlantUptimeReportData(data: any) {
     let url = `${this.geppURL}GetPlantUptimeReportData`;
+    let body = data;
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8') };
+
+    return this._httpClient.post<any>(url, body, options);
+  }
+  GetEventsReportData(data: any) {
+    let url = `${this.geppURL}GetEventsReportData`;
     let body = data;
     let options = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8') };
 
@@ -70,6 +77,20 @@ export class InventarioService {
 		let body = object
 		
 		return this._httpClient.post<Blob>(`${this.geppURL}GetPlantUptimeReportData`,
+			body,
+			{
+				observe: 'response',
+				responseType: 'blob' as 'json'
+			}
+		)
+  }
+  GetEventsReport(object){
+    const options = {
+			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
+		};
+		let body = object
+		
+		return this._httpClient.post<Blob>(`${this.geppURL}GetEventsReport`,
 			body,
 			{
 				observe: 'response',

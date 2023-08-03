@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FilterByDateComponent implements OnInit {
     @Input() position: string;
-
+    @Input() default: any;
     @Input() yearsAmount = 5;
     @Output() dataDatePicker = new EventEmitter<any>();
     displayDatePicker: boolean = false;
@@ -37,12 +37,6 @@ export class FilterByDateComponent implements OnInit {
         { value: '5', viewValue: '5' }
     ];
 
-
-
-
-
-
-
     constructor() {
         this.datePickerForm.get('Year').valueChanges.subscribe((data) => {
             this.datePickerForm.get('Week').enable();
@@ -55,6 +49,7 @@ export class FilterByDateComponent implements OnInit {
         this.datePickerForm.get('StartDate').valueChanges.subscribe(() => {
             this.datePickerForm.get('EndDate').enable();
         });
+        
 
     }
 
@@ -62,6 +57,11 @@ export class FilterByDateComponent implements OnInit {
         this.aniosSelectValues = this.generateYears();
         console.log(this.position, 'position')
        //Calcular la fecha de hoy y hoy -3 y setearlas a las fechas
+       console.log(this.default)
+       let initialDate = new Date (this.default.InitialDate)
+       let finalDate = new Date (this.default.FinalDate)
+        this.datePickerForm.get('StartDate').setValue(initialDate)
+        this.datePickerForm.get('EndDate').setValue(finalDate)
     }
 
 

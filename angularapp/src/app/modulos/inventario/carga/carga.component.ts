@@ -25,7 +25,7 @@ export class CargaComponent {
 	@ViewChild(MatSort) sort: MatSort;
 	
 	files = [];
-	myPreloader: boolean = false
+	myPreloader: boolean = true
 	responseData:any
 	currentDate:any
 
@@ -38,8 +38,8 @@ export class CargaComponent {
 	panelTitle:string = ''
 	currentReport:number = 0
 	//Reporte Historial de Repeticiones
-	displayedColumns1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet','Type'];
-	displayedColumnsReescribir1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet','Type'];
+	displayedColumns1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet'];
+	displayedColumnsReescribir1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet'];
 	//Reporte KM transcurridos
 	displayedColumns2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers'];
 	displayedColumnsReescribir2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers'];
@@ -94,7 +94,7 @@ export class CargaComponent {
 	downloadReport(){
 		switch(this.panelTitle) { 
 			case "Historial de posiciones": { 
-				this.inventarioService.GetPositionHistoryReport(this.currentDate).subscribe({
+				this.inventarioService.GetPositionHistoryReport({}).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteHistorialDePosiciones.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -123,7 +123,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "KM transcurridos": { 
-				this.inventarioService.GetOdometerReport(this.currentDate).subscribe({
+				this.inventarioService.GetOdometerReport({}).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteKMRecorridos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -151,7 +151,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Eventos de manejo": { 
-				this.inventarioService.GetEventsReport(this.currentDate).subscribe({
+				this.inventarioService.GetEventsReport({}).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteDeEventos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -179,7 +179,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Tiempo en planta": { 
-				this.inventarioService.GetPlantUptimeReport(this.currentDate).subscribe({
+				this.inventarioService.GetPlantUptimeReport({}).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteTiempoEnPlanta.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')

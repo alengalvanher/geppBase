@@ -4,6 +4,34 @@
 .h-full{
     min-height: 70vh;
 }
+.mat-sort-header-container{
+    justify-content: center;
+}
+td.xsmall{
+    min-width: 100px;
+}
+td.small{
+    min-width: 150px;
+}
+td.medium{
+    min-width: 250px;
+}
+td.large{
+    min-width: 350px;
+}
+th{
+    text-align: center;
+}
+.center{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.left{
+    text-align: left;
+    display: flex;
+    justify-content: start;
+}
 .speed-green{
     background-color: #DCFCE7;
     width: 35px;

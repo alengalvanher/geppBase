@@ -328,8 +328,8 @@
 										<ng-container matColumnDef="Kilometers">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Kilómetros </th>
 											<td mat-cell *matCellDef="let element" class="small">
-												
-												<ng-template [ngIf]="element.Kilometers < 100">
+												{{element.Kilometers}}
+												<!-- <ng-template [ngIf]="element.Kilometers < 100">
 													<div >
 														<img width="10" height="10" src="./../../../../assets/icons/ic_good.png" alt="">
 														{{ element.Kilometers | number }}
@@ -350,7 +350,7 @@
 														</svg>
 														{{ element.Kilometers | number }}
 													</div>
-												</ng-template>
+												</ng-template> -->
 											</td>
 										</ng-container>
 	

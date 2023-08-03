@@ -220,7 +220,7 @@ export class CargaComponent {
 		switch(idSelector) { 
 			case 1: { 
 			   this.panelTitle = "Historial de posiciones"
-			   this.inventarioService.GetPositionHistoryReportData({}).subscribe({
+			   this.inventarioService.GetPositionHistoryReportData(this.currentDate).subscribe({
 				next: (response:any) => {
 						if(response.Success ){
 							
@@ -243,7 +243,7 @@ export class CargaComponent {
 			} 
 			case 2: { 
 				this.panelTitle = "KM transcurridos"
-				this.inventarioService.GetOdometerReportData({}).subscribe({
+				this.inventarioService.GetOdometerReportData(this.currentDate).subscribe({
 					next: (response:any) => {
 							if(response.Success ){
 								
@@ -265,7 +265,7 @@ export class CargaComponent {
 			} 
 			case 3: { 
 				this.panelTitle =  "Eventos de manejo"
-				this.inventarioService.GetEventsReportData({}).subscribe({
+				this.inventarioService.GetEventsReportData(this.currentDate).subscribe({
 					next: (response:any) => {
 							if(response.Success ){
 								
@@ -287,7 +287,7 @@ export class CargaComponent {
 			} 
 			case 4: { 
 				this.panelTitle =  "Tiempo en planta"
-				this.inventarioService.GetPlantUptimeReportData({}).subscribe({
+				this.inventarioService.GetPlantUptimeReportData(this.currentDate).subscribe({
 					next: (response:any) => {
 							if(response.Success ){
 								
@@ -336,8 +336,8 @@ export class CargaComponent {
 	receivingDate($event) {
 		let objeto = $event;
 		this.currentDate = {
-			"InitialDate": this.formatDate(objeto.StartDate),
-			"FinalDate": this.formatDate(objeto.EndDate)
+			"INITIALDATE": this.formatDate(objeto.StartDate),
+			"FINALDATE": this.formatDate(objeto.EndDate)
 		}
 		this.switchReport(this.currentReport)
 		

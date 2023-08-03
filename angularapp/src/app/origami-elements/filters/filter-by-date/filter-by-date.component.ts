@@ -12,13 +12,13 @@ export class FilterByDateComponent implements OnInit {
     @Input() yearsAmount = 5;
     @Output() dataDatePicker = new EventEmitter<any>();
     displayDatePicker: boolean = false;
-    vista: string = 'semana';
+    vista: string = 'periodo';
     dateDisplay: FormControl = new FormControl();
     monthsSelectValues = [];
     aniosSelectValues = [];
     months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-
+    
 
     datePickerForm: FormGroup = new FormGroup({
         Week: new FormControl({ value: '', disabled: true }),
@@ -61,6 +61,7 @@ export class FilterByDateComponent implements OnInit {
     ngOnInit(): void {
         this.aniosSelectValues = this.generateYears();
         console.log(this.position, 'position')
+       //Calcular la fecha de hoy y hoy -3 y setearlas a las fechas
     }
 
 

@@ -27,6 +27,7 @@ export class CargaComponent {
 	files = [];
 	myPreloader: boolean = false
 	responseData:any
+	currentDate:any
 
 	cargaForm = new FormGroup({
 		archivo: new FormControl(null)
@@ -35,15 +36,37 @@ export class CargaComponent {
 
 	reportTablePanel:boolean = false
 	panelTitle:string = ''
-	displayedColumns: string[] = [ 'Status', 'Substatus', 'Económico', 'Información', 'Cbu', 'Región', 'Sitio', 'Póliza', 'Vigencia', 'Tag', 'Proveedor_de_combustible', 'Telemetría', 'Tipo_de_vehículo', 'Placa'];
-	displayedColumnsReescribir: string[] = ['Status', 'Substatus', 'Económico', 'Información', 'Cbu', 'Región', 'Sitio', 'Póliza', 'Vigencia', 'Tag', 'Proveedor_de_combustible', 'Telemetría', 'Tipo_de_vehículo', 'Placa'];
+	currentReport:number = 0
+	//Reporte Historial de Repeticiones
+	displayedColumns1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet','Type'];
+	displayedColumnsReescribir1: string[] = [ 'Unit', 'ReportDate', 'ServerDate', 'Status', 'StatusAccordingToCode', 'Code', 'Speed', 'Driver', 'Position', 'Latitude', 'Longitude', 'Location', 'odometer', 'GPS','Subfleet','Type'];
+	//Reporte KM transcurridos
+	displayedColumns2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
+	displayedColumnsReescribir2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
+	//Reporte de tiempo en planta
+	displayedColumns4: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
+	displayedColumnsReescribir4: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers', 'Type'];
 
+	initialDateObject:any = {
+		"InitialDate": this.formatDate(new Date),
+		"FinalDate": ''
+	}
 
 	constructor(
 		private cargaDeArchivos: CargadearchivosService,
 		private inventarioService: InventarioService,
 		private _ngbModal: NgbModal
 		) {
+
+			
+			let today = new Date
+			let yesterday = new Date(today.getTime() - (24*60*60*1000));
+			let yesterday2 = new Date(yesterday.getTime() - (24*60*60*1000));
+
+			this.initialDateObject.FinalDate = this.formatDate(yesterday2)
+			console.log(this.initialDateObject)
+
+			this.currentDate = this.initialDateObject
 	}
 
 	getInventory(data2send){
@@ -68,7 +91,7 @@ export class CargaComponent {
 	downloadReport(){
 		switch(this.panelTitle) { 
 			case "Historial de posiciones": { 
-				this.inventarioService.GetPositionHistoryReport({}).subscribe({
+				this.inventarioService.GetPositionHistoryReport(this.currentDate).subscribe({
 					next: (data) => {
 						let nombreArchivo = "descarga.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -97,7 +120,7 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "KM transcurridos": { 
-				this.inventarioService.GetOdometerReport({}).subscribe({
+				this.inventarioService.GetOdometerReport(this.currentDate).subscribe({
 					next: (data) => {
 						let nombreArchivo = "descarga.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -130,7 +153,30 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Tiempo en planta": { 
-				
+				this.inventarioService.GetPlantUptimeReport(this.currentDate).subscribe({
+					next: (data) => {
+						let nombreArchivo = "descarga.xlsx"
+						const contentDisposition = data.headers.get('Content-Disposition')
+		
+						if (contentDisposition) {
+							const fileNameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+							const matches = fileNameRegex.exec(contentDisposition);
+							if (matches != null && matches[1]) {
+								nombreArchivo = matches[1].replace(/['"]/g, '');
+							}
+						}
+		
+						saveAs(data.body, nombreArchivo);
+		
+						console.log("Se descargó con éxito", data)
+					},
+					error: (error) => {
+						console.log("Ocurrió un error", error)
+					},
+					complete: () => {
+						console.log("Se completó")
+					}
+				})
 				return {}
 			   break; 
 			} 
@@ -143,17 +189,52 @@ export class CargaComponent {
 	}
 
 	switchReport(idSelector){
+		this.currentReport = idSelector
 		switch(idSelector) { 
 			case 1: { 
 			   this.panelTitle = "Historial de posiciones"
+			   this.inventarioService.GetPositionHistoryReportData({}).subscribe({
+				next: (response:any) => {
+						if(response.Success ){
+							
+							this.responseData = new MatTableDataSource(response['PositionsHistory']);
+		
+							setTimeout(() => {
+								this.responseData.paginator = this.paginator;
+								this.translatePaginator()
+								this.responseData.sort = this.sort;
+								this.myPreloader = false;
+							}, 1);
+						
+						}
+					},
+					error: (error) => console.log("Error", error),
+				})
 			   
 			   return {}
 			   break; 
 			} 
 			case 2: { 
 				this.panelTitle = "KM transcurridos"
+				this.inventarioService.GetOdometerReportData({}).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['OdometerReport']);
+			
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									this.myPreloader = false;
+								}, 1);
+							
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
 				return {}
-			   break; 
+				break; 
 			} 
 			case 3: { 
 				this.panelTitle =  "Eventos de manejo"
@@ -162,6 +243,24 @@ export class CargaComponent {
 			} 
 			case 4: { 
 				this.panelTitle =  "Tiempo en planta"
+				this.inventarioService.GetPlantUptimeReportData(this.currentDate).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['OdometerReport']);
+			
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									this.myPreloader = false;
+								}, 1);
+							
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+
 				return {}
 			   break; 
 			} 
@@ -176,8 +275,8 @@ export class CargaComponent {
 	reportPanelAppear(report){
 		this.reportTablePanel = true
 		this.responseData = this.switchReport(report)
-
-		this.getInventory({})
+		this.myPreloader = true
+		
 	}
 	reportPanelDisppear(){
 		this.reportTablePanel = false
@@ -190,7 +289,29 @@ export class CargaComponent {
 		this.paginator._intl.previousPageLabel = "Página anterior";
 		this.paginator._intl.lastPageLabel = "Ultima página";
 	}
+	receivingDate($event) {
+		let objeto = $event;
+		this.currentDate = {
+			"InitialDate": this.formatDate(objeto.StartDate),
+			"FinalDate": this.formatDate(objeto.EndDate)
+		}
+		this.switchReport(this.currentReport)
+		
+	}
 
+	formatDate(date) {
+		var d = new Date(date),
+			month = '' + (d.getMonth() + 1),
+			day = '' + d.getDate(),
+			year = d.getFullYear();
+	
+		if (month.length < 2) 
+			month = '0' + month;
+		if (day.length < 2) 
+			day = '0' + day;
+	
+		return [year, month, day].join('-');
+	}
 	// ------------------- CARGA ----------------------------------
 	enviarFormulario() {
 		this.myPreloader = true;

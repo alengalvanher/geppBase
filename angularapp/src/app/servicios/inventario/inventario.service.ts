@@ -13,11 +13,33 @@ export class InventarioService {
   }
 
   //GEPP-------
+  GetPositionHistoryReportData(data: any) {
+    let url = `${this.geppURL}GetPositionHistoryReportData`;
+    let body = data;
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8') };
+
+    return this._httpClient.post<any>(url, body, options);
+  }
+  GetOdometerReportData(data: any) {
+    let url = `${this.geppURL}GetOdometerReportData`;
+    let body = data;
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8') };
+
+    return this._httpClient.post<any>(url, body, options);
+  }
+  GetPlantUptimeReportData(data: any) {
+    let url = `${this.geppURL}GetPlantUptimeReportData`;
+    let body = data;
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8') };
+
+    return this._httpClient.post<any>(url, body, options);
+  }
+  //GEPP FILES DOWNLOAD-----------
   GetOdometerReport(object){
     const options = {
 			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
 		};
-		let body = {}
+		let body = object
 		
 		return this._httpClient.post<Blob>(`${this.geppURL}GetOdometerReport`,
 			body,
@@ -31,9 +53,23 @@ export class InventarioService {
     const options = {
 			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
 		};
-		let body = {}
+		let body = object
 		
 		return this._httpClient.post<Blob>(`${this.geppURL}GetPositionHistoryReport`,
+			body,
+			{
+				observe: 'response',
+				responseType: 'blob' as 'json'
+			}
+		)
+  }
+  GetPlantUptimeReport(object){
+    const options = {
+			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
+		};
+		let body = object
+		
+		return this._httpClient.post<Blob>(`${this.geppURL}GetPlantUptimeReportData`,
 			body,
 			{
 				observe: 'response',

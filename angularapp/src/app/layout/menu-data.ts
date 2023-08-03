@@ -36,23 +36,23 @@ export  const menuData: any[] = [
     //     headTitle: 'Reportes',
 	// },
 	{
-		type: 'submenuUno',
-		name: 'Información',
+		type: 'enlaceUno',
+		name: 'Reportes',
         imagen: 'inventario',
 		icon: 'icon-inventario',
 		enlace: '',
         title: 'Inventario',
         badgeClass:'badge badge-sm bg-secondary badge-hide',
         badgeValue:'new',
-        path: '/inventario',
-        Menusub: true,
+        path: '/inventario/carga',
+        Menusub: false,
         active: true,
-        headTitle: 'Información operativa',
-		children: [
-			{ type: 'enlaceDos', name: 'Reportes', icon: '', isLink: true, enlace: '/inventario/carga', reset: "false" },
+        
+		// children: [
+		// 	{ type: 'enlaceDos', name: 'Reportes', icon: '', isLink: true, enlace: '/inventario/carga', reset: "false" },
 			// { type: 'enlaceDos', name: 'Registro', icon: '', isLink: true, enlace: '/inventario/registro', reset: "true" },
 			// { type: 'enlaceDos', name: 'Consulta', icon: '', isLink: true, enlace: '/inventario/consulta', reset: "false" }
-		],
+		//],
 	},
 	// {
 	// 	type: 'submenuUno',

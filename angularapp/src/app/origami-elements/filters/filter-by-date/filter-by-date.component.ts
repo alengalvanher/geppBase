@@ -58,10 +58,6 @@ export class FilterByDateComponent implements OnInit {
     ngOnInit(): void {
         this.aniosSelectValues = this.generateYears();
         //console.log(this.position, 'position')
-        
-    }
-
-    ngAfterViewInit():void{
         //Calcular la fecha de hoy y hoy -3 y setearlas a las fechas
         console.log(this.default)
        console.log(parseInt(this.default.INITIALDATE.split("-")[0]))
@@ -89,6 +85,7 @@ export class FilterByDateComponent implements OnInit {
     sendDatePickerData() {
         // Mostrar la fecha seleccionada en el Input
         let dateFormatForDisplay = this.createDateDisplay(this.datePickerForm.value)
+        console.log(dateFormatForDisplay)
         this.dateDisplay.setValue(dateFormatForDisplay);
 
         //
@@ -144,7 +141,9 @@ export class FilterByDateComponent implements OnInit {
 
 
     createDateDisplay(d) {
+        console.log(d)
         var display = '';
+        let disp = ''
 
         if (d.Week) {
             display = `${display} Semana ${d.Week}`;
@@ -160,13 +159,15 @@ export class FilterByDateComponent implements OnInit {
 
         if (d.StartDate) {
             display = `${display} ${this.formatDate(d.StartDate)}`;
+            disp = d.StartDate.year+'-'+d.StartDate.month+'-'+d.StartDate.day
         }
 
         if (d.EndDate) {
             display = `${display} - ${this.formatDate(d.EndDate)}`;
+            disp +=  ' a '+ d.EndDate.year+'-'+d.EndDate.month+'-'+d.EndDate.day
         }
 
-        return display;
+        return disp;
     }
 
 

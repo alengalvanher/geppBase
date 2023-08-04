@@ -90,6 +90,9 @@
 			padding: 0px 15px;
 			text-decoration: none;
 		}
+		& > img {
+			filter: invert(80%) sepia(34%) saturate(15%) hue-rotate(212deg) brightness(255%) contrast(104%);
+		}
 
 		&:hover {
 			background-color: var(--og-info-contrast);
@@ -99,7 +102,7 @@
 			}
 
 			& > img {
-				filter: invert(100%) sepia(34%) saturate(15%) hue-rotate(212deg) brightness(255%) contrast(104%);
+				 filter: invert(1%) sepia(34%) saturate(15%) hue-rotate(212deg) brightness(255%) contrast(104%);
 			}
 
 			& > ul {

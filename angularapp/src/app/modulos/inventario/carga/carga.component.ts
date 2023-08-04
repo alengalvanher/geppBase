@@ -339,6 +339,7 @@ export class CargaComponent {
 			"INITIALDATE": this.formatDate(objeto.StartDate),
 			"FINALDATE": this.formatDate(objeto.EndDate)
 		}
+		this.myPreloader = true
 		this.switchReport(this.currentReport)
 		
 	}

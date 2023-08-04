@@ -38,8 +38,8 @@ export  const menuData: any[] = [
 	{
 		type: 'enlaceUno',
 		name: 'Reportes',
-        imagen: 'inventario',
-		icon: 'icon-inventario',
+        imagen: 'ic-reportes',
+		icon: 'ic-reportes',
 		enlace: '',
         title: 'Inventario',
         badgeClass:'badge badge-sm bg-secondary badge-hide',

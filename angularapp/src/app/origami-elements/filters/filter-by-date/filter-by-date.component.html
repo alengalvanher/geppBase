@@ -1,4 +1,4 @@
-<div [ngClass]="position === 'right'  ? 'show-right' : 'show-left'">
+<div class="dateSelector" [ngClass]="position === 'right'  ? 'show-right' : 'show-left'">
 
 		<div class="input-group input-datepicker">
 			<button class="btn btn-primary text-white" type="button">
@@ -24,11 +24,11 @@
 				{{ datePickerForm.value | json}}
 			</pre> -->
 
-			<div class="botonera">
+			<!-- <div class="botonera">
 				<button [ngClass]="vista == 'semana' ? 'active' : 'inactive'" (click)="changeView('semana')">Semana</button>
 				<button [ngClass]="vista == 'mes' ? 'active' : 'inactive'" (click)="changeView('mes')">Mes</button>
 				<button [ngClass]="vista == 'periodo' ? 'active' : 'inactive'" (click)="changeView('periodo')">Período personalizado</button>
-			</div>
+			</div> -->
 
 
 			<div>
@@ -97,7 +97,7 @@
 
 								<div class="input-group">
 									<input (click)="d1.toggle()" class="form-control select-origami" placeholder="DD/MM/AAAA"
-									formControlName="StartDate" id="StartDate"
+									formControlName="StartDate" id="StartDate" [(ngModel)]="INITIALDATEModel"
 									ngbDatepicker #d1="ngbDatepicker" style="border-radius: 5px!important; width: 100%;">
 								</div>
 							</div>
@@ -107,7 +107,7 @@
 								<div class="input-group">
 
 									<input (click)="d2.toggle()" class="form-control select-origami" placeholder="DD/MM/AAAA"
-									formControlName="EndDate" id="EndDate"
+									formControlName="EndDate" id="EndDate" [(ngModel)]="FINALDATEModel"
 									ngbDatepicker #d2="ngbDatepicker" style="border-radius: 5px!important; width: 100%;">
 								</div>
 							</div>
@@ -115,13 +115,16 @@
 					</form>
 
 					<div class="datepicker-buttongroup mt-2 mb-1">
-						<button class="btn btn-info" (click)="hideDatePicker()">Borrar</button>
+						<button class="btn btn-secondary" (click)="hideDatePicker()">Borrar</button>
 						<button class="btn btn-primary" (click)="sendDatePickerData()" [disabled]="!(datePickerForm.get('StartDate').value && datePickerForm.get('EndDate').value)">Aceptar</button>
 					</div>
 
 				</ng-template>
 			</div>
+			<div class="backdrop" (click)="hideDatePicker()">
 
+			</div>
 		</div>
-
+		
 </div>
+

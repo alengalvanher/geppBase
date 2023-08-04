@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-filter-by-date',
@@ -18,7 +19,8 @@ export class FilterByDateComponent implements OnInit {
     aniosSelectValues = [];
     months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
 
-    
+    INITIALDATEModel:any
+    FINALDATEModel:any
 
     datePickerForm: FormGroup = new FormGroup({
         Week: new FormControl({ value: '', disabled: true }),
@@ -55,16 +57,19 @@ export class FilterByDateComponent implements OnInit {
 
     ngOnInit(): void {
         this.aniosSelectValues = this.generateYears();
-        console.log(this.position, 'position')
-       //Calcular la fecha de hoy y hoy -3 y setearlas a las fechas
-       console.log(this.default)
-       let initialDate = new Date (this.default.InitialDate)
-       let finalDate = new Date (this.default.FinalDate)
-        this.datePickerForm.get('StartDate').setValue(initialDate)
-        this.datePickerForm.get('EndDate').setValue(finalDate)
+        //console.log(this.position, 'position')
+        
     }
 
-
+    ngAfterViewInit():void{
+        //Calcular la fecha de hoy y hoy -3 y setearlas a las fechas
+        console.log(this.default)
+       console.log(parseInt(this.default.INITIALDATE.split("-")[0]))
+       let parseDateInitial = [parseInt(this.default.INITIALDATE.split("-")[0]),parseInt(this.default.INITIALDATE.split("-")[1]),parseInt(this.default.INITIALDATE.split("-")[2])]
+       let parseDateFinal = [parseInt(this.default.FINALDATE.split("-")[0]),parseInt(this.default.FINALDATE.split("-")[1]),parseInt(this.default.FINALDATE.split("-")[2])]
+       this.INITIALDATEModel = new NgbDate (parseDateInitial[0],parseDateInitial[1],parseDateInitial[2])
+       this.FINALDATEModel = new NgbDate (parseDateFinal[0],parseDateFinal[1],parseDateFinal[2])
+    }
 
 
     showDatePicker() {
@@ -177,9 +182,19 @@ export class FilterByDateComponent implements OnInit {
 
 
 
-    formatDate(d) {
-        return `${d.year}-${d.day}-${d.month}`;
-    }
+    formatDate(date) {
+		var d = new Date(date),
+			month = '' + (d.getMonth() + 1),
+			day = '' + d.getDate(),
+			year = d.getFullYear();
+	
+		if (month.length < 2) 
+			month = '0' + month;
+		if (day.length < 2) 
+			day = '0' + day;
+	
+		return [year, month, day].join('-');
+	}
 
 
     // Actualiza los meses en el select

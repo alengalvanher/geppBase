@@ -7,7 +7,7 @@ import { LoginComponent } from './modulos/auth/login/login.component';
 
 export const content: Routes = [
   {
-    path: 'inventario',
+    path: 'reportes',
     loadChildren: () => import('./modulos/inventario/inventario.module').then(m => m.InventarioModule),
   },
   {
@@ -18,10 +18,7 @@ export const content: Routes = [
     path: 'neumaticos',
     loadChildren: () => import('./modulos/neumaticos/neumaticos.module').then(m => m.NeumaticosModule),
   },
-  {
-    path: 'reportes',
-    loadChildren: () => import('./modulos/reportes/reportes.module').then(m => m.ReportesModule),
-  }
+  
 ];
 
 const routes: Routes = [
@@ -31,12 +28,13 @@ const routes: Routes = [
     component: LayoutComponent,
     children: content
   },
+  
   {
     path: '**',
-    redirectTo: 'inventario'
+    redirectTo: 'reportes'
   },
   {
-    path: 'inventario',
+    path: 'reportes',
     loadChildren: () => import('./modulos/inventario/inventario.module').then(m => m.InventarioModule),
   },
 ];

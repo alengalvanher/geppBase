@@ -16,15 +16,14 @@ td.small{
     display: flex;
     align-items: center;
 }
+.mat-table tr th{
+    padding: 10px 2px !important;
+}
 td.medium{
-    min-width: 300px;
-    
- 
+    min-width: 200px;
 }
 td.large{
     min-width: 400px;
-    
-    
 }
 th{
     text-align: center;

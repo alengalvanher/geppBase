@@ -9,11 +9,11 @@
     <!-- <button mat-raised-button (click)="drawer.toggle()">Toggle drawer</button> -->
   </div>
 
-  <div class="content">
+  <!-- <div class="content">
     <div class="router-outlet">
       <router-outlet></router-outlet>
     </div>
-  </div>
+  </div> -->
 
   <mat-drawer class="panel" #drawer [mode]="'over'" position="end">
     <app-panel-en-uso-detalle *ngIf="usoDetalle" [data]="dataUsoDetalle"></app-panel-en-uso-detalle>

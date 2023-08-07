@@ -23,11 +23,11 @@ export const content: Routes = [
 
 const routes: Routes = [
 
-  {
-    path: '',
-    component: LayoutComponent,
-    children: content
-  },
+  // {
+  //   path: '',
+  //   component: LayoutComponent,
+  //   children: content
+  // },
   
   {
     path: '**',

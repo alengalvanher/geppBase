@@ -27,6 +27,7 @@ export class CargaComponent {
 	files = [];
 	myPreloader: boolean = true
 	responseData:any
+	responseDataBackup:any
 	currentDate:any
 
 	cargaForm = new FormGroup({
@@ -54,6 +55,19 @@ export class CargaComponent {
 		"INITIALDATE": this.formatDate(new Date),
 		"FINALDATE": ''
 	}
+	//KM Recorridos Filter
+	formKMFilter = new FormGroup({
+		Unidad: new FormControl(''),
+	});
+	//Tiempo en planta filter
+	formPlantUptimeFilter = new FormGroup({
+		Unidad: new FormControl(''),
+		UnidadId: new FormControl(''),
+		Zona: new FormControl(''),
+	});
+	unidadList:any 
+	unidadIdList:any
+	zonaList:any
 
 	constructor(
 		private cargaDeArchivos: CargadearchivosService,
@@ -71,6 +85,7 @@ export class CargaComponent {
 			console.log(this.initialDateObject)
 
 			this.currentDate = this.initialDateObject
+
 	}
 
 	getInventory(data2send){
@@ -119,7 +134,6 @@ export class CargaComponent {
 						console.log("Se completó")
 					}
 				})
-			   
 			   return {}
 			   break; 
 			} 
@@ -248,7 +262,10 @@ export class CargaComponent {
 							if(response.Success ){
 								
 								this.responseData = new MatTableDataSource(response['OdometerReport']);
-			
+								this.responseDataBackup = new MatTableDataSource(response['OdometerReport']);
+								//Llenar el select de los filtros con los registros únicos
+								this.unidadList = this.distinct2select('Unit', response.OdometerReport)
+								
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
 									this.translatePaginator()
@@ -292,7 +309,12 @@ export class CargaComponent {
 							if(response.Success ){
 								
 								this.responseData = new MatTableDataSource(response['PlantUptimes']);
-			
+								this.responseDataBackup = new MatTableDataSource(response['PlantUptimes']);
+								//Llenar el select de los filtros con los registros únicos
+								this.unidadList = this.distinct2select('Unit', response.PlantUptimes)
+								this.unidadIdList = this.distinct2select('UnidadID', response.PlantUptimes)
+								this.zonaList = this.distinct2select('ZoneName', response.PlantUptimes)
+
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
 									this.translatePaginator()
@@ -357,6 +379,24 @@ export class CargaComponent {
 	
 		return [year, month, day].join('-');
 	}
+	//-------------------- Filtros  -------------------------------
+	//Unique keys 
+	distinct2select(key, response){
+		return [... new Set(response.map(x=>x[key]))]
+	}
+	//KM Recorridos
+	onChangeUnidad($event: any){
+		console.log($event.target.value)
+		if($event.target.value == 0){
+			this.responseData = this.responseDataBackup
+		}else{
+			console.log(this.responseData)
+			this.responseData.filter = $event.target.value.trim().toLowerCase();
+			  
+		}
+	  }
+	//
+	  
 	// ------------------- CARGA ----------------------------------
 	enviarFormulario() {
 		this.myPreloader = true;

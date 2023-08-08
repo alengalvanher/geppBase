@@ -108,7 +108,67 @@
 
 			<div class="card-body h-full">
 				<div class="row">
-					<div class="mb-3">
+					<div class="col-8">
+						<ng-template [ngIf]=" this.panelTitle == 'Historial de posiciones'"></ng-template>
+						<ng-template [ngIf]=" this.panelTitle == 'KM transcurridos'">
+							<form [formGroup]="formKMFilter">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
+												<option selected value="0">Selecciona una unidad</option>
+												<ng-container *ngFor="let Unidad of unidadList">
+													<option [value]="Unidad">{{ Unidad }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</ng-template>
+						<ng-template [ngIf]=" this.panelTitle == 'Tiempo en planta'">
+							<form [formGroup]="formPlantUptimeFilter">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
+												<option selected value="0">Selecciona una unidad</option>
+												<ng-container *ngFor="let Unidad of unidadList">
+													<option [value]="Unidad">{{ Unidad }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad Id:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
+												<option selected value="0">Selecciona una unidad id</option>
+												<ng-container *ngFor="let Unidad of unidadIdList">
+													<option [value]="Unidad">{{ Unidad }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Zona">Zona:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangeUnidad($event)">
+												<option selected value="0">Selecciona una Zona </option>
+												<ng-container *ngFor="let Zona of zonaList">
+													<option [value]="Zona">{{ Zona }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</ng-template>
+						<ng-template [ngIf]=" this.panelTitle == 'Eventos de manejo'"></ng-template>
+					</div>
+					<div class="col-4 mb-3 align-items-baseline">
 						<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
 					</div>
 				</div>

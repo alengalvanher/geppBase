@@ -528,14 +528,13 @@ export class CargaComponent {
 	}
 	receivingDate($event) {
 		let objeto = $event;
-		console.log(objeto)
+		//console.log(objeto)
 		this.currentDate = {
 			"INITIALDATE": objeto.StartDate+' '+objeto.StartTime.hour+':'+objeto.StartTime.minute,
 			"FINALDATE": objeto.EndDate+' '+objeto.EndTime.hour+':'+objeto.EndTime.minute
 		}
-		this.myPreloader = true
+		
 		//this.switchReport(this.currentReport)
-		console.log(this.currentDate) 
 	}
 
 	formatDate(date) {
@@ -561,13 +560,9 @@ export class CargaComponent {
 		//console.log($event.target.value)
 		this.kmState = $event.target.value.trim().toLowerCase();
 		
-	  }
-	//Tiempo en planta
-	
+	  }	
 	
 	onChangePlantUptime($event: any){
-		
-		console.log('form', this.formPlantUptimeFilter.value.Unidad)
 		
 	  }
 	  

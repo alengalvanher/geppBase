@@ -45,7 +45,14 @@
 .h-auto{
 	height: auto;
 }
-
+.timepicker-group{
+	display: flex;
+	flex-direction: row;
+	
+}
+.timepick > input {
+	width: 100%;
+ }
 .botonera {
 	height: 45px;
 	border-radius: 5px;

@@ -133,7 +133,7 @@
 									<div class="col-4">
 										<div class="form-group">
 											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
+											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangePlantUptime($event)">
 												<option selected value="0">Selecciona una unidad</option>
 												<ng-container *ngFor="let Unidad of unidadList">
 													<option [value]="Unidad">{{ Unidad }}</option>
@@ -143,11 +143,11 @@
 									</div>
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad Id:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
+											<label class="form-control-label text-primary mb-1 mt-1" for="UnidadId">Unidad Id:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="UnidadId" id="UnidadId" (change)="onChangePlantUptime($event)">
 												<option selected value="0">Selecciona una unidad id</option>
-												<ng-container *ngFor="let Unidad of unidadIdList">
-													<option [value]="Unidad">{{ Unidad }}</option>
+												<ng-container *ngFor="let UnidadId of unidadIdList">
+													<option [value]="UnidadId">{{ UnidadId }}</option>
 												</ng-container>
 											</select>
 										</div>
@@ -155,7 +155,7 @@
 									<div class="col-4">
 										<div class="form-group">
 											<label class="form-control-label text-primary mb-1 mt-1" for="Zona">Zona:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangeUnidad($event)">
+											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
 												<option selected value="0">Selecciona una Zona </option>
 												<ng-container *ngFor="let Zona of zonaList">
 													<option [value]="Zona">{{ Zona }}</option>

@@ -65,6 +65,7 @@ export class CargaComponent {
 		UnidadId: new FormControl(''),
 		Zona: new FormControl(''),
 	});
+	uptimeFormState:any
 	unidadList:any 
 	unidadIdList:any
 	zonaList:any
@@ -357,13 +358,14 @@ export class CargaComponent {
 	}
 	receivingDate($event) {
 		let objeto = $event;
+		console.log(objeto)
 		this.currentDate = {
-			"INITIALDATE": this.formatDate(objeto.StartDate),
-			"FINALDATE": this.formatDate(objeto.EndDate)
+			"INITIALDATE": objeto.StartDate+' '+objeto.StartTime.hour+':'+objeto.StartTime.minute,
+			"FINALDATE": objeto.EndDate+' '+objeto.EndTime.hour+':'+objeto.EndTime.minute
 		}
 		this.myPreloader = true
 		this.switchReport(this.currentReport)
-		
+		console.log(this.currentDate) 
 	}
 
 	formatDate(date) {
@@ -386,7 +388,7 @@ export class CargaComponent {
 	}
 	//KM Recorridos
 	onChangeUnidad($event: any){
-		console.log($event.target.value)
+		//console.log($event.target.value)
 		if($event.target.value == 0){
 			this.responseData = this.responseDataBackup
 		}else{
@@ -395,7 +397,36 @@ export class CargaComponent {
 			  
 		}
 	  }
-	//
+	//Tiempo en planta
+	
+	
+	onChangePlantUptime($event: any){
+		
+		console.log('form', this.formPlantUptimeFilter.value.Unidad)
+		let auxdata 
+
+		if($event.target.value == 0){
+			this.responseData = this.responseDataBackup
+		}else{
+			//console.log(this.responseData)
+			if(this.formPlantUptimeFilter.value.Unidad !== ''){
+				this.responseData.filter = this.formPlantUptimeFilter.value.Unidad.trim().toLowerCase();
+				auxdata = this.responseData
+				this.unidadIdList = this.distinct2select('UnidadID', auxdata.filteredData)
+				
+			}if(this.formPlantUptimeFilter.value.Unidad !== '' && this.formPlantUptimeFilter.value.UnidadId !== '' && this.formPlantUptimeFilter.value.Zona == ''){
+				auxdata.filter = this.formPlantUptimeFilter.value.UnidadId.trim().toLowerCase();
+				this.responseData = auxdata
+				console.log(auxdata)
+				this.zonaList = this.distinct2select('ZoneName', this.responseData.filteredData)
+			}if(this.formPlantUptimeFilter.value.Unidad !== '' && this.formPlantUptimeFilter.value.UnidadId !== '' && this.formPlantUptimeFilter.value.Zona !== ''){
+				console.log(this.responseData, auxdata)
+				this.responseData.filter = this.formPlantUptimeFilter.value.Zona.trim().toLowerCase();
+			}
+			
+
+		}
+	  }
 	  
 	// ------------------- CARGA ----------------------------------
 	enviarFormulario() {

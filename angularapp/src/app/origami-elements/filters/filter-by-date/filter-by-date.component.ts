@@ -18,7 +18,7 @@ export class FilterByDateComponent implements OnInit {
     monthsSelectValues = [];
     aniosSelectValues = [];
     months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-
+    objectResponse:any
     INITIALDATEModel:any
     FINALDATEModel:any
 
@@ -27,7 +27,9 @@ export class FilterByDateComponent implements OnInit {
         Month: new FormControl({ value: '', disabled: true }),
         Year: new FormControl(''),
         StartDate: new FormControl(''),
-        EndDate: new FormControl({ value: '', disabled: true })
+        EndDate: new FormControl({ value: '', disabled: true }),
+        StartTime: new FormControl(''),
+        EndTime: new FormControl(''),
     });
 
 
@@ -38,6 +40,8 @@ export class FilterByDateComponent implements OnInit {
         { value: '4', viewValue: '4' },
         { value: '5', viewValue: '5' }
     ];
+
+    time = { hour: 13, minute: 30 };
 
     constructor() {
         this.datePickerForm.get('Year').valueChanges.subscribe((data) => {
@@ -59,8 +63,8 @@ export class FilterByDateComponent implements OnInit {
         this.aniosSelectValues = this.generateYears();
         //console.log(this.position, 'position')
         //Calcular la fecha de hoy y hoy -3 y setearlas a las fechas
-        console.log(this.default)
-       console.log(parseInt(this.default.INITIALDATE.split("-")[0]))
+        //console.log(this.default)
+       //console.log(parseInt(this.default.INITIALDATE.split("-")[0]))
        let parseDateInitial = [parseInt(this.default.INITIALDATE.split("-")[0]),parseInt(this.default.INITIALDATE.split("-")[1]),parseInt(this.default.INITIALDATE.split("-")[2])]
        let parseDateFinal = [parseInt(this.default.FINALDATE.split("-")[0]),parseInt(this.default.FINALDATE.split("-")[1]),parseInt(this.default.FINALDATE.split("-")[2])]
        this.INITIALDATEModel = new NgbDate (parseDateInitial[0],parseDateInitial[1],parseDateInitial[2])
@@ -85,14 +89,19 @@ export class FilterByDateComponent implements OnInit {
     sendDatePickerData() {
         // Mostrar la fecha seleccionada en el Input
         let dateFormatForDisplay = this.createDateDisplay(this.datePickerForm.value)
-        console.log(dateFormatForDisplay)
+        
         this.dateDisplay.setValue(dateFormatForDisplay);
 
+       
         //
-        let objectResponse = this.formatDateResponse(this.datePickerForm.value);
+        this.objectResponse = this.formatDateResponse(this.datePickerForm.value);
 
+        this.objectResponse.StartDate = this.formatDate(this.objectResponse.StartDate)
+        this.objectResponse.EndDate = this.formatDate(this.objectResponse.EndDate)
+        this.objectResponse.StartTime = this.datePickerForm.value.StartTime
+        this.objectResponse.EndTime = this.datePickerForm.value.EndTime
 
-        this.dataDatePicker.emit( objectResponse );
+        this.dataDatePicker.emit( this.objectResponse );
 
         // Ocultar el DatePicker
         this.hideDatePicker();
@@ -114,11 +123,11 @@ export class FilterByDateComponent implements OnInit {
         }
 
         if(formData.StartDate) {
-            objectParsed['StartDate'] = `${formData.StartDate.year}-${formData.StartDate.month}-${formData.StartDate.day}`;
+            objectParsed['StartDate'] = `${formData.StartDate.year}-${formData.StartDate.month}-${formData.StartDate.day} ${formData.StartTime.hour}:${formData.StartTime.minute}`;
         }
 
         if(formData.EndDate) {
-            objectParsed['EndDate'] = `${formData.EndDate.year}-${formData.EndDate.month}-${formData.EndDate.day}`;
+            objectParsed['EndDate'] = `${formData.EndDate.year}-${formData.EndDate.month}-${formData.EndDate.day} ${formData.EndTime.hour}:${formData.EndTime.minute}`;
         }
 
         return objectParsed;
@@ -141,7 +150,7 @@ export class FilterByDateComponent implements OnInit {
 
 
     createDateDisplay(d) {
-        console.log(d)
+       
         var display = '';
         let disp = ''
 

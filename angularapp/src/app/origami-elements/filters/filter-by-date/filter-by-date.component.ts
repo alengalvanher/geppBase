@@ -41,7 +41,8 @@ export class FilterByDateComponent implements OnInit {
         { value: '5', viewValue: '5' }
     ];
 
-    time = { hour: 13, minute: 30 };
+    time = { hour: 12, minute: 0 };
+    time2 = { hour: 12, minute: 0 };
 
     constructor() {
         this.datePickerForm.get('Year').valueChanges.subscribe((data) => {

@@ -534,7 +534,7 @@ export class CargaComponent {
 			"FINALDATE": objeto.EndDate+' '+objeto.EndTime.hour+':'+objeto.EndTime.minute
 		}
 		this.myPreloader = true
-		this.switchReport(this.currentReport)
+		//this.switchReport(this.currentReport)
 		console.log(this.currentDate) 
 	}
 

@@ -455,7 +455,7 @@ export class CargaComponent {
 									
 								}, 1);
 								this.myPreloader = false;
-							}{
+							}else{
 								this.myPreloader = true
 								this.notFound= true
 							}
@@ -492,7 +492,7 @@ export class CargaComponent {
 									
 								}, 1);
 								this.myPreloader = false;
-							}{
+							}else{
 								this.myPreloader = true
 								this.notFound= true
 							}

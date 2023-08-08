@@ -94,10 +94,14 @@
 							</button>
 							<span class="ms-3">{{this.panelTitle}}</span>
 						</div>
-						<div>
-							<button class="btn btn-light d-flex align-items-center text-primary" (click)="downloadReport()">
+						<div class="d-flex flex-row">
+							<button class="btn btn-light d-flex align-items-center text-primary m-1" (click)="downloadReport()">
 								<img src="./../../../../assets/icons/ic_xls.svg" alt="">
 								Exportar XLS
+							</button>
+							
+							<button class="btn btn-light d-flex align-items-center text-primary m-1" (click)="filterReport()">
+								Filtrar
 							</button>
 						</div>
 					</div>
@@ -107,9 +111,82 @@
 
 
 			<div class="card-body h-full">
-				<div class="row">
+				<div class="row mb-3">
 					<div class="col-8">
-						<ng-template [ngIf]=" this.panelTitle == 'Historial de posiciones'"></ng-template>
+						<ng-template [ngIf]=" this.panelTitle == 'Historial de posiciones'">
+							<form [formGroup]="formPositionsHistoryFilter">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona una unidad</option>
+												<ng-container *ngFor="let Unidad of unidadList">
+													<option [value]="Unidad">{{ Unidad }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Status">Status:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Status" id="Status" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un status</option>
+												<ng-container *ngFor="let Status of statusList">
+													<option [value]="Status">{{ Status }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Codigo">Código:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Codigo" id="Codigo" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un código </option>
+												<ng-container *ngFor="let Codigo of codigoList">
+													<option [value]="Codigo">{{ Codigo }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Conductor">Conductor:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Conductor" id="Conductor" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un conductor</option>
+												<ng-container *ngFor="let Conductor of conductorList">
+													<option [value]="Conductor">{{ Conductor }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Posicion">Posición:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Posicion" id="Posicion" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona una posición</option>
+												<ng-container *ngFor="let Posicion of posicionList">
+													<option [value]="Posicion">{{ Posicion }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Codigo">GPS:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="GPS" id="GPS" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un código </option>
+												<ng-container *ngFor="let GPS of GPSList">
+													<option [value]="GPS">{{ GPS }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</ng-template>
 						<ng-template [ngIf]=" this.panelTitle == 'KM transcurridos'">
 							<form [formGroup]="formKMFilter">
 								<div class="row">
@@ -134,7 +211,7 @@
 										<div class="form-group">
 											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
 											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangePlantUptime($event)">
-												<option selected value="0">Selecciona una unidad</option>
+												<option selected value="null">Selecciona una unidad</option>
 												<ng-container *ngFor="let Unidad of unidadList">
 													<option [value]="Unidad">{{ Unidad }}</option>
 												</ng-container>
@@ -145,7 +222,7 @@
 										<div class="form-group">
 											<label class="form-control-label text-primary mb-1 mt-1" for="UnidadId">Unidad Id:</label>
 											<select class="form-select form-control select-origami w-100" formControlName="UnidadId" id="UnidadId" (change)="onChangePlantUptime($event)">
-												<option selected value="0">Selecciona una unidad id</option>
+												<option selected value="null">Selecciona una unidad id</option>
 												<ng-container *ngFor="let UnidadId of unidadIdList">
 													<option [value]="UnidadId">{{ UnidadId }}</option>
 												</ng-container>
@@ -156,7 +233,7 @@
 										<div class="form-group">
 											<label class="form-control-label text-primary mb-1 mt-1" for="Zona">Zona:</label>
 											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
-												<option selected value="0">Selecciona una Zona </option>
+												<option selected value="null">Selecciona una Zona </option>
 												<ng-container *ngFor="let Zona of zonaList">
 													<option [value]="Zona">{{ Zona }}</option>
 												</ng-container>
@@ -166,7 +243,80 @@
 								</div>
 							</form>
 						</ng-template>
-						<ng-template [ngIf]=" this.panelTitle == 'Eventos de manejo'"></ng-template>
+						<ng-template [ngIf]=" this.panelTitle == 'Eventos de manejo'">
+							<form [formGroup]="formEventsFilter">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Agrupacion">Agrupacion:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Agrupacion" id="Agrupacion" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona una unidad</option>
+												<ng-container *ngFor="let Agrupacion of agrupacionList">
+													<option [value]="Agrupacion">{{ Agrupacion }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Placa">Placa:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Placa" id="Placa" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un status</option>
+												<ng-container *ngFor="let Placa of placaList">
+													<option [value]="Placa">{{ Placa }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Evento">Evento:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Evento" id="Evento" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un código </option>
+												<ng-container *ngFor="let Evento of eventoList">
+													<option [value]="Evento">{{ Evento }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Zona">Zona:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona una Zona </option>
+												<ng-container *ngFor="let Zona of zonaList">
+													<option [value]="Zona">{{ Zona }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="TipoEvento">Tipo de evento:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="TipoEvento" id="TipoEvento" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona una posición</option>
+												<ng-container *ngFor="let TipoEvento of tipoEventoList">
+													<option [value]="TipoEvento">{{ TipoEvento }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Status">Status:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Status" id="Status" (change)="onChangePlantUptime($event)">
+												<option selected value="null">Selecciona un status</option>
+												<ng-container *ngFor="let Status of statusList">
+													<option [value]="Status">{{ Status }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+								</div>
+							</form>
+						</ng-template>
 					</div>
 					<div class="col-4 mb-3 align-items-baseline">
 						<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
@@ -176,7 +326,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table-wrapper">
-								<ng-template [ngIf]="myPreloader" class="col-12">
+								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
 	
 									
 										<div class="col-12 text-center p-5 text-primary">
@@ -184,6 +334,15 @@
 										</div>
 									
 	
+								</ng-template>
+								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
+	
+									
+									<div class="col-12 text-center p-5 text-primary">
+										... No se encontraron registros ...
+									</div>
+								
+
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
@@ -335,14 +494,23 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table-wrapper">
-								<ng-template [ngIf]="myPreloader" class="col-12">
+								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
 	
-									
+										
 										<div class="col-12 text-center p-5 text-primary">
 											... cargando...
 										</div>
 									
-	
+
+								</ng-template>
+								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
+
+									
+									<div class="col-12 text-center p-5 text-primary">
+										... No se encontraron registros ...
+									</div>
+								
+
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
@@ -429,14 +597,23 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table-wrapper">
-								<ng-template [ngIf]="myPreloader" class="col-12">
+								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
 	
-									
+										
 										<div class="col-12 text-center p-5 text-primary">
 											... cargando...
 										</div>
 									
-	
+
+								</ng-template>
+								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
+
+									
+									<div class="col-12 text-center p-5 text-primary">
+										... No se encontraron registros ...
+									</div>
+								
+
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
@@ -521,14 +698,23 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table-wrapper">
-								<ng-template [ngIf]="myPreloader" class="col-12">
-	
-									
+								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
+		
+										
 										<div class="col-12 text-center p-5 text-primary">
 											... cargando...
 										</div>
 									
-	
+
+								</ng-template>
+								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
+
+									
+									<div class="col-12 text-center p-5 text-primary">
+										... No se encontraron registros ...
+									</div>
+								
+
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">

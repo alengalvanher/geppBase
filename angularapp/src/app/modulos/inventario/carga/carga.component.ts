@@ -26,6 +26,7 @@ export class CargaComponent {
 	
 	files = [];
 	myPreloader: boolean = true
+	notFound: boolean = false
 	responseData:any
 	responseDataBackup:any
 	currentDate:any
@@ -65,10 +66,39 @@ export class CargaComponent {
 		UnidadId: new FormControl(''),
 		Zona: new FormControl(''),
 	});
-	uptimeFormState:any
+	//Historial de posiciones
+	formPositionsHistoryFilter = new FormGroup({
+		Unidad: new FormControl(''),
+		Status: new FormControl(''),
+		Codigo: new FormControl(''),
+		Conductor: new FormControl(''),
+		Posicion: new FormControl(''),
+		GPS: new FormControl(''),
+	});
+	//Eventos de manejo
+	formEventsFilter = new FormGroup({
+		Agrupacion: new FormControl(''),
+		Placa: new FormControl(''),
+		Evento: new FormControl(''),
+		Zona: new FormControl(''),
+		TipoEvento: new FormControl(''),
+		Status: new FormControl(''),
+	});
+
+	kmState:any
 	unidadList:any 
 	unidadIdList:any
 	zonaList:any
+	statusList:any
+	codigoList:any
+	conductorList:any
+	posicionList:any
+	GPSList:any
+	agrupacionList:any
+	placaList:any
+	eventoList:any
+	tipoEventoList:any
+
 
 	constructor(
 		private cargaDeArchivos: CargadearchivosService,
@@ -81,8 +111,8 @@ export class CargaComponent {
 			let yesterday = new Date(today.getTime() - (24*60*60*1000));
 			let yesterday2 = new Date(yesterday.getTime() - (24*60*60*1000));
 
-			this.initialDateObject.INITIALDATE = this.formatDate(yesterday2)
-			this.initialDateObject.FINALDATE = this.formatDate(today)
+			this.initialDateObject.INITIALDATE = this.formatDate(yesterday2)+' 00:00:00'
+			this.initialDateObject.FINALDATE = this.formatDate(today)+' 00:00:59'
 			console.log(this.initialDateObject)
 
 			this.currentDate = this.initialDateObject
@@ -240,6 +270,12 @@ export class CargaComponent {
 						if(response.Success ){
 							
 							this.responseData = new MatTableDataSource(response['PositionsHistory']);
+							this.unidadList = this.distinct2select('Unit', response.PositionsHistory)
+							this.statusList = this.distinct2select('Status', response.PositionsHistory)
+							this.codigoList = this.distinct2select('Code', response.PositionsHistory)
+							this.conductorList = this.distinct2select('Driver', response.PositionsHistory)
+							this.posicionList = this.distinct2select('Position', response.PositionsHistory)
+							this.GPSList = this.distinct2select('GPS', response.PositionsHistory)
 		
 							setTimeout(() => {
 								this.responseData.paginator = this.paginator;
@@ -288,6 +324,12 @@ export class CargaComponent {
 							if(response.Success ){
 								
 								this.responseData = new MatTableDataSource(response['Events']);
+								this.agrupacionList = this.distinct2select('Grouping', response.Events)
+								this.placaList = this.distinct2select('Plate', response.Events)
+								this.eventoList = this.distinct2select('EventText', response.Events)
+								this.zonaList = this.distinct2select('ZoneName', response.Events)
+								this.tipoEventoList = this.distinct2select('EventType', response.Events)
+								this.statusList = this.distinct2select('Status', response.Events)
 			
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
@@ -338,7 +380,135 @@ export class CargaComponent {
 			} 
 		 } 
 	}
+	filterReport(){
+		console.log('test click')
+		switch(this.panelTitle){
+			case "Historial de posiciones":{
+				this.myPreloader = true
 
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Unit":  this.formPositionsHistoryFilter.value.Unidad == '' ? null : this.formPositionsHistoryFilter.value.Unidad,
+					"Status": this.formPositionsHistoryFilter.value.Status == '' ? null : this.formPositionsHistoryFilter.value.Status,
+					"Code": this.formPositionsHistoryFilter.value.Codigo == '' ? null : this.formPositionsHistoryFilter.value.Codigo,
+					"Driver":  this.formPositionsHistoryFilter.value.Conductor == '' ? null : this.formPositionsHistoryFilter.value.Conductor,
+					"Location":  this.formPositionsHistoryFilter.value.Posicion == '' ? null : this.formPositionsHistoryFilter.value.Posicion,
+					"GPS": this.formPositionsHistoryFilter.value.GPS == '' ? null : this.formPositionsHistoryFilter.value.GPS
+				}
+				this.inventarioService.GetPositionHistoryReportData(data2send).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['PositionsHistory']);
+			
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
+							}else{
+								this.myPreloader = true
+								this.notFound= true
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+				return {}
+				break; 
+			}
+			case "KM transcurridos":{
+				if(this.kmState == 0){
+					this.responseData = this.responseDataBackup
+				}else{
+					
+					this.responseData.filter = this.kmState
+					  
+				}
+				return {}
+				break; 
+			}
+			case "Eventos de manejo":{
+				this.myPreloader = true
+				
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Grouping": this.formEventsFilter.value.Agrupacion == '' ? null : this.formEventsFilter.value.Agrupacion,
+					"Plate": this.formEventsFilter.value.Placa == '' ? null : this.formEventsFilter.value.Placa,
+					"EventText": this.formEventsFilter.value.Evento == '' ? null : this.formEventsFilter.value.Evento,
+					"EventType": this.formEventsFilter.value.TipoEvento == '' ? null : this.formEventsFilter.value.TipoEvento,
+					"Status": this.formEventsFilter.value.Status == '' ? null : this.formEventsFilter.value.Status
+				}
+				this.inventarioService.GetEventsReportData(data2send).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['Events']);
+			
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
+							}{
+								this.myPreloader = true
+								this.notFound= true
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+
+				console.log(data2send)
+				return {}
+				break; 
+			}
+			case "Tiempo en planta":{
+				this.myPreloader = true
+				
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"UnidadID": this.formPlantUptimeFilter.value.UnidadId == '' ? null : this.formPlantUptimeFilter.value.UnidadId,
+					"Unit": this.formPlantUptimeFilter.value.Unidad == '' ? null : this.formPlantUptimeFilter.value.Unidad,
+					"ZoneName": this.formPlantUptimeFilter.value.Zona == '' ? null : this.formPlantUptimeFilter.value.Zona,		
+				}
+				this.inventarioService.GetPlantUptimeReportData(data2send).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['PlantUptimes']);
+								this.responseDataBackup = new MatTableDataSource(response['PlantUptimes']);
+								
+
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
+							}{
+								this.myPreloader = true
+								this.notFound= true
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+				return {}
+				break; 
+			}
+			default: { 
+				//statements;
+				return {} 
+				break; 
+			 } 
+		}
+	}
 	reportPanelAppear(report){
 		this.reportTablePanel = true
 		this.responseData = this.switchReport(report)
@@ -389,13 +559,8 @@ export class CargaComponent {
 	//KM Recorridos
 	onChangeUnidad($event: any){
 		//console.log($event.target.value)
-		if($event.target.value == 0){
-			this.responseData = this.responseDataBackup
-		}else{
-			console.log(this.responseData)
-			this.responseData.filter = $event.target.value.trim().toLowerCase();
-			  
-		}
+		this.kmState = $event.target.value.trim().toLowerCase();
+		
 	  }
 	//Tiempo en planta
 	
@@ -403,29 +568,7 @@ export class CargaComponent {
 	onChangePlantUptime($event: any){
 		
 		console.log('form', this.formPlantUptimeFilter.value.Unidad)
-		let auxdata 
-
-		if($event.target.value == 0){
-			this.responseData = this.responseDataBackup
-		}else{
-			//console.log(this.responseData)
-			if(this.formPlantUptimeFilter.value.Unidad !== ''){
-				this.responseData.filter = this.formPlantUptimeFilter.value.Unidad.trim().toLowerCase();
-				auxdata = this.responseData
-				this.unidadIdList = this.distinct2select('UnidadID', auxdata.filteredData)
-				
-			}if(this.formPlantUptimeFilter.value.Unidad !== '' && this.formPlantUptimeFilter.value.UnidadId !== '' && this.formPlantUptimeFilter.value.Zona == ''){
-				auxdata.filter = this.formPlantUptimeFilter.value.UnidadId.trim().toLowerCase();
-				this.responseData = auxdata
-				console.log(auxdata)
-				this.zonaList = this.distinct2select('ZoneName', this.responseData.filteredData)
-			}if(this.formPlantUptimeFilter.value.Unidad !== '' && this.formPlantUptimeFilter.value.UnidadId !== '' && this.formPlantUptimeFilter.value.Zona !== ''){
-				console.log(this.responseData, auxdata)
-				this.responseData.filter = this.formPlantUptimeFilter.value.Zona.trim().toLowerCase();
-			}
-			
-
-		}
+		
 	  }
 	  
 	// ------------------- CARGA ----------------------------------

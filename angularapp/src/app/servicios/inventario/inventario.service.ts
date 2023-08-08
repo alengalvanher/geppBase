@@ -76,7 +76,7 @@ export class InventarioService {
 		};
 		let body = object
 		
-		return this._httpClient.post<Blob>(`${this.geppURL}GetPlantUptimeReportData`,
+		return this._httpClient.post<Blob>(`${this.geppURL}GetPlantUptimeReport`,
 			body,
 			{
 				observe: 'response',

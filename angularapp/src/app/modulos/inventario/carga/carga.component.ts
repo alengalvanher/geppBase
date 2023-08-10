@@ -141,7 +141,17 @@ export class CargaComponent {
 	downloadReport(){
 		switch(this.panelTitle) { 
 			case "Historial de posiciones": { 
-				this.inventarioService.GetPositionHistoryReport(this.currentDate).subscribe({
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Unit":  this.formPositionsHistoryFilter.value.Unidad == 'null' || this.formPositionsHistoryFilter.value.Unidad == '' ? null : this.formPositionsHistoryFilter.value.Unidad,
+					"Status": this.formPositionsHistoryFilter.value.Status == 'null' || this.formPositionsHistoryFilter.value.Status == '' ? null : this.formPositionsHistoryFilter.value.Status,
+					"Code": this.formPositionsHistoryFilter.value.Codigo == 'null' || this.formPositionsHistoryFilter.value.Codigo == '' ? null : this.formPositionsHistoryFilter.value.Codigo,
+					"Driver":  this.formPositionsHistoryFilter.value.Conductor == 'null' || this.formPositionsHistoryFilter.value.Conductor == '' ? null : this.formPositionsHistoryFilter.value.Conductor,
+					"Location":  this.formPositionsHistoryFilter.value.Posicion == 'null' || this.formPositionsHistoryFilter.value.Posicion == '' ? null : this.formPositionsHistoryFilter.value.Posicion,
+					"GPS": this.formPositionsHistoryFilter.value.GPS == 'null' || this.formPositionsHistoryFilter.value.GPS == '' ? null : this.formPositionsHistoryFilter.value.GPS
+				}
+				this.inventarioService.GetPositionHistoryReport(data2send).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteHistorialDePosiciones.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -169,7 +179,12 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "KM transcurridos": { 
-				this.inventarioService.GetOdometerReport(this.currentDate).subscribe({
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Unit": this.formKMFilter.value.Unidad == 'null' || this.formKMFilter.value.Unidad == '' ? null : this.formKMFilter.value.Unidad,
+				}
+				this.inventarioService.GetOdometerReport(data2send).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteKMRecorridos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -197,7 +212,16 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Eventos de manejo": { 
-				this.inventarioService.GetEventsReport(this.currentDate).subscribe({
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Grouping": this.formEventsFilter.value.Agrupacion == 'null' ||this.formEventsFilter.value.Agrupacion == '' ? null : this.formEventsFilter.value.Agrupacion,
+					"Plate": this.formEventsFilter.value.Placa == 'null' || this.formEventsFilter.value.Placa == '' ? null : this.formEventsFilter.value.Placa,
+					"EventText": this.formEventsFilter.value.Evento == 'null' || this.formEventsFilter.value.Evento == '' ? null : this.formEventsFilter.value.Evento,
+					"EventType": this.formEventsFilter.value.TipoEvento == 'null' || this.formEventsFilter.value.TipoEvento == '' ? null : this.formEventsFilter.value.TipoEvento,
+					"Status": this.formEventsFilter.value.Status == 'null' || this.formEventsFilter.value.Status == '' ? null : this.formEventsFilter.value.Status
+				}
+				this.inventarioService.GetEventsReport(data2send).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteDeEventos.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')
@@ -225,7 +249,14 @@ export class CargaComponent {
 			   break; 
 			} 
 			case "Tiempo en planta": { 
-				this.inventarioService.GetPlantUptimeReport(this.currentDate).subscribe({
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"UnidadID": this.formPlantUptimeFilter.value.UnidadId == 'null' || this.formPlantUptimeFilter.value.UnidadId == '' ? null : this.formPlantUptimeFilter.value.UnidadId,
+					"Unit": this.formPlantUptimeFilter.value.Unidad == 'null' || this.formPlantUptimeFilter.value.Unidad == '' ? null : this.formPlantUptimeFilter.value.Unidad,
+					"ZoneName": this.formPlantUptimeFilter.value.Zona == 'null' || this.formPlantUptimeFilter.value.Zona == '' ? null : this.formPlantUptimeFilter.value.Zona,		
+				}
+				this.inventarioService.GetPlantUptimeReport(data2send).subscribe({
 					next: (data) => {
 						let nombreArchivo = "ReporteTiempoEnPlanta.xlsx"
 						const contentDisposition = data.headers.get('Content-Disposition')

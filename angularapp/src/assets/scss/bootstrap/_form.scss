@@ -35,15 +35,16 @@ input[type=file] {
 .select-origami {
 	background: url(./../../../assets/icons/select-after.svg) top right no-repeat;
 	background-position: right 0.75rem center;
-
-	color: #D9D9D9;
+	background-color: var(--og-info);
+	border: 0px solid;
+	color: var( --og-primary);
 	font-size: 13px;
 	height: 45px;
 	padding-right: 32px;
 
 	&:active,
 	&:focus {
-		color: #D9D9D9 !important;
+		color: var( --og-primary) !important;
 	}
 }
 

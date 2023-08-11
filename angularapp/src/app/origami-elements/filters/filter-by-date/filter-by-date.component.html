@@ -93,7 +93,7 @@
 					<form [formGroup]="datePickerForm">
 						<div class="datepicker-group">
 							<div class="datepicker-group__item mt-2">
-								<label class="form-control-label text-primary" for="PurchaseDate">Desde*:</label>
+								<label class="form-control-label text-primary" for="PurchaseDate">Fecha Inicial*:</label>
 
 								<div class="input-group">
 									<input (click)="d1.toggle()" class="form-control select-origami" placeholder="DD/MM/AAAA"
@@ -103,7 +103,7 @@
 							</div>
 
 							<div class="datepicker-group__item mt-2">
-								<label class="form-control-label text-primary" for="PurchaseDate">Hasta*:</label>
+								<label class="form-control-label text-primary" for="PurchaseDate">Fecha final*:</label>
 								<div class="input-group">
 
 									<input (click)="d2.toggle()" class="form-control select-origami" placeholder="DD/MM/AAAA"
@@ -112,9 +112,16 @@
 								</div>
 							</div>
 						</div>
-						<div class="timepicker-group">
-							<ngb-timepicker class="timepick m-1" formControlName="StartTime" [(ngModel)]="time"></ngb-timepicker>
-							<ngb-timepicker class="timepick m-1" formControlName="EndTime" [(ngModel)]="time2"></ngb-timepicker>
+						<div class="d-flex flex-row">
+							<div class="timepicker-group">
+								<label class="form-control-label text-primary" for="PurchaseDate">Hora inicial*:</label>
+								<ngb-timepicker class="timepick m-1" formControlName="StartTime" [(ngModel)]="time"></ngb-timepicker>
+								
+							</div>
+							<div class="timepicker-group">
+								<label class="form-control-label text-primary" for="PurchaseDate">Hora final*:</label>
+								<ngb-timepicker class="timepick m-1" formControlName="EndTime" [(ngModel)]="time2"></ngb-timepicker>
+							</div>
 						</div>
 					</form>
 

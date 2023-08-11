@@ -1,6 +1,20 @@
-.mt-30{
+::ng-deep {
+	.mt-30{
 	margin-top: 30px;
+	}
+	.mb-30{
+		margin-bottom: 30px;
+	}
+	.h-45{
+		height: 45px;
+	}
+	.img-btn{
+		& img{
+			margin: 0 !important;
+		}
+	}
 }
+
 .backdrop{
 	z-index: -1;
 	width: 100vw;
@@ -11,14 +25,16 @@
 	background-color: rgba(0,0,0,0.0);
 }
 .input-datepicker{
-	width: 260px;
 
 	& input {
-		background-color: var(--og-info);
-		border: 0;
-		background: var(--og-info) url(./../../../../assets/gpicons/arrow-down.svg) center right no-repeat;
+		background-color: white;
+		border: 1px solid #ced4da;
+		background: white url(./../../../../assets/gpicons/arrow-down.svg) center right no-repeat;
 		background-position: right 0.75rem center;
 	}
+}
+.dateSelector{
+	height: 45px;
 }
 .datepicker {
 	position: absolute;

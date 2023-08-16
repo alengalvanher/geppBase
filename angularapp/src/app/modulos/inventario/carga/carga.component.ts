@@ -169,6 +169,7 @@ export class CargaComponent {
 						console.log("Se descargó con éxito", data)
 					},
 					error: (error) => {
+						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 						console.log("Ocurrió un error", error)
 					},
 					complete: () => {
@@ -203,6 +204,7 @@ export class CargaComponent {
 					},
 					error: (error) => {
 						console.log("Ocurrió un error", error)
+						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 					},
 					complete: () => {
 						console.log("Se completó")
@@ -240,6 +242,7 @@ export class CargaComponent {
 					},
 					error: (error) => {
 						console.log("Ocurrió un error", error)
+						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 					},
 					complete: () => {
 						console.log("Se completó")
@@ -275,6 +278,7 @@ export class CargaComponent {
 					},
 					error: (error) => {
 						console.log("Ocurrió un error", error)
+						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 					},
 					complete: () => {
 						console.log("Se completó")
@@ -315,6 +319,9 @@ export class CargaComponent {
 								
 							}, 1);
 							this.myPreloader = false;
+						} else {
+							this.myPreloader = false;
+							this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 						}
 					},
 					error: (error) => console.log("Error", error),
@@ -341,6 +348,9 @@ export class CargaComponent {
 									
 								}, 1);
 								this.myPreloader = false;
+							}else {
+								this.myPreloader = false
+								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 							}
 						},
 						error: (error) => console.log("Error", error),
@@ -369,6 +379,9 @@ export class CargaComponent {
 									
 								}, 1);
 								this.myPreloader = false;
+							}else {
+								this.myPreloader = false
+								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 							}
 						},
 						error: (error) => console.log("Error", error),
@@ -396,6 +409,9 @@ export class CargaComponent {
 									
 								}, 1);
 								this.myPreloader = false;
+							}else {
+								this.myPreloader = false
+								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 							}
 						},
 						error: (error) => console.log("Error", error),

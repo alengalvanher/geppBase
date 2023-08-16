@@ -301,6 +301,11 @@ export class CargaComponent {
 		switch(idSelector) { 
 			case 1: { 
 			   this.panelTitle = "Historial de posiciones"
+			   let today = new Date
+			   this.initialDateObject.INITIALDATE = this.formatDate(today)+' 00:00:00'
+			   this.initialDateObject.FINALDATE = this.formatDate(today)+' 23:59:00'
+
+			   this.currentDate = this.initialDateObject
 			   this.inventarioService.GetPositionHistoryReportData(this.currentDate).subscribe({
 				next: (response:any) => {
 						if(response.Success ){

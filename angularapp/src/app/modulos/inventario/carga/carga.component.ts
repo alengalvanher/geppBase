@@ -99,6 +99,8 @@ export class CargaComponent {
 	eventoList:any
 	tipoEventoList:any
 
+	disableDownload:boolean = false
+
 	errorMessage:string
 
 	constructor(
@@ -140,6 +142,7 @@ export class CargaComponent {
 	}
 
 	downloadReport(){
+		this.disableDownload = true
 		switch(this.panelTitle) { 
 			case "Historial de posiciones": { 
 				let data2send = {
@@ -166,12 +169,13 @@ export class CargaComponent {
 						}
 		
 						saveAs(data.body, nombreArchivo);
-		
+						this.disableDownload = false
 						console.log("Se descargó con éxito", data)
 					},
 					error: (error) => {
 						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 						console.log("Ocurrió un error", error)
+						this.disableDownload = false
 					},
 					complete: () => {
 						console.log("Se completó")
@@ -200,11 +204,12 @@ export class CargaComponent {
 						}
 		
 						saveAs(data.body, nombreArchivo);
-		
+						this.disableDownload = false
 						console.log("Se descargó con éxito", data)
 					},
 					error: (error) => {
 						console.log("Ocurrió un error", error)
+						this.disableDownload = false
 						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 					},
 					complete: () => {
@@ -238,11 +243,12 @@ export class CargaComponent {
 						}
 		
 						saveAs(data.body, nombreArchivo);
-		
+						this.disableDownload = false
 						console.log("Se descargó con éxito", data)
 					},
 					error: (error) => {
 						console.log("Ocurrió un error", error)
+						this.disableDownload = false
 						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 					},
 					complete: () => {
@@ -274,11 +280,12 @@ export class CargaComponent {
 						}
 		
 						saveAs(data.body, nombreArchivo);
-		
+						this.disableDownload = false
 						console.log("Se descargó con éxito", data)
 					},
 					error: (error) => {
 						console.log("Ocurrió un error", error)
+						this.disableDownload = false
 						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 					},
 					complete: () => {

@@ -95,7 +95,7 @@
 							<span class="ms-3">{{this.panelTitle}}</span>
 						</div>
 						<div class="d-flex flex-row">
-							<button class="btn btn-light d-flex align-items-center text-primary m-1" (click)="downloadReport()">
+							<button class="btn btn-light d-flex align-items-center text-primary m-1" (click)="downloadReport()" [disabled]="disableDownload">
 								<img src="./../../../../assets/icons/ic_xls.svg" alt="">
 								Exportar XLS
 							</button>
@@ -445,13 +445,13 @@
 										<ng-container matColumnDef="Speed">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Velocidad </th>
 											<td mat-cell *matCellDef="let element" class="small left">
-												<ng-template [ngIf]="element.Speed < 40">
+												<ng-template [ngIf]="element.Speed < 80">
 													<div class="speed-green" >
 														<img src="./../../../../assets/icons/ic_good.png" alt="">
 														{{ element.Speed }}
 													</div>
 												</ng-template>
-												<ng-template [ngIf]="element.Speed > 40">
+												<ng-template [ngIf]="element.Speed > 80">
 													<div class="speed-red" >
 														<img src="./../../../../assets/icons/ic_wrong.png" alt="">
 														{{ element.Speed }}

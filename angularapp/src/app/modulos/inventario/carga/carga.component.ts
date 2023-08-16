@@ -99,6 +99,7 @@ export class CargaComponent {
 	eventoList:any
 	tipoEventoList:any
 
+	errorMessage:string
 
 	constructor(
 		private cargaDeArchivos: CargadearchivosService,
@@ -321,6 +322,8 @@ export class CargaComponent {
 							this.myPreloader = false;
 						} else {
 							this.myPreloader = false;
+							this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
+							this.responseData = new MatTableDataSource();
 							this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 						}
 					},
@@ -349,7 +352,9 @@ export class CargaComponent {
 								}, 1);
 								this.myPreloader = false;
 							}else {
-								this.myPreloader = false
+								this.myPreloader = false;
+								this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
+								this.responseData = new MatTableDataSource();
 								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 							}
 						},
@@ -380,7 +385,9 @@ export class CargaComponent {
 								}, 1);
 								this.myPreloader = false;
 							}else {
-								this.myPreloader = false
+								this.myPreloader = false;
+								this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
+								this.responseData = new MatTableDataSource();
 								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 							}
 						},
@@ -410,7 +417,9 @@ export class CargaComponent {
 								}, 1);
 								this.myPreloader = false;
 							}else {
-								this.myPreloader = false
+								this.myPreloader = false;
+								this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
+								this.responseData = new MatTableDataSource();
 								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
 							}
 						},

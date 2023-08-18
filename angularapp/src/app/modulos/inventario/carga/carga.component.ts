@@ -100,6 +100,7 @@ export class CargaComponent {
 	tipoEventoList:any
 
 	disableDownload:boolean = false
+	disableFilter:boolean = false
 
 	errorMessage:string
 
@@ -204,7 +205,10 @@ export class CargaComponent {
 						}
 		
 						saveAs(data.body, nombreArchivo);
-						this.disableDownload = false
+						
+						setTimeout(() => {
+							this.disableDownload = false
+						}, 3000);
 						console.log("Se descargó con éxito", data)
 					},
 					error: (error) => {
@@ -488,6 +492,7 @@ export class CargaComponent {
 				break; 
 			}
 			case "KM transcurridos":{
+				this.disableFilter = true
 				let data2send = {
 					"InitialDate": this.currentDate.INITIALDATE,
 					"FinalDate": this.currentDate.FINALDATE,
@@ -508,6 +513,9 @@ export class CargaComponent {
 									this.responseData.sort = this.sort;
 									
 								}, 1);
+								setTimeout(() => {
+									this.disableFilter = false
+								}, 3000);
 								this.myPreloader = false;
 							}else {
 								this.myPreloader = false;

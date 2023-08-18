@@ -101,7 +101,7 @@ export class CargaComponent {
 
 	disableDownload:boolean = false
 	disableFilter:boolean = false
-
+	firstLoad:number = 0
 	errorMessage:string
 
 	constructor(
@@ -357,9 +357,10 @@ export class CargaComponent {
 								
 								this.responseData = new MatTableDataSource(response['OdometerReport']);
 								this.responseDataBackup = new MatTableDataSource(response['OdometerReport']);
-								//Llenar el select de los filtros con los registros únicos
-								this.unidadList = this.distinct2select('Unit', response.OdometerReport)
-								
+								if(this.firstLoad == 0){
+									//Llenar el select de los filtros con los registros únicos
+									this.unidadList = this.distinct2select('Unit', response.OdometerReport)
+								}
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
 									this.translatePaginator()
@@ -367,6 +368,7 @@ export class CargaComponent {
 									
 								}, 1);
 								this.myPreloader = false;
+								this.firstLoad += 1
 							}else {
 								this.myPreloader = false;
 								this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
@@ -505,7 +507,7 @@ export class CargaComponent {
 								this.responseData = new MatTableDataSource(response['OdometerReport']);
 								this.responseDataBackup = new MatTableDataSource(response['OdometerReport']);
 								//Llenar el select de los filtros con los registros únicos
-								this.unidadList = this.distinct2select('Unit', response.OdometerReport)
+								//this.unidadList = this.distinct2select('Unit', response.OdometerReport)
 								
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;

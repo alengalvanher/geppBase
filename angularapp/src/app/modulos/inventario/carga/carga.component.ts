@@ -488,13 +488,36 @@ export class CargaComponent {
 				break; 
 			}
 			case "KM transcurridos":{
-				if(this.kmState == 0){
-					this.responseData = this.responseDataBackup
-				}else{
-					
-					this.responseData.filter = this.kmState
-					  
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Unit": this.formKMFilter.value.Unidad == 'null' || this.formKMFilter.value.Unidad == '' ? null : this.formKMFilter.value.Unidad,
 				}
+				this.inventarioService.GetOdometerReportData(data2send).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['OdometerReport']);
+								this.responseDataBackup = new MatTableDataSource(response['OdometerReport']);
+								//Llenar el select de los filtros con los registros únicos
+								this.unidadList = this.distinct2select('Unit', response.OdometerReport)
+								
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
+							}else {
+								this.myPreloader = false;
+								this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
+								this.responseData = new MatTableDataSource();
+								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
 				return {}
 				break; 
 			}

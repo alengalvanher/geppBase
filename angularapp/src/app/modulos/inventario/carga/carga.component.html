@@ -211,7 +211,7 @@
 										<div class="form-group" class="mb-30">
 											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
 											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
-												<option [selected]="true" value="0">Selecciona una unidad</option>
+												<option [selected]="true" value="null">Selecciona una unidad</option>
 												<ng-container *ngFor="let Unidad of unidadList">
 													<option [value]="Unidad">{{ Unidad }}</option>
 												</ng-container>

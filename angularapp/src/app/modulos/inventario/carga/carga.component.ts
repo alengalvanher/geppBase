@@ -541,7 +541,8 @@ export class CargaComponent {
 					"Plate": this.formEventsFilter.value.Placa == 'null' || this.formEventsFilter.value.Placa == '' ? null : this.formEventsFilter.value.Placa,
 					"EventText": this.formEventsFilter.value.Evento == 'null' || this.formEventsFilter.value.Evento == '' ? null : this.formEventsFilter.value.Evento,
 					"EventType": this.formEventsFilter.value.TipoEvento == 'null' || this.formEventsFilter.value.TipoEvento == '' ? null : this.formEventsFilter.value.TipoEvento,
-					"Status": this.formEventsFilter.value.Status == 'null' || this.formEventsFilter.value.Status == '' ? null : this.formEventsFilter.value.Status
+					"Status": this.formEventsFilter.value.Status == 'null' || this.formEventsFilter.value.Status == '' ? null : this.formEventsFilter.value.Status,
+					"ZoneName": this.formEventsFilter.value.Zona == 'null' || this.formEventsFilter.value.Zona == '' ? null : this.formEventsFilter.value.Zona
 				}
 				this.inventarioService.GetEventsReportData(data2send).subscribe({
 					next: (response:any) => {

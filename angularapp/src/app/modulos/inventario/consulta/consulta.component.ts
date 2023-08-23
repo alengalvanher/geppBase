@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
@@ -40,7 +40,7 @@ export interface inventarioData {
 	templateUrl: './consulta.component.html',
 	styleUrls: ['./consulta.component.scss']
 })
-export class ConsultaComponent implements OnInit {
+export class ConsultaComponent implements OnInit, OnDestroy {
 	rawData:any
 	myPreloader:boolean = true;
 	dataInventory!: MatTableDataSource<inventarioData>;
@@ -129,6 +129,9 @@ export class ConsultaComponent implements OnInit {
 		this.topbarCBU = localStorage.getItem('cbu')
 
 		this.getInventory({"CbuList": [this.topbarCBU]})
+	}
+	ngOnDestroy(): void {
+		//console.log('destroy')
 	}
 
 	ngOnInit(): void {

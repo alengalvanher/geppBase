@@ -863,8 +863,8 @@
 										<ng-container matColumnDef="Location">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
 											<td mat-cell *matCellDef="let element" class="large left">
-													{{ element.Location }}
-												
+													<!-- {{ element.Location }} -->
+													<a [href]="element.Link" [target]="'_blank'">{{ element.Location }}</a>
 											</td>
 										</ng-container>
 

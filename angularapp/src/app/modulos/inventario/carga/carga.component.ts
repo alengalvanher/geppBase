@@ -7,6 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CargadearchivosService } from "@servicios/carga/cargadearchivos.service";
 import { InventarioService } from "@servicios/inventario/inventario.service"
 import { saveAs } from 'file-saver';
+import { format } from 'path';
 
 
 @Component({
@@ -631,12 +632,32 @@ export class CargaComponent {
 	receivingDate($event) {
 		let objeto = $event;
 		//console.log(objeto)
+
+		let formattedStartTime = this.formatHour(objeto.StartTime)
+		let formattedEndTime = this.formatHour(objeto.EndDate)
+
 		this.currentDate = {
-			"INITIALDATE": objeto.StartDate+' '+objeto.StartTime.hour+':'+objeto.StartTime.minute,
-			"FINALDATE": objeto.EndDate+' '+objeto.EndTime.hour+':'+objeto.EndTime.minute
+			"INITIALDATE": objeto.StartDate+' '+ formattedStartTime,
+			"FINALDATE": objeto.EndDate+' '+ formattedEndTime
 		}
 		
 		//this.switchReport(this.currentReport)
+	}
+
+	formatHour(time){
+		
+		if (String(time.hour).length < 2) {
+			console.log('hour')
+			time.hour = '0' + time.hour;
+		}
+		if (String(time.minute).length < 2) {
+			console.log('minute')
+			time.minute = '0' + time.minute;
+		}
+		// if (time.second.length < 2) {
+		// 	time.second = '0' + time.second;}
+		
+		return [time.hour, time.minute,'00'].join(':');
 	}
 
 	formatDate(date) {

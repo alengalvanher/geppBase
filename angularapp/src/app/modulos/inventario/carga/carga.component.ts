@@ -634,7 +634,7 @@ export class CargaComponent {
 		//console.log(objeto)
 
 		let formattedStartTime = this.formatHour(objeto.StartTime)
-		let formattedEndTime = this.formatHour(objeto.EndDate)
+		let formattedEndTime = this.formatHour(objeto.EndTime)
 
 		this.currentDate = {
 			"INITIALDATE": objeto.StartDate+' '+ formattedStartTime,

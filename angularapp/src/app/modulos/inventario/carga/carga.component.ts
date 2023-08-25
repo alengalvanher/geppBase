@@ -47,8 +47,8 @@ export class CargaComponent {
 	displayedColumns2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers'];
 	displayedColumnsReescribir2: string[] = [ 'Unit', 'Subfleet', 'From', 'To', 'Kilometers'];
 	//Reporte de tiempo en planta
-	displayedColumns3: string[] = [ 'UnidadID', 'Unit', 'Start_time', 'End_time', 'ZoneName', 'TotalTimeInZone', 'SubFleet'];
-	displayedColumnsReescribir3: string[] = [ 'UnidadID', 'Unit', 'Start_time', 'End_time', 'ZoneName', 'TotalTimeInZone', 'SubFleet'];
+	displayedColumns3: string[] = [ 'UnidadID', 'Start_time', 'End_time', 'ZoneName', 'TotalTimeInZone', 'SubFleet'];
+	displayedColumnsReescribir3: string[] = [ 'UnidadID', 'Start_time', 'End_time', 'ZoneName', 'TotalTimeInZone', 'SubFleet'];
 	//Reporte de tiempo en planta
 	displayedColumns4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];
 	displayedColumnsReescribir4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];;
@@ -63,7 +63,7 @@ export class CargaComponent {
 	});
 	//Tiempo en planta filter
 	formPlantUptimeFilter = new FormGroup({
-		Unidad: new FormControl(''),
+		//Unidad: new FormControl(''),
 		UnidadId: new FormControl(''),
 		Zona: new FormControl(''),
 	});
@@ -268,7 +268,7 @@ export class CargaComponent {
 					"InitialDate": this.currentDate.INITIALDATE,
 					"FinalDate": this.currentDate.FINALDATE,
 					"UnidadID": this.formPlantUptimeFilter.value.UnidadId == 'null' || this.formPlantUptimeFilter.value.UnidadId == '' ? null : this.formPlantUptimeFilter.value.UnidadId,
-					"Unit": this.formPlantUptimeFilter.value.Unidad == 'null' || this.formPlantUptimeFilter.value.Unidad == '' ? null : this.formPlantUptimeFilter.value.Unidad,
+					//"Unit": this.formPlantUptimeFilter.value.Unidad == 'null' || this.formPlantUptimeFilter.value.Unidad == '' ? null : this.formPlantUptimeFilter.value.Unidad,
 					"ZoneName": this.formPlantUptimeFilter.value.Zona == 'null' || this.formPlantUptimeFilter.value.Zona == '' ? null : this.formPlantUptimeFilter.value.Zona,		
 				}
 				this.inventarioService.GetPlantUptimeReport(data2send).subscribe({
@@ -424,7 +424,7 @@ export class CargaComponent {
 								this.responseData = new MatTableDataSource(response['PlantUptimes']);
 								this.responseDataBackup = new MatTableDataSource(response['PlantUptimes']);
 								//Llenar el select de los filtros con los registros únicos
-								this.unidadList = this.distinct2select('Unit', response.PlantUptimes)
+								//this.unidadList = this.distinct2select('Unit', response.PlantUptimes)
 								this.unidadIdList = this.distinct2select('UnidadID', response.PlantUptimes)
 								this.zonaList = this.distinct2select('ZoneName', response.PlantUptimes)
 
@@ -577,7 +577,7 @@ export class CargaComponent {
 					"InitialDate": this.currentDate.INITIALDATE,
 					"FinalDate": this.currentDate.FINALDATE,
 					"UnidadID": this.formPlantUptimeFilter.value.UnidadId == 'null' || this.formPlantUptimeFilter.value.UnidadId == '' ? null : this.formPlantUptimeFilter.value.UnidadId,
-					"Unit": this.formPlantUptimeFilter.value.Unidad == 'null' || this.formPlantUptimeFilter.value.Unidad == '' ? null : this.formPlantUptimeFilter.value.Unidad,
+					//"Unit": this.formPlantUptimeFilter.value.Unidad == 'null' || this.formPlantUptimeFilter.value.Unidad == '' ? null : this.formPlantUptimeFilter.value.Unidad,
 					"ZoneName": this.formPlantUptimeFilter.value.Zona == 'null' || this.formPlantUptimeFilter.value.Zona == '' ? null : this.formPlantUptimeFilter.value.Zona,		
 				}
 				this.inventarioService.GetPlantUptimeReportData(data2send).subscribe({

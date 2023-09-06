@@ -861,7 +861,7 @@
 										<!-- EventDuration Column -->
 										<ng-container matColumnDef="EventDuration">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Duración </th>
-											<td mat-cell *matCellDef="let element" class="left">
+											<td mat-cell *matCellDef="let element" class="left" >
 												{{element.EventDuration}}
 												<!-- <ng-template [ngIf]="(element.EventDuration) < 10">
 													<div class="speed-green">
@@ -891,7 +891,7 @@
 										<!-- EventType Column -->
 										<ng-container matColumnDef="EventType">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tipo de evento </th>
-											<td mat-cell *matCellDef="let element" class="left">
+											<td mat-cell *matCellDef="let element" class="left" style="min-width:1500px;">
 												{{ element.EventType }}
 											</td>
 										</ng-container>

@@ -476,7 +476,13 @@ export class CargaComponent {
 							if(response.Success ){
 								
 								this.responseData = new MatTableDataSource(response['PositionsHistory']);
-			
+								this.unidadList = this.distinct2select('Unit', response.PositionsHistory)
+								this.statusList = this.distinct2select('Status', response.PositionsHistory)
+								this.codigoList = this.distinct2select('Code', response.PositionsHistory)
+								this.conductorList = this.distinct2select('Driver', response.PositionsHistory)
+								this.posicionList = this.distinct2select('Position', response.PositionsHistory)
+								this.GPSList = this.distinct2select('GPS', response.PositionsHistory)
+
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
 									this.translatePaginator()
@@ -508,7 +514,7 @@ export class CargaComponent {
 								this.responseData = new MatTableDataSource(response['OdometerReport']);
 								this.responseDataBackup = new MatTableDataSource(response['OdometerReport']);
 								//Llenar el select de los filtros con los registros únicos
-								//this.unidadList = this.distinct2select('Unit', response.OdometerReport)
+								this.unidadList = this.distinct2select('Unit', response.OdometerReport)
 								
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
@@ -550,6 +556,12 @@ export class CargaComponent {
 							if(response.Success ){
 								
 								this.responseData = new MatTableDataSource(response['Events']);
+								this.agrupacionList = this.distinct2select('Grouping', response.Events)
+								this.placaList = this.distinct2select('Plate', response.Events)
+								this.eventoList = this.distinct2select('EventText', response.Events)
+								this.zonaList = this.distinct2select('ZoneName', response.Events)
+								this.tipoEventoList = this.distinct2select('EventType', response.Events)
+								this.statusList = this.distinct2select('Status', response.Events)
 			
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
@@ -586,7 +598,8 @@ export class CargaComponent {
 								
 								this.responseData = new MatTableDataSource(response['PlantUptimes']);
 								this.responseDataBackup = new MatTableDataSource(response['PlantUptimes']);
-								
+								this.unidadIdList = this.distinct2select('UnidadID', response.PlantUptimes)
+								this.zonaList = this.distinct2select('ZoneName', response.PlantUptimes)
 
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;

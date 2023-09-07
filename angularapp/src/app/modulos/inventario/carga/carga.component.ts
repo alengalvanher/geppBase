@@ -52,6 +52,9 @@ export class CargaComponent {
 	//Reporte de tiempo en planta
 	displayedColumns4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];
 	displayedColumnsReescribir4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];;
+	//Reporte KM transcurridos
+	displayedColumns5: string[] = [ 'Vehículo', 'Remolque1', 'Remolque2', 'SencilloFull', 'StartTime', 'EndTime', 'InitialLocation', 'EndLocation', 'VehicleGroup'];
+	displayedColumnsReescribir5: string[] = [ 'Vehículo', 'Remolque1', 'Remolque2', 'SencilloFull', 'StartTime', 'EndTime', 'InitialLocation', 'EndLocation', 'VehicleGroup'];
 
 	initialDateObject:any = {
 		"INITIALDATE": this.formatDate(new Date),
@@ -85,10 +88,17 @@ export class CargaComponent {
 		TipoEvento: new FormControl(''),
 		Status: new FormControl(''),
 	});
+	//Acoplamientos
+	formAcoplamientos = new FormGroup({
+		Economico: new FormControl(''),
+		Full: new FormControl(''),
+	});
 
 	kmState:any
 	unidadList:any 
 	unidadIdList:any
+	economicoList:any
+	statusFullList:any
 	zonaList:any
 	statusList:any
 	codigoList:any
@@ -300,6 +310,43 @@ export class CargaComponent {
 				return {}
 			   break; 
 			} 
+			case "Acoplamientos": { 
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Unit": this.formAcoplamientos.value.Economico == 'null' || this.formAcoplamientos.value.Economico == '' ? null : this.formAcoplamientos.value.Economico,
+					"Grouping": this.formAcoplamientos.value.Full == 'null' || this.formAcoplamientos.value.Full == '' ? null : this.formAcoplamientos.value.Full,		
+				}
+
+				this.inventarioService.GetActiveAssetCouplingsEventsReport(data2send).subscribe({
+					next: (data) => {
+						let nombreArchivo = "ReporteAcoplamientos.xlsx"
+						const contentDisposition = data.headers.get('Content-Disposition')
+		
+						if (contentDisposition) {
+							const fileNameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+							const matches = fileNameRegex.exec(contentDisposition);
+							if (matches != null && matches[1]) {
+								nombreArchivo = matches[1].replace(/['"]/g, '');
+							}
+						}
+		
+						saveAs(data.body, nombreArchivo);
+						this.disableDownload = false
+						console.log("Se descargó con éxito", data)
+					},
+					error: (error) => {
+						console.log("Ocurrió un error", error)
+						this.disableDownload = false
+						this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
+					},
+					complete: () => {
+						console.log("Se completó")
+					}
+				})
+				return {}
+			   break; 
+			} 
 			default: { 
 			   //statements;
 			   return {} 
@@ -427,6 +474,43 @@ export class CargaComponent {
 								//this.unidadList = this.distinct2select('Unit', response.PlantUptimes)
 								this.unidadIdList = this.distinct2select('UnidadID', response.PlantUptimes)
 								this.zonaList = this.distinct2select('ZoneName', response.PlantUptimes)
+
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
+							}else {
+								this.myPreloader = false;
+								this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
+								this.responseData = new MatTableDataSource();
+								this._ngbModal.open(this.errorAlert, { centered: true, backdrop : 'static', keyboard : false });
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+
+				return {}
+			   break; 
+			} 
+			case 5: { 
+				this.panelTitle =  "Acoplamientos"
+				let request = {
+					
+					"Unit": null,
+					"Grouping": null
+				}
+				this.inventarioService.GetActiveAssetCouplingsEventsData(request).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['ActiveAssetCouplingsEvents']);
+								this.responseDataBackup = new MatTableDataSource(response['ActiveAssetCouplingsEvents']);
+								//Llenar el select de los filtros con los registros únicos
+								this.economicoList = this.distinct2select('Eco', response.ActiveAssetCouplingsEvents)
+								this.statusFullList = this.distinct2select('Type', response.ActiveAssetCouplingsEvents)
 
 								setTimeout(() => {
 									this.responseData.paginator = this.paginator;
@@ -618,11 +702,47 @@ export class CargaComponent {
 				return {}
 				break; 
 			}
+			case "Acoplamientos":{
+				this.myPreloader = true
+				
+				let data2send = {
+					"InitialDate": this.currentDate.INITIALDATE,
+					"FinalDate": this.currentDate.FINALDATE,
+					"Unit": this.formAcoplamientos.value.Economico == 'null' || this.formAcoplamientos.value.Economico == '' ? null : this.formAcoplamientos.value.Economico,
+					"Grouping": this.formAcoplamientos.value.Full == 'null' || this.formAcoplamientos.value.Full == '' ? null : this.formAcoplamientos.value.Full,		
+				}
+				this.inventarioService.GetActiveAssetCouplingsEventsData(data2send).subscribe({
+					next: (response:any) => {
+							if(response.Success ){
+								
+								this.responseData = new MatTableDataSource(response['ActiveAssetCouplingsEvents']);
+								this.responseDataBackup = new MatTableDataSource(response['ActiveAssetCouplingsEvents']);
+								this.economicoList = this.distinct2select('Eco', response.ActiveAssetCouplingsEvents)
+								this.statusFullList = this.distinct2select('Type', response.ActiveAssetCouplingsEvents)
+
+								setTimeout(() => {
+									this.responseData.paginator = this.paginator;
+									this.translatePaginator()
+									this.responseData.sort = this.sort;
+									
+								}, 1);
+								this.myPreloader = false;
+							}else{
+								this.myPreloader = true
+								this.notFound= true
+							}
+						},
+						error: (error) => console.log("Error", error),
+					})
+				return {}
+				break; 
+			} 
 			default: { 
 				//statements;
 				return {} 
 				break; 
-			 } 
+			} 
+		
 		}
 	}
 	reportPanelAppear(report){

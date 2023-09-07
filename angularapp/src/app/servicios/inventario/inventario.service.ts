@@ -41,6 +41,13 @@ export class InventarioService {
 
     return this._httpClient.post<any>(url, body, options);
   }
+  GetActiveAssetCouplingsEventsData(data: any) {
+    let url = `${this.geppURL}GetActiveAssetCouplingsEventsData`;
+    let body = data;
+    let options = { headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8') };
+
+    return this._httpClient.post<any>(url, body, options);
+  }
   //GEPP FILES DOWNLOAD-----------
   GetOdometerReport(object){
     const options = {
@@ -98,7 +105,20 @@ export class InventarioService {
 			}
 		)
   }
-
+  GetActiveAssetCouplingsEventsReport(object){
+    const options = {
+			headers: new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8')
+		};
+		let body = object
+		
+		return this._httpClient.post<Blob>(`${this.geppURL}GetActiveAssetCouplingsEventsReport`,
+			body,
+			{
+				observe: 'response',
+				responseType: 'blob' as 'json'
+			}
+		)
+  }
   //GEPP-------
   
   getInventory(data: any) {

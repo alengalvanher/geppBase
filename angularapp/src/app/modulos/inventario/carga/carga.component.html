@@ -44,6 +44,12 @@
 							<span class="text-primary">Tiempo en planta</span>
 						</button>
 					</div>
+					<div class="col-6 p-2 d-flex justify-content-end">
+						<button class="btn btn-light w-100 d-flex align-items-center" (click)="reportPanelAppear(5)">
+							<img src="./../../../../assets/icons/ic_clock-full.svg" alt="">
+							<span class="text-primary">Acoplamientos</span>
+						</button>
+					</div>
 				</div>
 				<!-- <form [formGroup]="cargaForm">
 					<div class="container">
@@ -359,6 +365,59 @@
 									</div>
 									<div class="col-3 d-flex align-items-end">
 										<button class="btn btn-primary d-flex align-items-center  h-45" (click)="filterReport()">
+											Filtrar
+										</button>
+									</div>
+								</div>
+							</form>
+						</ng-template>
+						<ng-template [ngIf]=" this.panelTitle == 'Acoplamientos'">
+							<form [formGroup]="formAcoplamientos">
+								<div class="row">
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Periodo">Periodo:</label>
+											<div class="mb-3 align-items-baseline mt--25">
+												<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
+											</div>
+										</div>
+									</div>
+									<!-- <div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona una unidad</option>
+												<ng-container *ngFor="let Unidad of unidadList">
+													<option [value]="Unidad">{{ Unidad }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div> -->
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Economico">Económico:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Economico" id="Economico" (change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona un económico</option>
+												<ng-container *ngFor="let Economico of economicoList">
+													<option [value]="Economico">{{ Economico }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="form-group">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Full">Sencillo o Full:</label>
+											<select class="form-select form-control select-origami w-100" formControlName="Full" id="Full" (change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona una status </option>
+												<ng-container *ngFor="let Full of statusFullList">
+													<option [value]="Full">{{ Full }}</option>
+												</ng-container>
+											</select>
+										</div>
+									</div>
+									<div class="col-8"></div>
+									<div class="col-4 d-flex align-items-end">
+										<button class="btn btn-primary d-flex align-items-center m-1 h-45" (click)="filterReport()">
 											Filtrar
 										</button>
 									</div>
@@ -798,7 +857,7 @@
 										<!-- ZoneName Column -->
 										<ng-container matColumnDef="ZoneName">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Zona </th>
-											<td mat-cell *matCellDef="let element" class="left">
+											<td mat-cell *matCellDef="let element" class="left"  style="min-width:150px;">
 												
 													{{ element.ZoneName }}
 												
@@ -808,9 +867,9 @@
 										<!-- EventTime Column -->
 										<ng-container matColumnDef="EventTime">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Hora del evento </th>
-											<td mat-cell *matCellDef="let element" class="left">
+											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
 												
-													{{ element.EventTime }}
+													{{ element.EventTime | date: 'dd-MM-YYYY HH:MM:SS' }}
 												
 											</td>
 										</ng-container>
@@ -818,9 +877,9 @@
 										<!-- EndTime Column -->
 										<ng-container matColumnDef="EndTime">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fin del evento </th>
-											<td mat-cell *matCellDef="let element" class="left">
+											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
 												
-													{{ element.EndTime }}
+													{{ element.EndTime | date: 'dd-MM-YYYY HH:MM:SS' }}
 												
 											</td>
 										</ng-container>
@@ -891,7 +950,7 @@
 										<!-- EventType Column -->
 										<ng-container matColumnDef="EventType">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tipo de evento </th>
-											<td mat-cell *matCellDef="let element" class="left" style="min-width:1500px;">
+											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
 												{{ element.EventType }}
 											</td>
 										</ng-container>
@@ -906,6 +965,122 @@
 
 										<tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
 										<tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
+	
+									</table>
+								</ng-template>
+							</div>
+	
+							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+						</div>
+					</div>
+				</ng-template>
+				<ng-template [ngIf]=" this.panelTitle == 'Acoplamientos'">
+					<div class="row">
+						<div class="col-12">
+							<div class="table-wrapper">
+								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
+	
+										
+										<div class="col-12 text-center p-5 text-primary">
+											... cargando...
+										</div>
+									
+
+								</ng-template>
+								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
+
+									
+									<div class="col-12 text-center p-5 text-primary">
+										... No se encontraron registros ...
+									</div>
+								
+
+								</ng-template>
+								<ng-template [ngIf]="!myPreloader">
+									<table mat-table matSort [dataSource]="responseData" class="w-100">
+	
+	
+										<!-- Vehículo Column -->
+										<ng-container matColumnDef="Vehículo">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Vehículo</th>
+											<td mat-cell *matCellDef="let element" class="left">
+												
+													{{ element.EcoName }}
+												
+											</td>
+										</ng-container>
+
+										<!-- Remolque1 Column -->
+										<ng-container matColumnDef="Remolque1">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Remolque 1 </th>
+											<td mat-cell *matCellDef="let element" class="left">
+												
+													{{ element.Trailer1 }}
+												
+											</td>
+										</ng-container>
+
+										<!-- Remolque 2 Column -->
+										<ng-container matColumnDef="Remolque2">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Remolque 2 </th>
+											<td mat-cell *matCellDef="let element" class="left">
+												
+													{{ element.Trailer2 }}
+												
+											</td>
+										</ng-container>
+	
+										<!-- SencilloFull Column -->
+										<ng-container matColumnDef="SencilloFull">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Sencillo o Full </th>
+											<td mat-cell *matCellDef="let element" class="left">
+												{{ element.Type }}
+											</td>
+										</ng-container>
+
+										<!-- StartTime Column -->
+										<ng-container matColumnDef="StartTime">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo de inicio </th>
+											<td mat-cell *matCellDef="let element" class="left">
+												{{ element.StartDate | date: 'dd-MM-YYYY HH:MM:SS'}}
+											</td>
+										</ng-container>
+										
+										<!-- EndTime Column -->
+										<ng-container matColumnDef="EndTime">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tiempo final </th>
+											<td mat-cell *matCellDef="let element" class=" left">
+												{{ element.EndDate | date: 'dd-MM-YYYY HH:MM:SS'}}
+											</td>
+										</ng-container>
+
+										<!-- InitialLocation Column -->
+										<ng-container matColumnDef="InitialLocation">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Ubicación inicial </th>
+											<td mat-cell *matCellDef="let element" class=" left">
+												{{ element.InitialLocation }}
+											</td>
+										</ng-container>
+
+										<!-- EndLocation Column -->
+										<ng-container matColumnDef="EndLocation">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Ubicación final </th>
+											<td mat-cell *matCellDef="let element" class=" left">
+												{{ element.FinalLocation }}
+											</td>
+										</ng-container>
+
+										<!-- VehicleGroup Column -->
+										<ng-container matColumnDef="VehicleGroup">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header > Grupo Vehicular </th>
+											<td mat-cell *matCellDef="let element" class=" left">
+												{{ element.VehicleGroup }}
+											</td>
+										</ng-container>
+
+
+										<tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
+										<tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
 	
 									</table>
 								</ng-template>

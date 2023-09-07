@@ -869,7 +869,7 @@
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Hora del evento </th>
 											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
 												
-													{{ element.EventTime | date: 'dd-MM-YYYY HH:MM:SS' }}
+													{{ element.EventTime | date :'short' }}
 												
 											</td>
 										</ng-container>
@@ -879,7 +879,7 @@
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fin del evento </th>
 											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
 												
-													{{ element.EndTime | date: 'dd-MM-YYYY HH:MM:SS' }}
+													{{ element.EndTime | date :'short' }}
 												
 											</td>
 										</ng-container>
@@ -1042,7 +1042,7 @@
 										<ng-container matColumnDef="StartTime">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo de inicio </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												{{ element.StartDate | date: 'dd-MM-YYYY HH:MM:SS'}}
+												{{ element.StartDate | date :'short'}}
 											</td>
 										</ng-container>
 										
@@ -1050,7 +1050,7 @@
 										<ng-container matColumnDef="EndTime">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tiempo final </th>
 											<td mat-cell *matCellDef="let element" class=" left">
-												{{ element.EndDate | date: 'dd-MM-YYYY HH:MM:SS'}}
+												{{ element.EndDate | date :'short'}}
 											</td>
 										</ng-container>
 

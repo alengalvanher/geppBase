@@ -53,8 +53,8 @@ export class CargaComponent {
 	displayedColumns4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];
 	displayedColumnsReescribir4: string[] = [ 'Grouping', 'Plate', 'Region', 'EventText', 'ZoneName', 'EventTime', 'EndTime', 'EndTime', 'Speed', 'Longitude', 'Latitude', 'Location', 'EventDuration', 'EventType', 'Status'];;
 	//Reporte KM transcurridos
-	displayedColumns5: string[] = [ 'Vehículo', 'Remolque1', 'Remolque2', 'SencilloFull', 'StartTime', 'EndTime', 'InitialLocation', 'EndLocation', 'VehicleGroup'];
-	displayedColumnsReescribir5: string[] = [ 'Vehículo', 'Remolque1', 'Remolque2', 'SencilloFull', 'StartTime', 'EndTime', 'InitialLocation', 'EndLocation', 'VehicleGroup'];
+	displayedColumns5: string[] = [ 'Vehículo', 'Remolque1', 'Remolque2', 'SencilloFull', 'StartTime', 'EndTime', 'InitialLocation', 'EndLocation', 'StopNumber', 'VehicleGroup'];
+	displayedColumnsReescribir5: string[] = [ 'Vehículo', 'Remolque1', 'Remolque2', 'SencilloFull', 'StartTime', 'EndTime', 'InitialLocation', 'EndLocation', 'StopNumber', 'VehicleGroup'];
 
 	initialDateObject:any = {
 		"INITIALDATE": this.formatDate(new Date),
@@ -64,7 +64,7 @@ export class CargaComponent {
 	formKMFilter = new FormGroup({
 		Unidad: new FormControl(''),
 	});
-	//Tiempo en planta filter
+	//Tiempo en planta filter 
 	formPlantUptimeFilter = new FormGroup({
 		//Unidad: new FormControl(''),
 		UnidadId: new FormControl(''),

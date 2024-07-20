@@ -95,20 +95,22 @@
 				<div class="card-header__title text-white d-flex">
 					<div class="w-100 d-flex justify-content-between align-items-center">
 						<div class="d-flex flex-row">
-							<button class="btn btn-light d-flex align-items-center img-btn" (click)="reportPanelDisppear()">
+							<button class="btn btn-light d-flex align-items-center img-btn"
+								(click)="reportPanelDisppear()">
 								<img src="./../../../../assets/icons/ic_atras.svg" alt="">
 							</button>
 							<span class="ms-3">{{this.panelTitle}}</span>
 						</div>
 						<div class="d-flex flex-row">
-							<button class="btn btn-light d-flex align-items-center text-primary m-1" (click)="downloadReport()" [disabled]="disableDownload">
+							<button class="btn btn-light d-flex align-items-center text-primary m-1"
+								(click)="downloadReport()" [disabled]="disableDownload">
 								<img src="./../../../../assets/icons/ic_xls.svg" alt="">
 								Exportar XLS
 							</button>
-							
+
 						</div>
 					</div>
-					
+
 				</div>
 			</div><!-- card-header -->
 
@@ -121,16 +123,22 @@
 								<div class="row">
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Periodo:</label>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Unidad">Periodo:</label>
 											<div class="mb-3 align-items-baseline mt--25">
-												<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
+												<app-filter-by-date (dataDatePicker)="receivingDate($event)"
+													[default]="this.initialDateObject"
+													[position]="'right'"></app-filter-by-date>
 											</div>
 										</div>
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
-											<select class="form-select form-control select-origami w-100" placeholder="Selecciona una unidad" formControlName="Unidad" id="Unidad" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Unidad">Unidad:</label>
+											<select class="form-select form-control select-origami w-100"
+												placeholder="Selecciona una unidad" formControlName="Unidad" id="Unidad"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona una unidad</option>
 												<ng-container *ngFor="let Unidad of unidadList">
 													<option [value]="Unidad">{{ Unidad }}</option>
@@ -140,8 +148,11 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Status">Status:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Status" id="Status" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Status">Status:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Status" id="Status"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona un status</option>
 												<ng-container *ngFor="let Status of statusList">
 													<option [value]="Status">{{ Status }}</option>
@@ -151,8 +162,11 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Codigo">Código:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Codigo" id="Codigo" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Codigo">Código:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Codigo" id="Codigo"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona un código </option>
 												<ng-container *ngFor="let Codigo of codigoList">
 													<option [value]="Codigo">{{ Codigo }}</option>
@@ -160,12 +174,16 @@
 											</select>
 										</div>
 									</div>
-								
+
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Conductor">Conductor:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Conductor" id="Conductor" (change)="onChangePlantUptime($event)">
-												<option [selected]="true" [value]="null">Selecciona un conductor</option>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Conductor">Conductor:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Conductor" id="Conductor"
+												(change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona un conductor
+												</option>
 												<ng-container *ngFor="let Conductor of conductorList">
 													<option [value]="Conductor">{{ Conductor }}</option>
 												</ng-container>
@@ -174,9 +192,13 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Posicion">Posición:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Posicion" id="Posicion" (change)="onChangePlantUptime($event)">
-												<option [selected]="true" [value]="null">Selecciona una posición</option>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Posicion">Posición:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Posicion" id="Posicion"
+												(change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona una posición
+												</option>
 												<ng-container *ngFor="let Posicion of posicionList">
 													<option [value]="Posicion">{{ Posicion }}</option>
 												</ng-container>
@@ -185,8 +207,10 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Codigo">GPS:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="GPS" id="GPS" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Codigo">GPS:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="GPS" id="GPS" (change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona un código </option>
 												<ng-container *ngFor="let GPS of GPSList">
 													<option [value]="GPS">{{ GPS }}</option>
@@ -195,7 +219,8 @@
 										</div>
 									</div>
 									<div class="col-3 d-flex align-items-end">
-										<button class="btn btn-primary d-flex align-items-center h-45" (click)="filterReport()">
+										<button class="btn btn-primary d-flex align-items-center h-45"
+											(click)="filterReport()">
 											Filtrar
 										</button>
 									</div>
@@ -207,16 +232,21 @@
 								<div class="row">
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Periodo:</label>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Unidad">Periodo:</label>
 											<div class="mb-3 align-items-baseline mt--25">
-												<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
+												<app-filter-by-date (dataDatePicker)="receivingDate($event)"
+													[default]="this.initialDateObject"
+													[position]="'right'"></app-filter-by-date>
 											</div>
 										</div>
 									</div>
 									<div class="col-4">
 										<div class="form-group" class="mb-30">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Unidad:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Unidad">Unidad:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Unidad" id="Unidad" (change)="onChangeUnidad($event)">
 												<option [selected]="true" value="null">Selecciona una unidad</option>
 												<ng-container *ngFor="let Unidad of unidadList">
 													<option [value]="Unidad">{{ Unidad }}</option>
@@ -225,7 +255,8 @@
 										</div>
 									</div>
 									<div class="col-4 d-flex align-items-center">
-										<button class="btn btn-primary d-flex align-items-center m-1 h-45" [disabled]="disableFilter" (click)="filterReport()">
+										<button class="btn btn-primary d-flex align-items-center m-1 h-45"
+											[disabled]="disableFilter" (click)="filterReport()">
 											Filtrar
 										</button>
 									</div>
@@ -237,9 +268,12 @@
 								<div class="row">
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Periodo:</label>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Unidad">Periodo:</label>
 											<div class="mb-3 align-items-baseline mt--25">
-												<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
+												<app-filter-by-date (dataDatePicker)="receivingDate($event)"
+													[default]="this.initialDateObject"
+													[position]="'right'"></app-filter-by-date>
 											</div>
 										</div>
 									</div>
@@ -256,9 +290,13 @@
 									</div> -->
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="UnidadId">Unidad Id:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="UnidadId" id="UnidadId" (change)="onChangePlantUptime($event)">
-												<option [selected]="true" [value]="null">Selecciona una unidad id</option>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="UnidadId">Unidad Id:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="UnidadId" id="UnidadId"
+												(change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona una unidad id
+												</option>
 												<ng-container *ngFor="let UnidadId of unidadIdList">
 													<option [value]="UnidadId">{{ UnidadId }}</option>
 												</ng-container>
@@ -267,8 +305,10 @@
 									</div>
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Zona">Zona:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Zona">Zona:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona una Zona </option>
 												<ng-container *ngFor="let Zona of zonaList">
 													<option [value]="Zona">{{ Zona }}</option>
@@ -278,7 +318,8 @@
 									</div>
 									<div class="col-8"></div>
 									<div class="col-4 d-flex align-items-end">
-										<button class="btn btn-primary d-flex align-items-center m-1 h-45" (click)="filterReport()">
+										<button class="btn btn-primary d-flex align-items-center m-1 h-45"
+											(click)="filterReport()">
 											Filtrar
 										</button>
 									</div>
@@ -286,20 +327,26 @@
 							</form>
 						</ng-template>
 						<ng-template [ngIf]=" this.panelTitle == 'Eventos de manejo'">
-							<form [formGroup]="formEventsFilter" >
+							<form [formGroup]="formEventsFilter">
 								<div class="row">
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Unidad">Periodo:</label>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Unidad">Periodo:</label>
 											<div class="mb-3 align-items-baseline mt--25">
-												<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
+												<app-filter-by-date (dataDatePicker)="receivingDate($event)"
+													[default]="this.initialDateObject"
+													[position]="'right'"></app-filter-by-date>
 											</div>
 										</div>
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Agrupacion">Agrupacion:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Agrupacion" id="Agrupacion" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Agrupacion">Agrupacion:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Agrupacion" id="Agrupacion"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona una unidad</option>
 												<ng-container *ngFor="let Agrupacion of agrupacionList">
 													<option [value]="Agrupacion">{{ Agrupacion }}</option>
@@ -309,8 +356,11 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Placa">Placa:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Placa" id="Placa" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Placa">Placa:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Placa" id="Placa"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona un status</option>
 												<ng-container *ngFor="let Placa of placaList">
 													<option [value]="Placa">{{ Placa }}</option>
@@ -320,8 +370,11 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Evento">Evento:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Evento" id="Evento" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Evento">Evento:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Evento" id="Evento"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona un código </option>
 												<ng-container *ngFor="let Evento of eventoList">
 													<option [value]="Evento">{{ Evento }}</option>
@@ -329,11 +382,13 @@
 											</select>
 										</div>
 									</div>
-								
+
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Zona">Zona:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Zona">Zona:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Zona" id="Zona" (change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona una Zona </option>
 												<ng-container *ngFor="let Zona of zonaList">
 													<option [value]="Zona">{{ Zona }}</option>
@@ -343,9 +398,13 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="TipoEvento">Tipo de evento:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="TipoEvento" id="TipoEvento" (change)="onChangePlantUptime($event)">
-												<option [selected]="true" [value]="null">Selecciona una posición</option>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="TipoEvento">Tipo de evento:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="TipoEvento" id="TipoEvento"
+												(change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona una posición
+												</option>
 												<ng-container *ngFor="let TipoEvento of tipoEventoList">
 													<option [value]="TipoEvento">{{ TipoEvento }}</option>
 												</ng-container>
@@ -354,8 +413,11 @@
 									</div>
 									<div class="col-3">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Status">Status:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Status" id="Status" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Status">Status:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Status" id="Status"
+												(change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona un status</option>
 												<ng-container *ngFor="let Status of statusList">
 													<option [value]="Status">{{ Status }}</option>
@@ -364,7 +426,8 @@
 										</div>
 									</div>
 									<div class="col-3 d-flex align-items-end">
-										<button class="btn btn-primary d-flex align-items-center  h-45" (click)="filterReport()">
+										<button class="btn btn-primary d-flex align-items-center  h-45"
+											(click)="filterReport()">
 											Filtrar
 										</button>
 									</div>
@@ -376,9 +439,12 @@
 								<div class="row">
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Periodo">Periodo:</label>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Periodo">Periodo:</label>
 											<div class="mb-3 align-items-baseline mt--25">
-												<app-filter-by-date (dataDatePicker)="receivingDate($event)" [default]="this.initialDateObject" [position]="'right'"></app-filter-by-date>
+												<app-filter-by-date (dataDatePicker)="receivingDate($event)"
+													[default]="this.initialDateObject"
+													[position]="'right'"></app-filter-by-date>
 											</div>
 										</div>
 									</div>
@@ -395,9 +461,13 @@
 									</div> -->
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Economico">Económico:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Economico" id="Economico" (change)="onChangePlantUptime($event)">
-												<option [selected]="true" [value]="null">Selecciona un económico</option>
+											<label class="form-control-label text-primary mb-1 mt-1"
+												for="Economico">Económico:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Economico" id="Economico"
+												(change)="onChangePlantUptime($event)">
+												<option [selected]="true" [value]="null">Selecciona un económico
+												</option>
 												<ng-container *ngFor="let Economico of economicoList">
 													<option [value]="Economico">{{ Economico }}</option>
 												</ng-container>
@@ -406,8 +476,10 @@
 									</div>
 									<div class="col-4">
 										<div class="form-group">
-											<label class="form-control-label text-primary mb-1 mt-1" for="Full">Sencillo o Full:</label>
-											<select class="form-select form-control select-origami w-100" formControlName="Full" id="Full" (change)="onChangePlantUptime($event)">
+											<label class="form-control-label text-primary mb-1 mt-1" for="Full">Sencillo
+												o Full:</label>
+											<select class="form-select form-control select-origami w-100"
+												formControlName="Full" id="Full" (change)="onChangePlantUptime($event)">
 												<option [selected]="true" [value]="null">Selecciona una status </option>
 												<ng-container *ngFor="let Full of statusFullList">
 													<option [value]="Full">{{ Full }}</option>
@@ -417,7 +489,8 @@
 									</div>
 									<div class="col-8"></div>
 									<div class="col-4 d-flex align-items-end">
-										<button class="btn btn-primary d-flex align-items-center m-1 h-45" (click)="filterReport()">
+										<button class="btn btn-primary d-flex align-items-center m-1 h-45"
+											(click)="filterReport()">
 											Filtrar
 										</button>
 									</div>
@@ -430,39 +503,33 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table-wrapper">
-								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
-		
-											
-										<div class="col-12 text-center p-5 text-primary">
-											... cargando...
-										</div>
-									
-
+								
+								<!-- <ng-template [ngIf]="myPreloader && !notFound" class="col-12">
+									<div class="col-12 text-center p-5 text-primary">
+										... cargando...
+									</div>
 								</ng-template>
+								
 								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
-
-									
 									<div class="col-12 text-center p-5 text-primary">
 										... No se encontraron registros ...
 									</div>
-								
+								</ng-template> -->
 
-								</ng-template>
-								<ng-template [ngIf]="!myPreloader">
+								<ng-template [ngIf]="responseData">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
-	
-	
 										<!-- Unit Column -->
 										<ng-container matColumnDef="Unit">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Unidad </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad </th>
 											<td mat-cell *matCellDef="let element" class=" small left">
-													{{ element.Unit }}
+												{{ element.Unit }}
 											</td>
 										</ng-container>
-	
+
 										<!-- ReportDate Column -->
 										<ng-container matColumnDef="ReportDate">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de reporte </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de reporte
+											</th>
 											<td mat-cell *matCellDef="let element" class="medium left">
 												{{ element.ReportDate.split(' ')[0] }}
 											</td>
@@ -470,28 +537,30 @@
 
 										<!-- ServerDate Column -->
 										<ng-container matColumnDef="ServerDate">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Servidor </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha de Servidor
+											</th>
 											<td mat-cell *matCellDef="let element" class="medium left">
 												{{ element.ServerDate.split(' ')[0] }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Status Column -->
-										<ng-container matColumnDef="Status" >
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Estatus </th>
+										<ng-container matColumnDef="Status">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Estatus </th>
 											<td mat-cell *matCellDef="let element" class="medium left">
 												{{ element.Status }}
 											</td>
 										</ng-container>
-	
+
 										<!-- StatusAccordingToCode Column -->
 										<ng-container matColumnDef="StatusAccordingToCode">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header> Status de acuerdo al código </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Status de acuerdo al
+												código </th>
 											<td mat-cell *matCellDef="let element" class="medium left">
 												{{ element.StatusAccordingToCode }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Code Column -->
 										<ng-container matColumnDef="Code">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
@@ -499,26 +568,26 @@
 												{{ element.Code }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Speed Column -->
 										<ng-container matColumnDef="Speed">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Velocidad </th>
 											<td mat-cell *matCellDef="let element" class="small left">
 												<ng-template [ngIf]="element.Speed < 80">
-													<div class="speed-green" >
+													<div class="speed-green">
 														<img src="./../../../../assets/icons/ic_good.png" alt="">
 														{{ element.Speed }}
 													</div>
 												</ng-template>
 												<ng-template [ngIf]="element.Speed > 80">
-													<div class="speed-red" >
+													<div class="speed-red">
 														<img src="./../../../../assets/icons/ic_wrong.png" alt="">
 														{{ element.Speed }}
 													</div>
 												</ng-template>
 											</td>
 										</ng-container>
-	
+
 										<!-- Driver Column -->
 										<ng-container matColumnDef="Driver">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Conductor </th>
@@ -526,50 +595,50 @@
 												{{ element.Driver }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Position Column -->
 										<ng-container matColumnDef="Position">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Posición </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Posición </th>
 											<td mat-cell *matCellDef="let element" class="medium left">
 												{{ element.Position }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Latitude Column -->
 										<ng-container matColumnDef="Latitude">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Latitud </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Latitud </th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.Latitude }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Longitude Column -->
 										<ng-container matColumnDef="Longitude">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Longitud </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Longitud </th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.Longitude }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Location Column -->
 										<ng-container matColumnDef="Location">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Dirección </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
 											<td mat-cell *matCellDef="let element" class="large left">
 												{{ element.Location }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Odometer Column -->
 										<ng-container matColumnDef="odometer">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Odómetro </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Odómetro </th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.odometer }}
 											</td>
 										</ng-container>
-	
+
 										<!-- GPS Column -->
 										<ng-container matColumnDef="GPS">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > GPS </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> GPS </th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.GPS}}
 											</td>
@@ -577,20 +646,28 @@
 
 										<!-- Subfleet Column -->
 										<ng-container matColumnDef="Subfleet">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Subfleet </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Subfleet </th>
 											<td mat-cell *matCellDef="let element" class="medium left">
 												{{ element.Subfleet }}
 											</td>
 										</ng-container>
-	
+
 										<tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
 										<tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
-	
+
 									</table>
+
+									<mat-paginator [pageSize]="respuestaHistorial?.Paging?.PageRecords"
+										[length]="respuestaHistorial?.Paging?.TotalRecords" [pageSizeOptions]="[10]"
+										(page)="pageEvent =$event; cargarSiguientePaginado($event)"
+										aria-label="Select page of users">
+									</mat-paginator>
 								</ng-template>
+
+
 							</div>
-	
-							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+
 						</div>
 					</div>
 				</ng-template>
@@ -599,45 +676,45 @@
 						<div class="col-12">
 							<div class="table-wrapper">
 								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
-	
-										
-										<div class="col-12 text-center p-5 text-primary">
-											... cargando...
-										</div>
-									
+
+
+									<div class="col-12 text-center p-5 text-primary">
+										... cargando...
+									</div>
+
 
 								</ng-template>
 								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
 
-									
+
 									<div class="col-12 text-center p-5 text-primary">
 										... No se encontraron registros ...
 									</div>
-								
+
 
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
-	
-	
+
+
 										<!-- Unit Column -->
 										<ng-container matColumnDef="Unit">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad </th>
-											<td mat-cell *matCellDef="let element"class="left">
-												
-													{{ element.Unit }}
-	
+											<td mat-cell *matCellDef="let element" class="left">
+
+												{{ element.Unit }}
+
 											</td>
 										</ng-container>
 
 										<!-- Subfleet Column -->
 										<ng-container matColumnDef="Subfleet">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Subfleet </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Subfleet </th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.Subfleet }}
 											</td>
 										</ng-container>
-	
+
 										<!-- From Column -->
 										<ng-container matColumnDef="From">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Desde </th>
@@ -653,7 +730,7 @@
 												{{ element.To.replace('T',' ') }}
 											</td>
 										</ng-container>
-	
+
 										<!-- Kilometers Column -->
 										<ng-container matColumnDef="Kilometers">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Kilómetros </th>
@@ -683,17 +760,18 @@
 												</ng-template> -->
 											</td>
 										</ng-container>
-	
-										
-	
+
+
+
 										<tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
 										<tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
-	
+
 									</table>
 								</ng-template>
 							</div>
-	
-							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]"
+								aria-label="Select page of users"></mat-paginator>
 						</div>
 					</div>
 				</ng-template>
@@ -702,34 +780,34 @@
 						<div class="col-12">
 							<div class="table-wrapper">
 								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
-	
-										
-										<div class="col-12 text-center p-5 text-primary">
-											... cargando...
-										</div>
-									
+
+
+									<div class="col-12 text-center p-5 text-primary">
+										... cargando...
+									</div>
+
 
 								</ng-template>
 								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
 
-									
+
 									<div class="col-12 text-center p-5 text-primary">
 										... No se encontraron registros ...
 									</div>
-								
+
 
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
-	
-	
+
+
 										<!-- UnidadID Column -->
 										<ng-container matColumnDef="UnidadID">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Unidad ID </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.UnidadID }}
-												
+
+												{{ element.UnidadID }}
+
 											</td>
 										</ng-container>
 
@@ -737,9 +815,9 @@
 										<ng-container matColumnDef="Start_time">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Inicio </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.Start_time }}
-												
+
+												{{ element.Start_time }}
+
 											</td>
 										</ng-container>
 
@@ -747,12 +825,12 @@
 										<ng-container matColumnDef="End_time">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fin </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.End_time }}
-												
+
+												{{ element.End_time }}
+
 											</td>
 										</ng-container>
-	
+
 										<!-- ZoneName Column -->
 										<ng-container matColumnDef="ZoneName">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Zona </th>
@@ -763,15 +841,16 @@
 
 										<!-- TotalTimeInZone Column -->
 										<ng-container matColumnDef="TotalTimeInZone">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo en la zona </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo en la zona
+											</th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.TotalTimeInZone }}
 											</td>
 										</ng-container>
-										
+
 										<!-- Subfleet Column -->
 										<ng-container matColumnDef="SubFleet">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Subfleet </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Subfleet </th>
 											<td mat-cell *matCellDef="let element" class="small left">
 												{{ element.Subfleet }}
 											</td>
@@ -779,12 +858,13 @@
 
 										<tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
 										<tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
-	
+
 									</table>
 								</ng-template>
 							</div>
-	
-							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]"
+								aria-label="Select page of users"></mat-paginator>
 						</div>
 					</div>
 				</ng-template>
@@ -793,34 +873,34 @@
 						<div class="col-12">
 							<div class="table-wrapper">
 								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
-		
-										
-										<div class="col-12 text-center p-5 text-primary">
-											... cargando...
-										</div>
-									
+
+
+									<div class="col-12 text-center p-5 text-primary">
+										... cargando...
+									</div>
+
 
 								</ng-template>
 								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
 
-									
+
 									<div class="col-12 text-center p-5 text-primary">
 										... No se encontraron registros ...
 									</div>
-								
+
 
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
-	
-	
+
+
 										<!-- Grouping Column -->
 										<ng-container matColumnDef="Grouping">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Agrupación </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.Grouping }}
-												
+
+												{{ element.Grouping }}
+
 											</td>
 										</ng-container>
 
@@ -828,9 +908,9 @@
 										<ng-container matColumnDef="Plate">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Placa </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.Plate }}
-												
+
+												{{ element.Plate }}
+
 											</td>
 										</ng-container>
 
@@ -838,9 +918,9 @@
 										<ng-container matColumnDef="Region">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Región </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.Region }}
-												
+
+												{{ element.Region }}
+
 											</td>
 										</ng-container>
 
@@ -848,42 +928,45 @@
 										<ng-container matColumnDef="EventText">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Evento </th>
 											<td mat-cell *matCellDef="let element" class="large left">
-												
-													{{ element.EventText }}
-												
+
+												{{ element.EventText }}
+
 											</td>
 										</ng-container>
 
 										<!-- ZoneName Column -->
 										<ng-container matColumnDef="ZoneName">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Zona </th>
-											<td mat-cell *matCellDef="let element" class="left"  style="min-width:150px;">
-												
-													{{ element.ZoneName }}
-												
+											<td mat-cell *matCellDef="let element" class="left"
+												style="min-width:150px;">
+
+												{{ element.ZoneName }}
+
 											</td>
 										</ng-container>
 
 										<!-- EventTime Column -->
 										<ng-container matColumnDef="EventTime">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Hora del evento </th>
-											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
-												
-													{{ element.EventTime | date :'short' }}
-												
+											<td mat-cell *matCellDef="let element" class="left"
+												style="min-width:150px;">
+
+												{{ element.EventTime | date :'short' }}
+
 											</td>
 										</ng-container>
 
 										<!-- EndTime Column -->
 										<ng-container matColumnDef="EndTime">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Fin del evento </th>
-											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
-												
-													{{ element.EndTime | date :'short' }}
-												
+											<td mat-cell *matCellDef="let element" class="left"
+												style="min-width:150px;">
+
+												{{ element.EndTime | date :'short' }}
+
 											</td>
 										</ng-container>
-	
+
 										<!-- Speed Column -->
 										<ng-container matColumnDef="Speed">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Velocidad </th>
@@ -912,15 +995,15 @@
 										<ng-container matColumnDef="Location">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Dirección </th>
 											<td mat-cell *matCellDef="let element" class="large left">
-													<!-- {{ element.Location }} -->
-													<a [href]="element.Link" [target]="'_blank'">{{ element.Location }}</a>
+												<!-- {{ element.Location }} -->
+												<a [href]="element.Link" [target]="'_blank'">{{ element.Location }}</a>
 											</td>
 										</ng-container>
 
 										<!-- EventDuration Column -->
 										<ng-container matColumnDef="EventDuration">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Duración </th>
-											<td mat-cell *matCellDef="let element" class="left" >
+											<td mat-cell *matCellDef="let element" class="left">
 												{{element.EventDuration}}
 												<!-- <ng-template [ngIf]="(element.EventDuration) < 10">
 													<div class="speed-green">
@@ -946,18 +1029,19 @@
 												</ng-template> -->
 											</td>
 										</ng-container>
-										
+
 										<!-- EventType Column -->
 										<ng-container matColumnDef="EventType">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tipo de evento </th>
-											<td mat-cell *matCellDef="let element" class="left" style="min-width:150px;">
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo de evento </th>
+											<td mat-cell *matCellDef="let element" class="left"
+												style="min-width:150px;">
 												{{ element.EventType }}
 											</td>
 										</ng-container>
 
 										<!-- Status Column -->
 										<ng-container matColumnDef="Status">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Status </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.Status }}
 											</td>
@@ -965,12 +1049,13 @@
 
 										<tr mat-header-row *matHeaderRowDef="displayedColumns4"></tr>
 										<tr mat-row *matRowDef="let row; columns: displayedColumns4;"></tr>
-	
+
 									</table>
 								</ng-template>
 							</div>
-	
-							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]"
+								aria-label="Select page of users"></mat-paginator>
 						</div>
 					</div>
 				</ng-template>
@@ -979,34 +1064,34 @@
 						<div class="col-12">
 							<div class="table-wrapper">
 								<ng-template [ngIf]="myPreloader && !notFound" class="col-12">
-	
-										
-										<div class="col-12 text-center p-5 text-primary">
-											... cargando...
-										</div>
-									
+
+
+									<div class="col-12 text-center p-5 text-primary">
+										... cargando...
+									</div>
+
 
 								</ng-template>
 								<ng-template [ngIf]="myPreloader && notFound" class="col-12">
 
-									
+
 									<div class="col-12 text-center p-5 text-primary">
 										... No se encontraron registros ...
 									</div>
-								
+
 
 								</ng-template>
 								<ng-template [ngIf]="!myPreloader">
 									<table mat-table matSort [dataSource]="responseData" class="w-100">
-	
-	
+
+
 										<!-- Vehículo Column -->
 										<ng-container matColumnDef="Vehículo">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Vehículo</th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.EcoName }}
-												
+
+												{{ element.EcoName }}
+
 											</td>
 										</ng-container>
 
@@ -1014,9 +1099,9 @@
 										<ng-container matColumnDef="Remolque1">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Remolque 1 </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.Trailer1 }}
-												
+
+												{{ element.Trailer1 }}
+
 											</td>
 										</ng-container>
 
@@ -1024,12 +1109,12 @@
 										<ng-container matColumnDef="Remolque2">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Remolque 2 </th>
 											<td mat-cell *matCellDef="let element" class="left">
-												
-													{{ element.Trailer2 }}
-												
+
+												{{ element.Trailer2 }}
+
 											</td>
 										</ng-container>
-	
+
 										<!-- SencilloFull Column -->
 										<ng-container matColumnDef="SencilloFull">
 											<th mat-header-cell *matHeaderCellDef mat-sort-header> Sencillo o Full </th>
@@ -1040,15 +1125,16 @@
 
 										<!-- StartTime Column -->
 										<ng-container matColumnDef="StartTime">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo de inicio </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo de inicio
+											</th>
 											<td mat-cell *matCellDef="let element" class="left">
 												{{ element.StartDate | date :'short'}}
 											</td>
 										</ng-container>
-										
+
 										<!-- EndTime Column -->
 										<ng-container matColumnDef="EndTime">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Tiempo final </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Tiempo final </th>
 											<td mat-cell *matCellDef="let element" class=" left">
 												{{ element.EndDate | date :'short'}}
 											</td>
@@ -1056,7 +1142,8 @@
 
 										<!-- InitialLocation Column -->
 										<ng-container matColumnDef="InitialLocation">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Ubicación inicial </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicación inicial
+											</th>
 											<td mat-cell *matCellDef="let element" class=" left">
 												{{ element.InitialLocation }}
 											</td>
@@ -1064,7 +1151,7 @@
 
 										<!-- EndLocation Column -->
 										<ng-container matColumnDef="EndLocation">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Ubicación final </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Ubicación final </th>
 											<td mat-cell *matCellDef="let element" class=" left">
 												{{ element.FinalLocation }}
 											</td>
@@ -1072,7 +1159,7 @@
 
 										<!-- StopNumber Column -->
 										<ng-container matColumnDef="StopNumber">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > No. paradas </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> No. paradas </th>
 											<td mat-cell *matCellDef="let element" class="  text-center">
 												{{ element.StopNumber }}
 											</td>
@@ -1080,7 +1167,7 @@
 
 										<!-- VehicleGroup Column -->
 										<ng-container matColumnDef="VehicleGroup">
-											<th mat-header-cell *matHeaderCellDef mat-sort-header > Grupo Vehicular </th>
+											<th mat-header-cell *matHeaderCellDef mat-sort-header> Grupo Vehicular </th>
 											<td mat-cell *matCellDef="let element" class=" left">
 												{{ element.VehicleGroup }}
 											</td>
@@ -1089,21 +1176,22 @@
 
 										<tr mat-header-row *matHeaderRowDef="displayedColumns5"></tr>
 										<tr mat-row *matRowDef="let row; columns: displayedColumns5;"></tr>
-	
+
 									</table>
 								</ng-template>
 							</div>
-	
-							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
+							<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]"
+								aria-label="Select page of users"></mat-paginator>
 						</div>
 					</div>
 				</ng-template>
-				
+
 			</div>
 		</div>
 
 		<div class="row d-flex justify-content-end">
-			<img class="footer"  src="./../../../../assets/images/logos.png" alt="">
+			<img class="footer" src="./../../../../assets/images/logos.png" alt="">
 		</div>
 	</div>
 
@@ -1129,8 +1217,10 @@
 	<div class="modal-body text-center origami-modal">
 		<div class="mb-3">
 			<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
-				<circle cx="25" cy="25" r="25" fill="#62E700"/>
-				<path fill-rule="evenodd" clip-rule="evenodd" d="M35.7868 17.5873C35.973 17.773 36.1207 17.9936 36.2215 18.2365C36.3222 18.4793 36.3741 18.7397 36.3741 19.0026C36.3741 19.2656 36.3222 19.526 36.2215 19.7688C36.1207 20.0117 35.973 20.2323 35.7868 20.418L23.7923 32.4124C23.6067 32.5986 23.3861 32.7463 23.1432 32.8471C22.9003 32.9479 22.64 32.9998 22.377 32.9998C22.1141 32.9998 21.8537 32.9479 21.6108 32.8471C21.368 32.7463 21.1474 32.5986 20.9617 32.4124L14.9644 26.4152C14.7786 26.2294 14.6311 26.0087 14.5305 25.7659C14.4299 25.523 14.3782 25.2627 14.3782 24.9999C14.3782 24.737 14.4299 24.4767 14.5305 24.2339C14.6311 23.991 14.7786 23.7704 14.9644 23.5845C15.1503 23.3987 15.3709 23.2512 15.6138 23.1506C15.8566 23.05 16.1169 22.9983 16.3798 22.9983C16.6426 22.9983 16.9029 23.05 17.1458 23.1506C17.3886 23.2512 17.6093 23.3987 17.7951 23.5845L22.377 28.1704L32.9561 17.5873C33.1418 17.4011 33.3624 17.2534 33.6053 17.1527C33.8481 17.0519 34.1085 17 34.3715 17C34.6344 17 34.8948 17.0519 35.1376 17.1527C35.3805 17.2534 35.6011 17.4011 35.7868 17.5873Z" fill="white"/>
+				<circle cx="25" cy="25" r="25" fill="#62E700" />
+				<path fill-rule="evenodd" clip-rule="evenodd"
+					d="M35.7868 17.5873C35.973 17.773 36.1207 17.9936 36.2215 18.2365C36.3222 18.4793 36.3741 18.7397 36.3741 19.0026C36.3741 19.2656 36.3222 19.526 36.2215 19.7688C36.1207 20.0117 35.973 20.2323 35.7868 20.418L23.7923 32.4124C23.6067 32.5986 23.3861 32.7463 23.1432 32.8471C22.9003 32.9479 22.64 32.9998 22.377 32.9998C22.1141 32.9998 21.8537 32.9479 21.6108 32.8471C21.368 32.7463 21.1474 32.5986 20.9617 32.4124L14.9644 26.4152C14.7786 26.2294 14.6311 26.0087 14.5305 25.7659C14.4299 25.523 14.3782 25.2627 14.3782 24.9999C14.3782 24.737 14.4299 24.4767 14.5305 24.2339C14.6311 23.991 14.7786 23.7704 14.9644 23.5845C15.1503 23.3987 15.3709 23.2512 15.6138 23.1506C15.8566 23.05 16.1169 22.9983 16.3798 22.9983C16.6426 22.9983 16.9029 23.05 17.1458 23.1506C17.3886 23.2512 17.6093 23.3987 17.7951 23.5845L22.377 28.1704L32.9561 17.5873C33.1418 17.4011 33.3624 17.2534 33.6053 17.1527C33.8481 17.0519 34.1085 17 34.3715 17C34.6344 17 34.8948 17.0519 35.1376 17.1527C35.3805 17.2534 35.6011 17.4011 35.7868 17.5873Z"
+					fill="white" />
 			</svg>
 		</div>
 
@@ -1158,9 +1248,13 @@
 	<div class="modal-body text-center origami-modal">
 		<div class="mb-3">
 			<svg xmlns="http://www.w3.org/2000/svg" width="51" height="50" viewBox="0 0 51 50" fill="none">
-				<ellipse cx="25.019" cy="25" rx="25.019" ry="25" fill="#FF252B"/>
-				<path d="M33.0845 16.94C32.9452 16.8006 32.7798 16.69 32.5978 16.6145C32.4155 16.5389 32.2201 16.5 32.0228 16.5C31.8254 16.5 31.63 16.5389 31.4478 16.6145C31.2657 16.69 31.1002 16.8006 30.9609 16.94L33.0845 16.94ZM33.0845 16.94C33.2241 17.0792 33.3349 17.2446 33.4105 17.4266C33.4862 17.6089 33.5251 17.8043 33.5251 18.0016C33.5251 18.1989 33.4862 18.3943 33.4105 18.5765C33.3348 18.7588 33.2239 18.9243 33.0841 19.0636L19.0766 33.0605C18.7949 33.3419 18.413 33.5 18.0148 33.5C17.6166 33.5 17.2346 33.3419 16.953 33.0605C16.6713 32.779 16.5129 32.3972 16.5129 31.9989C16.5129 31.6007 16.6713 31.2189 16.953 30.9374L30.9605 16.9405L33.0841 16.9396L32.7312 17.2937L33.085 16.9405C33.0849 16.9403 33.0847 16.9401 33.0845 16.94Z" fill="white" stroke="white"/>
-				<path d="M16.9539 16.9396C16.8142 17.0789 16.7033 17.2444 16.6276 17.4266C16.5519 17.6089 16.5129 17.8043 16.5129 18.0016C16.5129 18.1989 16.5519 18.3943 16.6276 18.5765C16.7032 18.7587 16.814 18.9241 16.9537 19.0633C16.9537 19.0634 16.9538 19.0635 16.9539 19.0636L30.9615 33.0605C31.2431 33.3419 31.6251 33.5 32.0233 33.5C32.4215 33.5 32.8034 33.3419 33.0851 33.0605C33.3668 32.779 33.5251 32.3972 33.5251 31.9989C33.5251 31.6007 33.3668 31.2189 33.0851 30.9374L19.0776 16.9405C19.0775 16.9404 19.0774 16.9404 19.0774 16.9403C18.938 16.8007 18.7725 16.69 18.5903 16.6145C18.408 16.5389 18.2126 16.5 18.0153 16.5C17.818 16.5 17.6226 16.5389 17.4403 16.6145C17.258 16.6901 17.0924 16.8008 16.953 16.9405L17.3069 17.2937L16.9539 16.9396Z" fill="white" stroke="white"/>
+				<ellipse cx="25.019" cy="25" rx="25.019" ry="25" fill="#FF252B" />
+				<path
+					d="M33.0845 16.94C32.9452 16.8006 32.7798 16.69 32.5978 16.6145C32.4155 16.5389 32.2201 16.5 32.0228 16.5C31.8254 16.5 31.63 16.5389 31.4478 16.6145C31.2657 16.69 31.1002 16.8006 30.9609 16.94L33.0845 16.94ZM33.0845 16.94C33.2241 17.0792 33.3349 17.2446 33.4105 17.4266C33.4862 17.6089 33.5251 17.8043 33.5251 18.0016C33.5251 18.1989 33.4862 18.3943 33.4105 18.5765C33.3348 18.7588 33.2239 18.9243 33.0841 19.0636L19.0766 33.0605C18.7949 33.3419 18.413 33.5 18.0148 33.5C17.6166 33.5 17.2346 33.3419 16.953 33.0605C16.6713 32.779 16.5129 32.3972 16.5129 31.9989C16.5129 31.6007 16.6713 31.2189 16.953 30.9374L30.9605 16.9405L33.0841 16.9396L32.7312 17.2937L33.085 16.9405C33.0849 16.9403 33.0847 16.9401 33.0845 16.94Z"
+					fill="white" stroke="white" />
+				<path
+					d="M16.9539 16.9396C16.8142 17.0789 16.7033 17.2444 16.6276 17.4266C16.5519 17.6089 16.5129 17.8043 16.5129 18.0016C16.5129 18.1989 16.5519 18.3943 16.6276 18.5765C16.7032 18.7587 16.814 18.9241 16.9537 19.0633C16.9537 19.0634 16.9538 19.0635 16.9539 19.0636L30.9615 33.0605C31.2431 33.3419 31.6251 33.5 32.0233 33.5C32.4215 33.5 32.8034 33.3419 33.0851 33.0605C33.3668 32.779 33.5251 32.3972 33.5251 31.9989C33.5251 31.6007 33.3668 31.2189 33.0851 30.9374L19.0776 16.9405C19.0775 16.9404 19.0774 16.9404 19.0774 16.9403C18.938 16.8007 18.7725 16.69 18.5903 16.6145C18.408 16.5389 18.2126 16.5 18.0153 16.5C17.818 16.5 17.6226 16.5389 17.4403 16.6145C17.258 16.6901 17.0924 16.8008 16.953 16.9405L17.3069 17.2937L16.9539 16.9396Z"
+					fill="white" stroke="white" />
 			</svg>
 		</div>
 

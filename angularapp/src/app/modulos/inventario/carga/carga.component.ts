@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -30,7 +30,7 @@ export class CargaComponent {
 	notFound: boolean = false
 	responseData: any
 	responseDataBackup: any
-	currentDate: any
+	currentDate: any;
 
 	cargaForm = new FormGroup({
 		archivo: new FormControl(null)
@@ -113,7 +113,14 @@ export class CargaComponent {
 	disableDownload: boolean = false
 	disableFilter: boolean = false
 	firstLoad: number = 0
-	errorMessage: string
+	errorMessage: string;
+	pagesize: number = 100;
+	respuestaHistorial: any = null;;
+	pageEvent: PageEvent;
+
+	@ViewChild(MatPaginator, { static: true }) paginatorHistorial: MatPaginator;
+
+	pageIndex: number = 1;
 
 	constructor(
 		private cargaDeArchivos: CargadearchivosService,
@@ -157,7 +164,21 @@ export class CargaComponent {
 		this.disableDownload = true
 		switch (this.panelTitle) {
 			case "Historial de posiciones": {
-				let data2send = {
+				let today = new Date
+				let initialDateObject: any = {
+					"INITIALDATE": this.formatDate(new Date),
+					"FINALDATE": ''
+				}
+				initialDateObject.INITIALDATE = this.formatDate(today) + ' 00:00:00'
+				initialDateObject.FINALDATE = this.formatDate(today) + ' 23:59:00'
+				initialDateObject.Paging = {
+					"PageNumber": this.pageIndex,
+					"PageRecords": this.pagesize,
+					"All": 0,
+					"TotalRecords": 0
+				}
+
+				let data2send:any = {
 					"InitialDate": this.currentDate.INITIALDATE,
 					"FinalDate": this.currentDate.FINALDATE,
 					"Unit": this.formPositionsHistoryFilter.value.Unidad == 'null' || this.formPositionsHistoryFilter.value.Unidad == '' ? null : this.formPositionsHistoryFilter.value.Unidad,
@@ -166,6 +187,13 @@ export class CargaComponent {
 					"Driver": this.formPositionsHistoryFilter.value.Conductor == 'null' || this.formPositionsHistoryFilter.value.Conductor == '' ? null : this.formPositionsHistoryFilter.value.Conductor,
 					"Location": this.formPositionsHistoryFilter.value.Posicion == 'null' || this.formPositionsHistoryFilter.value.Posicion == '' ? null : this.formPositionsHistoryFilter.value.Posicion,
 					"GPS": this.formPositionsHistoryFilter.value.GPS == 'null' || this.formPositionsHistoryFilter.value.GPS == '' ? null : this.formPositionsHistoryFilter.value.GPS
+				}
+
+				data2send.Paging = {
+					"PageNumber": this.pageIndex,
+					"PageRecords": this.pagesize,
+					"All": 1,
+					"TotalRecords": 0
 				}
 				this.inventarioService.GetPositionHistoryReport(data2send).subscribe({
 					next: (data) => {
@@ -355,35 +383,46 @@ export class CargaComponent {
 		}
 	}
 
+	cargarSiguientePaginado(event: any) {
+		console.log(event)
+		this.pageIndex = event.pageIndex + 1;
+		this.switchReport(1);
+	}
+
 	switchReport(idSelector) {
-		this.currentReport = idSelector
+		this.currentReport = idSelector;
 		switch (idSelector) {
 			case 1: {
+				// this.myPreloader = true;
 				this.panelTitle = "Historial de posiciones"
 				let today = new Date
-				this.initialDateObject.INITIALDATE = this.formatDate(today) + ' 00:00:00'
-				this.initialDateObject.FINALDATE = this.formatDate(today) + ' 23:59:00'
-
-				this.currentDate = this.initialDateObject
+				let initialDateObject: any = {
+					"INITIALDATE": this.formatDate(new Date),
+					"FINALDATE": ''
+				}
+				initialDateObject.INITIALDATE = this.formatDate(today) + ' 00:00:00'
+				initialDateObject.FINALDATE = this.formatDate(today) + ' 23:59:00'
+				initialDateObject.Paging = {
+					"PageNumber": this.pageIndex,
+					"PageRecords": this.pagesize,
+					"All": 0,
+					"TotalRecords": 0
+				}
+				this.currentDate = initialDateObject;
 				this.inventarioService.GetPositionHistoryReportData(this.currentDate).subscribe({
 					next: (response: any) => {
 						if (response.Success) {
-							this.responseData = new MatTableDataSource(response['PositionsHistory']);
+							this.respuestaHistorial = response;
+							this.responseData = response['PositionsHistory'];
 							this.unidadList = this.distinct2select('Unit', response.PositionsHistory)
 							this.statusList = this.distinct2select('Status', response.PositionsHistory)
 							this.codigoList = this.distinct2select('Code', response.PositionsHistory)
 							this.conductorList = this.distinct2select('Driver', response.PositionsHistory)
 							this.posicionList = this.distinct2select('Position', response.PositionsHistory)
 							this.GPSList = this.distinct2select('GPS', response.PositionsHistory)
-
-							setTimeout(() => {
-								this.responseData.paginator = this.paginator;
-								this.translatePaginator()
-								this.responseData.sort = this.sort;
-							}, 1);
-							this.myPreloader = false;
+							// this.myPreloader = false;
 						} else {
-							this.myPreloader = false;
+							// this.myPreloader = false;
 							this.errorMessage = response.Message !== null ? response.Message : 'Hubo un problema, por favor intente más tarde.'
 							this.responseData = new MatTableDataSource();
 							this._ngbModal.open(this.errorAlert, { centered: true, backdrop: 'static', keyboard: false });
@@ -537,6 +576,7 @@ export class CargaComponent {
 			}
 		}
 	}
+
 	filterReport() {
 		console.log('test click')
 		switch (this.panelTitle) {
